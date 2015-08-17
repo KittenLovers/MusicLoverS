@@ -1,18 +1,18 @@
 package it.univr.musiclovers.model;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Properties;
-import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -20,24 +20,36 @@ import javax.faces.context.ExternalContext;
  */
 public class ConnectionModel {
 
-    private static final long serialVersionUID = 1L;
+    private static HashMap<Integer, Map.Entry<Integer, Connection>> connectionPool = new HashMap<>();
+    ;
 
-    private final Properties properties = new Properties();
-    private static ConnectionModel model;
-    private HashMap<Integer, Map.Entry<Integer, Connection>> connectionPool;
+    private static volatile ConnectionModel model;
+    private static final Properties properties = new Properties();
+    private static final long serialVersionUID = 1L;
 
     private ConnectionModel() {
         buildModel();
     }
 
-    public static ConnectionModel getInstance() {
-        if (!(model instanceof ConnectionModel)) {
-            model = new ConnectionModel();
-        }
-        return model;
+    public final String getTablePrefix() {
+        return properties.getProperty("table_prefix");
     }
 
-    public synchronized final Connection getConnection() throws NullPointerException {
+    /**
+     *
+     * @throws Throwable
+     */
+    protected void cleanUp() throws Throwable {
+        for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
+            connection.getValue().getValue().close();
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected final synchronized Connection getConnection() {
         int currentMinUsage = Integer.MAX_VALUE;
         int currentMin = 0;
 
@@ -52,22 +64,24 @@ public class ConnectionModel {
                     }
                 } catch (SQLException ex) {
                     for (Throwable throwable : ex) {
-                        System.err.println(throwable);
+                        Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, throwable);
                     }
                 }
             }
         }
-        return connectionPool.get(currentMin).getValue();
-    }
-
-    protected void cleanUp() throws Throwable {
-        for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
-            connection.getValue().getValue().close();
+        try (Connection connection = connectionPool.get(currentMin).getValue();) {
+            if (connection.isClosed()) {
+                buildModel();
+                return getConnection();
+            } else {
+                return connection;
+            }
+        } catch (SQLException ex) {
+            for (Throwable throwable : ex) {
+                Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, throwable);
+            }
         }
-    }
-
-    public final String getTablePrefix() {
-        return properties.getProperty("table_prefix");
+        return null;
     }
 
     private void buildModel() {
@@ -94,10 +108,21 @@ public class ConnectionModel {
                 ));
             } catch (SQLException ex) {
                 for (Throwable throwable : ex) {
-                    System.err.println(throwable);
+                    Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, throwable);
                 }
             }
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static ConnectionModel getInstance() {
+        if (model == null) {
+            model = new ConnectionModel();
+        }
+        return model;
     }
 
 }

@@ -1,9 +1,10 @@
-package it.univr.musiclovers.views.frontend;
+package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.beans.FilterBean;
 import it.univr.musiclovers.model.ProductModel;
 import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "productController")
 @SessionScoped
-public class ProductsController implements Serializable {
+public class ProductsController extends ControllerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private ProductModel model;
@@ -59,7 +60,11 @@ public class ProductsController implements Serializable {
             filters.put("used", true);
         }
 
-        products = model.getProducts(filters);
+        try {
+            products = model.getProducts(filters);
+        } catch (SQLException ex) {
+            
+        }
 
         return "index";
     }

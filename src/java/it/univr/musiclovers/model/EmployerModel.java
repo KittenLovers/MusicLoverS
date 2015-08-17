@@ -1,22 +1,21 @@
 package it.univr.musiclovers.model;
 
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.io.Serializable;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import it.univr.musiclovers.model.beans.*;
-import java.sql.Date;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author Marian Solomon
  */
-public class EmployerModel implements Serializable {
+public class EmployerModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public EmployerBean getEmployer(int id) {
+    public EmployerBean getEmployer(int id) throws SQLException {
         EmployerBean result = new EmployerBean();
         String query = "SELECT * FROM " + ConnectionModel.getInstance().getTablePrefix() + "_EMPLOYER "
                 + " WHERE id = ?";
@@ -28,27 +27,19 @@ public class EmployerModel implements Serializable {
                 result = makeEmployerBean(resultSet);
             }
         } catch (SQLException ex) {
-            for (Throwable throwable : ex) {
-                System.err.println(throwable);
-            }
+            exceptionHandler(ex);
         }
         return result;
     }
 
-    public static EmployerBean makeEmployerBean(ResultSet resultSet) {
+    public static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
         EmployerBean employerBean = new EmployerBean();
-        try {
-            employerBean.setId(resultSet.getInt("id"));
-            employerBean.setName(resultSet.getString("name"));
-            employerBean.setSurname(resultSet.getString("surname"));
-            employerBean.setCode(resultSet.getString("code"));
-            employerBean.setBirthDate(resultSet.getDate("birthdate"));
-            employerBean.setAccount(null);
-        } catch (SQLException ex) {
-            for (Throwable throwable : ex) {
-                System.err.println(throwable);
-            }
-        }
+        employerBean.setId(resultSet.getInt("id"));
+        employerBean.setName(resultSet.getString("name"));
+        employerBean.setSurname(resultSet.getString("surname"));
+        employerBean.setCode(resultSet.getString("code"));
+        employerBean.setBirthDate(resultSet.getDate("birthdate"));
+        employerBean.setAccount(null);
         return employerBean;
     }
 
