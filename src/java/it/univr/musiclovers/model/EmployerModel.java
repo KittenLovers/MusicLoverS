@@ -22,9 +22,10 @@ public class EmployerModel extends Model implements Serializable {
         Connection connection = ConnectionModel.getInstance().getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                result = makeEmployerBean(resultSet);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = makeEmployerBean(resultSet);
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);

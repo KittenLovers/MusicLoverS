@@ -1,16 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <ui:composition template="templates/layout.jsf">
-        <ui:define name="windowTitle">
-            Product
-        </ui:define>
         <ui:define name="content">
-            <h:outputText value="${productController.selectedProduct.name}"/><br/>
-            <h:outputText value="${productController.selectedProduct.description}"/><br/>
-            <h:outputText value="${productController.selectedProduct.brand.name}"/><br/>
-            <h:outputText value="${productController.selectedProduct.price}"/><br/>
-            <h:outputText value="${productController.selectedProduct.weight}"/><br/>
+            <div class="page-header">
+                <h1><h:outputText value="${productController.selectedProduct.name}"/></h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 lead">
+                    <b>Nome: </b><h:outputText value="${productController.selectedProduct.name}"/><br/>
+                    <b>Brand: </b><h:outputText value="${productController.selectedProduct.brand.name}"/><br/>
+                    <b>Prezzo: </b><h:outputText value="${productController.selectedProduct.price}"/><br/>
+                    <b>Peso: </b><h:outputText value="${productController.selectedProduct.weight}"/><br/>
+                    <h:outputFormat rendered="${product.minAge > 0}">
+                        <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
+                    </h:outputFormat>
+                </div>
+                <div class="col-lg-9">
+                    <div class="zoom-gallery">
+                        <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                <a href="${image}" data-source="${image}" title="${book.title}">
+                                    <img src="${image}" class="img-responsive book-thumb-image"/>
+                                </a>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Descrizione</h3>
+                </div>
+                <div class="panel-body">
+                    <h:outputText value="${productController.selectedProduct.description}"/><br/>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

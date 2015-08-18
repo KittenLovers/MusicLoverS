@@ -63,15 +63,15 @@ public class ProductsController extends ControllerModel implements Serializable 
         try {
             products = model.getProducts(filters);
         } catch (SQLException ex) {
-            
+            exceptionHandler(ex);
         }
 
-        return "index";
+        return retString("index");
     }
 
     public String getProduct(ProductBean productBean) {
         selectedProduct = productBean;
-        return "product";
+        return retString("product");
     }
 
     public ProductBean getSelectedProduct() {

@@ -6,29 +6,35 @@
     xmlns:h="http://java.sun.com/jsf/html">
 
     <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <base href="/MusicLoverS/" />
+
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
         <title><ui:insert name="windowTitle"/></title>
-        <h:outputStylesheet library="css" name="styles.css"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="css/bootstrap-theme.css" />
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="js/bootstrap.js"></script>
+
+        <link rel="stylesheet" href="css/custom.css" />
     </h:head>
 
     <h:body>
-        <div id="heading">
-            <ui:insert name="heading">
-                <ui:include src="/templates/header.jsf"/>
-            </ui:insert>
-        </div>
-        <div id="sidebarLeft">
-            <ui:insert name="sidebarLeft">
-                <ui:include src="/templates/sidebarLeft.jsf"/>
-            </ui:insert>
-        </div>
-        <div id="content">
+        <ui:insert name="header">
+            <ui:include src="/templates/header.jsf"/>
+        </ui:insert>
+        <div class="container">
             <ui:insert name="content"/>
         </div>
-        <div id="footer">
-            <ui:insert name="footer">
-                <ui:include src="/templates/footer.jsf"/>
-            </ui:insert>
-        </div>
+        <ui:insert name="footer">
+            <ui:include src="/templates/footer.jsf"/>
+        </ui:insert>
         <ui:debug/>
     </h:body>
 </html>

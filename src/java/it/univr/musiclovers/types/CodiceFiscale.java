@@ -46,6 +46,7 @@ public final class CodiceFiscale {
     }
 
     private static class MalformedCodiceFiscale extends Exception {
+
         private static final long serialVersionUID = 1L;
 
         public MalformedCodiceFiscale(String errorMessage) {

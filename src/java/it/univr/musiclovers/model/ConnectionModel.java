@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 public class ConnectionModel implements Serializable {
 
     private static HashMap<Integer, Map.Entry<Integer, Connection>> connectionPool = new HashMap<>();
-    ;
 
     private static volatile ConnectionModel model;
     private static final Properties properties = new Properties();

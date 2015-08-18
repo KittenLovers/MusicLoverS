@@ -23,9 +23,10 @@ public class ProductModel extends Model implements Serializable {
         ArrayList<ProductBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE online = 'true'";
         try (Statement statement = getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                result.add(makeProduct(resultSet));
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);
@@ -39,9 +40,10 @@ public class ProductModel extends Model implements Serializable {
             String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
             try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
                 prepareStatement.setInt(1, product_id);
-                ResultSet resultSet = prepareStatement.executeQuery();
-                if (resultSet.next()) {
-                    result = (makeProduct(resultSet));
+                try (ResultSet resultSet = prepareStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        result = (makeProduct(resultSet));
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -55,9 +57,10 @@ public class ProductModel extends Model implements Serializable {
         String query = "SELECT image FROM " + getTablePrefix() + "_PRODUCT_IMAGES WHERE product_id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setInt(1, product_id);
-            ResultSet resultSet = prepareStatement.executeQuery();
-            while (resultSet.next()) {
-                result.add(resultSet.getString("image"));
+            try (ResultSet resultSet = prepareStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(resultSet.getString("image"));
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);
@@ -69,9 +72,10 @@ public class ProductModel extends Model implements Serializable {
         ArrayList<ProductBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
         try (Statement statement = getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                result.add(makeProduct(resultSet));
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);
@@ -119,11 +123,11 @@ public class ProductModel extends Model implements Serializable {
         productBean.setName(resultSet.getString("name"));
         productBean.setDescription(resultSet.getString("description"));
         productBean.setFor_child(resultSet.getBoolean("for_child"));
-        productBean.setMin_age(resultSet.getInt("min_age"));
+        productBean.setMinAge(resultSet.getInt("min_age"));
         productBean.setProfessional(resultSet.getBoolean("professional"));
         productBean.setUsed(resultSet.getBoolean("used"));
         productBean.setBrand(brandModel.getBrand(resultSet.getInt("brand_id")));
-        productBean.setProduct_image(getProductImages(productBean.getId()));
+        productBean.setProductImage(getProductImages(productBean.getId()));
         return productBean;
     }
 

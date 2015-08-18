@@ -21,9 +21,10 @@ public class BrandModel extends Model implements Serializable {
                 + " WHERE id = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                result = makeBrandBean(resultSet);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = makeBrandBean(resultSet);
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);

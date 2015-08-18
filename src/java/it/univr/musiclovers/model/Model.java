@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  *
  * @author Marian Solomon
  */
-abstract class Model {
+public abstract class Model {
 
     public static void exceptionHandler(SQLException exception) throws SQLException {
         exceptionHandlerWithoutThrow(exception);
@@ -25,8 +25,8 @@ abstract class Model {
     public static Connection getConnection() {
         return ConnectionModel.getInstance().getConnection();
     }
-    
-    public static String getTablePrefix(){
+
+    public static String getTablePrefix() {
         return ConnectionModel.getInstance().getTablePrefix();
     }
 
