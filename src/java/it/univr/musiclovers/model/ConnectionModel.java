@@ -1,6 +1,8 @@
 package it.univr.musiclovers.model;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Marian Solomon
  */
-public class ConnectionModel {
+public class ConnectionModel implements Serializable {
 
     private static HashMap<Integer, Map.Entry<Integer, Connection>> connectionPool = new HashMap<>();
     ;
@@ -52,7 +54,7 @@ public class ConnectionModel {
     protected final synchronized Connection getConnection() {
         int currentMinUsage = Integer.MAX_VALUE;
         int currentMin = 0;
-
+        Connection connection = null;
         for (Map.Entry<Integer, Map.Entry<Integer, Connection>> entrySet : connectionPool.entrySet()) {
             int id = entrySet.getKey();
             Entry<Integer, Connection> value = entrySet.getValue();
@@ -69,27 +71,16 @@ public class ConnectionModel {
                 }
             }
         }
-        try (Connection connection = connectionPool.get(currentMin).getValue();) {
-            if (connection.isClosed()) {
-                buildModel();
-                return getConnection();
-            } else {
-                return connection;
-            }
-        } catch (SQLException ex) {
-            for (Throwable throwable : ex) {
-                Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, throwable);
-            }
-        }
-        return null;
+        connection = connectionPool.get(currentMin).getValue();
+        return connection;
     }
 
     private void buildModel() {
-        try {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            properties.load(externalContext.getResourceAsStream("/WEB-INF/config.properties"));
-        } catch (IOException exception) {
-            Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, exception);
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        try (InputStream inputStream = externalContext.getResourceAsStream("/WEB-INF/config.properties")) {
+            properties.load(inputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             Class.forName(properties.getProperty("dbmanager.driver"));

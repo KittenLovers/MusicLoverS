@@ -91,23 +91,16 @@ public class ProductModel extends Model implements Serializable {
                     query += "AND ";
                 }
             }
-            /*query += "for_child = ? ";
-             query += "AND inexpensive = ? ";
-             query += "AND professional = ? ";
-             query += "AND used = ? ";*/
         }
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query);) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             int i = 0;
             for (Entry<String, Boolean> entry : filters.entrySet()) {
                 preparedStatement.setBoolean(++i, entry.getValue());
             }
-            /*preparedStatement.setBoolean(1, filters.get("for_child"));
-             preparedStatement.setBoolean(2, filters.get("inexpensive"));
-             preparedStatement.setBoolean(3, filters.get("professional"));
-             preparedStatement.setBoolean(4, filters.get("used"));*/
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                result.add(makeProduct(resultSet));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
             }
         } catch (SQLException ex) {
             exceptionHandler(ex);
