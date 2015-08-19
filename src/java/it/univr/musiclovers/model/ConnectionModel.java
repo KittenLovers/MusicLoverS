@@ -28,22 +28,33 @@ public class ConnectionModel implements Serializable {
     private static final Properties properties = new Properties();
     private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     * @throws java.sql.SQLException
+     */
+    protected static void cleanUp() throws SQLException {
+        for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
+            connection.getValue().getValue().close();
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static ConnectionModel getInstance() {
+        if (model == null) {
+            model = new ConnectionModel();
+        }
+        return model;
+    }
+
     private ConnectionModel() {
         buildModel();
     }
 
     public final String getTablePrefix() {
         return properties.getProperty("table_prefix");
-    }
-
-    /**
-     *
-     * @throws Throwable
-     */
-    protected static void cleanUp() throws Throwable {
-        for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
-            connection.getValue().getValue().close();
-        }
     }
 
     /**
@@ -91,28 +102,17 @@ public class ConnectionModel implements Serializable {
 
         for (int i = 0; i < poolSize; i++) {
             try {
-                connectionPool.put(i, new SimpleEntry<>(0, DriverManager.getConnection(
+                Connection connection = DriverManager.getConnection(
                         properties.getProperty("dburl") + '/' + properties.getProperty("dbname"), //host
                         properties.getProperty("username"),
-                        properties.getProperty("password"))
-                ));
+                        properties.getProperty("password"));
+                connectionPool.put(i, new SimpleEntry<>(0, connection));
             } catch (SQLException ex) {
                 for (Throwable throwable : ex) {
                     Logger.getLogger(ConnectionModel.class.getName()).log(Level.SEVERE, null, throwable);
                 }
             }
         }
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static ConnectionModel getInstance() {
-        if (model == null) {
-            model = new ConnectionModel();
-        }
-        return model;
     }
 
 }

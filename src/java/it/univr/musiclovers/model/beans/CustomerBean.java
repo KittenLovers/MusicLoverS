@@ -1,7 +1,6 @@
 package it.univr.musiclovers.model.beans;
 
 import it.univr.musiclovers.types.CodiceFiscale;
-import javax.mail.Address;
 
 /**
  *

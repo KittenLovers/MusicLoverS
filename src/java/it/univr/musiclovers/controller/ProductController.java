@@ -5,6 +5,7 @@ import it.univr.musiclovers.model.beans.FilterBean;
 import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,13 +18,13 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Marian Solomon
  */
-@ManagedBean(name = "productController")
+@ManagedBean
 @RequestScoped
 public class ProductController extends ControllerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final ProductModel model = new ProductModel();
-    private List<ProductBean> products;
+    private List<ProductBean> products = new ArrayList<>();
     private ProductBean selectedProduct;
 
     @ManagedProperty(value = "#{filterBean}")
