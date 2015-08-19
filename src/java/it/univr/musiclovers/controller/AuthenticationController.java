@@ -19,6 +19,7 @@ public class AuthenticationController extends ControllerModel implements Seriali
 
     private AccountBean accountBean = new AccountBean();
     private boolean logged = false;
+    private static final long serialVersionUID = 1L;
 
     public String getPassword() {
         return accountBean.getPassword();
@@ -40,7 +41,6 @@ public class AuthenticationController extends ControllerModel implements Seriali
         return logged;
     }
 
-    
     //validate login
     public String login() throws SQLException {
         accountBean = AccountModel.getAccount(accountBean.getUsername(), accountBean.getPassword());
