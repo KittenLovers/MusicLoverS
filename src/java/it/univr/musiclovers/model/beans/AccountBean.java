@@ -1,10 +1,12 @@
 package it.univr.musiclovers.model.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author blasco991
  */
-public class AccountBean {
+public class AccountBean implements Serializable {
 
     private int id;
     private String username;
@@ -38,7 +40,7 @@ public class AccountBean {
     public boolean isEmployer() {
         return person instanceof EmployerBean;
     }
-    
+
     public boolean isProfessional() {
         return person instanceof ProfessionalBean;
     }

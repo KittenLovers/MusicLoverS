@@ -1,8 +1,8 @@
 package it.univr.musiclovers.model;
 
-import it.univr.musiclovers.model.beans.*;
+import it.univr.musiclovers.model.beans.AccountBean;
+import it.univr.musiclovers.model.beans.EmployerBean;
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,16 +15,17 @@ public class EmployerModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public EmployerBean getEmployer(int id) throws SQLException {
-        EmployerBean result = new EmployerBean();
-        String query = "SELECT * FROM " + ConnectionModel.getInstance().getTablePrefix() + "_EMPLOYER "
-                + " WHERE id = ?";
-        Connection connection = ConnectionModel.getInstance().getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
+    public static AccountBean getAccount(String username, String password) throws SQLException {
+        AccountBean result = null;
+        String query = "SELECT * FROM " + getTablePrefix() + "_employer AS E "
+                + "JOIN " + getTablePrefix() + "_account AS A ON E.account_id = A.id "
+                + "WHERE A.username = ? AND A.password = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    result = makeEmployerBean(resultSet);
+                    result = makeEmployerAccountBean(resultSet);
                 }
             }
         } catch (SQLException ex) {
@@ -33,15 +34,21 @@ public class EmployerModel extends Model implements Serializable {
         return result;
     }
 
-    public static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
-        EmployerBean employerBean = new EmployerBean();
-        employerBean.setId(resultSet.getInt("id"));
-        employerBean.setName(resultSet.getString("name"));
-        employerBean.setSurname(resultSet.getString("surname"));
-        employerBean.setCode(resultSet.getString("code"));
-        employerBean.setBirthDate(resultSet.getDate("birthdate"));
-        employerBean.setAccount(null);
-        return employerBean;
+    private static AccountBean makeEmployerAccountBean(ResultSet resultSet) throws SQLException {
+        AccountBean accountBean = new AccountBean();
+        accountBean.setId(resultSet.getInt("A.id"));
+        accountBean.setUsername(resultSet.getString("A.username"));
+        accountBean.setPerson(makeEmployerBean(resultSet));
+        return accountBean;
     }
-
+    
+       private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
+           EmployerBean employerBean = new EmployerBean();
+           employerBean.setId(resultSet.getInt("E.id"));
+           employerBean.setName(resultSet.getString("E.name"));
+           employerBean.setSurname(resultSet.getString("E.surname"));
+           employerBean.setCode(resultSet.getString("E.code"));
+           employerBean.setBirthDate(resultSet.getDate("E.birthdate"));
+           return employerBean;
+       }
 }

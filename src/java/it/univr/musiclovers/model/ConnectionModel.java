@@ -40,7 +40,7 @@ public class ConnectionModel implements Serializable {
      *
      * @throws Throwable
      */
-    protected void cleanUp() throws Throwable {
+    protected static void cleanUp() throws Throwable {
         for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
             connection.getValue().getValue().close();
         }

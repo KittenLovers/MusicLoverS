@@ -20,7 +20,7 @@ public class MySystemEventListener implements SystemEventListener {
 
         if (event instanceof PreDestroyApplicationEvent) {
             try {
-                ConnectionModel.getInstance().cleanUp();
+                ConnectionModel.cleanUp();
             } catch (Throwable ex) {
                 Logger.getLogger(MySystemEventListener.class.getName()).log(Level.SEVERE, null, ex);
             }

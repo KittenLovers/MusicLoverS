@@ -16,7 +16,7 @@ public class CustomerBean {
     private String city;
     private String telephone;
     private String mobile;
-    private Address email;
+    private String email;
 
     public int getId() {
         return id;
@@ -74,11 +74,11 @@ public class CustomerBean {
         this.mobile = mobile;
     }
 
-    public Address getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Address email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

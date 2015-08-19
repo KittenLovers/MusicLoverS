@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:head>
         <meta charset="utf-8" />
@@ -27,13 +28,13 @@
 
     <h:body>
         <ui:insert name="header">
-            <ui:include src="/templates/header.jsf"/>
+            <ui:include src="/templates/header.jsf" />
         </ui:insert>
         <div class="container">
             <ui:insert name="content"/>
         </div>
         <ui:insert name="footer">
-            <ui:include src="/templates/footer.jsf"/>
+            <ui:include src="footer.jsf"/>
         </ui:insert>
         <ui:debug/>
     </h:body>

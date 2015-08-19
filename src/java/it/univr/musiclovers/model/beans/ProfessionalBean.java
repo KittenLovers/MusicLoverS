@@ -4,26 +4,17 @@ package it.univr.musiclovers.model.beans;
  *
  * @author blasco991
  */
-public class ProfessionalBean implements PersonBean {
+public class ProfessionalBean extends CustomerBean implements PersonBean {
 
-    private CustomerBean customer;
-    private AccountBean account;
+    private String reduction;
     private String role;
 
-    public CustomerBean getCustomer() {
-        return customer;
+    public String getReduction() {
+        return reduction;
     }
 
-    public void setCustomer(CustomerBean customer) {
-        this.customer = customer;
-    }
-
-    public AccountBean getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountBean account) {
-        this.account = account;
+    public void setReduction(String reduction) {
+        this.reduction = reduction;
     }
 
     public String getRole() {

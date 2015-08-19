@@ -45,7 +45,7 @@ public final class CodiceFiscale {
         return refactorCF;
     }
 
-    private static class MalformedCodiceFiscale extends Exception {
+    public static class MalformedCodiceFiscale extends Exception {
 
         private static final long serialVersionUID = 1L;
 

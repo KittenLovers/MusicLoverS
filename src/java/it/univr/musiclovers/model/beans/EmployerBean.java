@@ -13,7 +13,6 @@ public class EmployerBean implements PersonBean {
     private String name;
     private String surname;
     private Date birthDate;
-    private AccountBean account;
 
     public int getId() {
         return id;
@@ -55,12 +54,4 @@ public class EmployerBean implements PersonBean {
         this.birthDate = birthDate;
     }
 
-    public AccountBean getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountBean account) {
-        this.account = account;
-    }
-    
 }
