@@ -53,18 +53,13 @@ public class ConnectionModel implements Serializable {
         buildModel();
     }
 
-    public final String getTablePrefix() {
+    public static String getTablePrefix() {
         return properties.getProperty("table_prefix");
     }
 
-    /**
-     *
-     * @return
-     */
-    protected final synchronized Connection getConnection() {
+    protected static Connection getConnection() {
         int currentMinUsage = Integer.MAX_VALUE;
         int currentMin = 0;
-        Connection connection = null;
         for (Map.Entry<Integer, Map.Entry<Integer, Connection>> entrySet : connectionPool.entrySet()) {
             int id = entrySet.getKey();
             Entry<Integer, Connection> value = entrySet.getValue();
@@ -81,11 +76,10 @@ public class ConnectionModel implements Serializable {
                 }
             }
         }
-        connection = connectionPool.get(currentMin).getValue();
-        return connection;
+        return connectionPool.get(currentMin).getValue();
     }
 
-    private void buildModel() {
+    private static void buildModel() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         try (InputStream inputStream = externalContext.getResourceAsStream("/WEB-INF/config.properties")) {
             properties.load(inputStream);

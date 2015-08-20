@@ -23,7 +23,6 @@ import javax.faces.bean.RequestScoped;
 public class ProductController extends ControllerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ProductModel model = new ProductModel();
     private List<ProductBean> products = new ArrayList<>();
     private ProductBean selectedProduct;
 
@@ -56,7 +55,7 @@ public class ProductController extends ControllerModel implements Serializable {
         }
 
         try {
-            products = model.getProducts(filters);
+            products = ProductModel.getProducts(filters);
         } catch (SQLException ex) {
             exceptionHandler(ex);
         }

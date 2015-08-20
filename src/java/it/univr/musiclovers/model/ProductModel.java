@@ -10,63 +10,9 @@ import java.util.Map.Entry;
  *
  * @author Marian Solomon
  */
-public class ProductModel extends Model implements Serializable {
+public abstract class ProductModel extends Model implements Serializable {
 
-    private final BrandModel brandModel;
     private static final long serialVersionUID = 1L;
-
-    public ProductModel() {
-        this.brandModel = new BrandModel();
-    }
-
-    public List<ProductBean> getOnlineProducts() throws SQLException {
-        ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE online = 'true'";
-        try (Statement statement = getConnection().createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    result.add(makeProduct(resultSet));
-                }
-            }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
-        }
-        return result;
-    }
-
-    public ProductBean getProduct(int product_id) throws SQLException {
-        ProductBean result = new ProductBean();
-        try {
-            String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
-            try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-                prepareStatement.setInt(1, product_id);
-                try (ResultSet resultSet = prepareStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        result = (makeProduct(resultSet));
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
-        }
-        return result;
-    }
-
-    public List<String> getProductImages(int product_id) throws SQLException {
-        LinkedList<String> result = new LinkedList<>();
-        String query = "SELECT image FROM " + getTablePrefix() + "_PRODUCT_IMAGES WHERE product_id = ?";
-        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, product_id);
-            try (ResultSet resultSet = prepareStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    result.add(resultSet.getString("image"));
-                }
-            }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
-        }
-        return result;
-    }
 
     public List<ProductBean> getProducts() throws SQLException {
         ArrayList<ProductBean> result = new ArrayList<>();
@@ -77,13 +23,52 @@ public class ProductModel extends Model implements Serializable {
                     result.add(makeProduct(resultSet));
                 }
             }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
         }
         return result;
     }
 
-    public List<ProductBean> getProducts(Map<String, Boolean> filters) throws SQLException {
+    public static List<ProductBean> getOnlineProducts() throws SQLException {
+        ArrayList<ProductBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE online = 'true'";
+        try (Statement statement = getConnection().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static ProductBean getProduct(int product_id) throws SQLException {
+        ProductBean result = new ProductBean();
+        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, product_id);
+            try (ResultSet resultSet = prepareStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = (makeProduct(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<String> getProductImages(int product_id) throws SQLException {
+        LinkedList<String> result = new LinkedList<>();
+        String query = "SELECT image FROM " + getTablePrefix() + "_PRODUCT_IMAGES WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, product_id);
+            try (ResultSet resultSet = prepareStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(resultSet.getString("image"));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<ProductBean> getProducts(Map<String, Boolean> filters) throws SQLException {
         ArrayList<ProductBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT ";
         if (filters.size() > 0) {
@@ -106,13 +91,11 @@ public class ProductModel extends Model implements Serializable {
                     result.add(makeProduct(resultSet));
                 }
             }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
         }
         return result;
     }
 
-    public ProductBean makeProduct(ResultSet resultSet) throws SQLException {
+    public static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
         ProductBean productBean = new ProductBean();
         productBean.setId(resultSet.getInt("id"));
         productBean.setEnable(resultSet.getBoolean("status"));
@@ -126,7 +109,7 @@ public class ProductModel extends Model implements Serializable {
         productBean.setMinAge(resultSet.getInt("min_age"));
         productBean.setProfessional(resultSet.getBoolean("professional"));
         productBean.setUsed(resultSet.getBoolean("used"));
-        productBean.setBrand(brandModel.getBrand(resultSet.getInt("brand_id")));
+        productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
         productBean.setProductImage(getProductImages(productBean.getId()));
         return productBean;
     }

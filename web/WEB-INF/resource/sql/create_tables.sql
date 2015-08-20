@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS MSL_PRODUCT (
   price FLOAT not null,
   name VARCHAR(64) not null,
   description TEXT not null,
-  inexpensive BOOLEAN,
-  professional BOOLEAN,
-  for_child BOOLEAN,
+  inexpensive BOOLEAN not null,
+  professional BOOLEAN not null,
+  for_child BOOLEAN not null,
+  used BOOLEAN not null,
   min_age INT,
-  used BOOLEAN,
   brand_id INT references MSL_BRAND(id)
 );
 

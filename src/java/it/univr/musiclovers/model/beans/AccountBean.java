@@ -9,9 +9,10 @@ import java.io.Serializable;
 public class AccountBean implements Serializable {
 
     private int id;
-    private String username;
     private String password;
     private PersonBean person;
+    private String username;
+    private static final long serialVersionUID = 1L;
 
     public int getId() {
         return id;
@@ -19,14 +20,6 @@ public class AccountBean implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -37,20 +30,28 @@ public class AccountBean implements Serializable {
         this.password = password;
     }
 
-    public boolean isEmployer() {
-        return person instanceof EmployerBean;
-    }
-
-    public boolean isProfessional() {
-        return person instanceof ProfessionalBean;
-    }
-
     public PersonBean getPerson() {
         return person;
     }
 
     public void setPerson(PersonBean person) {
         this.person = person;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean isEmployer() {
+        return person instanceof EmployerBean;
+    }
+
+    public boolean isProfessional() {
+        return person instanceof ProfessionalBean;
     }
 
 }

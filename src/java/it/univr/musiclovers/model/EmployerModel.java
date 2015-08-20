@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *
  * @author Marian Solomon
  */
-public class EmployerModel extends Model implements Serializable {
+public abstract class EmployerModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,8 +28,6 @@ public class EmployerModel extends Model implements Serializable {
                     result = makeEmployerAccountBean(resultSet);
                 }
             }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
         }
         return result;
     }
@@ -41,14 +39,14 @@ public class EmployerModel extends Model implements Serializable {
         accountBean.setPerson(makeEmployerBean(resultSet));
         return accountBean;
     }
-    
-       private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
-           EmployerBean employerBean = new EmployerBean();
-           employerBean.setId(resultSet.getInt("E.id"));
-           employerBean.setName(resultSet.getString("E.name"));
-           employerBean.setSurname(resultSet.getString("E.surname"));
-           employerBean.setCode(resultSet.getString("E.code"));
-           employerBean.setBirthDate(resultSet.getDate("E.birthdate"));
-           return employerBean;
-       }
+
+    private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
+        EmployerBean employerBean = new EmployerBean();
+        employerBean.setId(resultSet.getInt("E.id"));
+        employerBean.setName(resultSet.getString("E.name"));
+        employerBean.setSurname(resultSet.getString("E.surname"));
+        employerBean.setCode(resultSet.getString("E.code"));
+        employerBean.setBirthDate(resultSet.getDate("E.birthdate"));
+        return employerBean;
+    }
 }

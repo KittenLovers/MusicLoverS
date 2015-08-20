@@ -1,4 +1,5 @@
 INSERT INTO MSL_CUSTOMER(code, name, surname, city, telephone, mobile, email) values
+('SLMMNC91S03Z129I', 'Marian', 'Solomon', 'Verona', '0456151099', '3466221504', 'blasco991@gmail.com'),
 ('FRTFRN1234567890', 'Franco', 'Forte', 'Verona', '045123456', '3456789012', 'f.forte@mymail.com'),
 ('RSSMRA1234567890', 'Mario', 'Rossi', 'Sondrio', '0342123456', '3456789013', 'mario.rossi@mymail.com'),
 ('VRDMRC1234567890', 'Marco', 'Verdi', 'Bergamo', '035123456', '3456789014', 'marcovrd@mymail.com'),

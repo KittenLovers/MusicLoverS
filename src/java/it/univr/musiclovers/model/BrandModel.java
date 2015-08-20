@@ -2,7 +2,6 @@ package it.univr.musiclovers.model;
 
 import it.univr.musiclovers.model.beans.*;
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +10,13 @@ import java.sql.SQLException;
  *
  * @author Marian Solomon
  */
-public class BrandModel extends Model implements Serializable {
+public abstract class BrandModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public BrandBean getBrand(int id) throws SQLException {
+    public static BrandBean getBrand(int id) throws SQLException {
         BrandBean result = new BrandBean();
-        String query = "SELECT * FROM " + ConnectionModel.getInstance().getTablePrefix() + "_BRAND "
+        String query = "SELECT * FROM " + getTablePrefix() + "_BRAND "
                 + " WHERE id = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -26,8 +25,6 @@ public class BrandModel extends Model implements Serializable {
                     result = makeBrandBean(resultSet);
                 }
             }
-        } catch (SQLException ex) {
-            exceptionHandler(ex);
         }
         return result;
     }

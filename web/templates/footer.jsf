@@ -29,7 +29,7 @@
                                     <h:inputSecret class="form-control" p:placeholder="Password" value="${authenticationController.password}" />
                                 </div>
                                 <div class="form-group">
-                                    <h:commandButton value="Login" class="btn btn-default" type="submit" action="${authenticationController.login()}" />
+                                    <h:commandButton value="Login" class="btn btn-default" type="submit" action="${authenticationController.loginEmployer()}" />
                                 </div>
                             </h:form>
                     </div>
