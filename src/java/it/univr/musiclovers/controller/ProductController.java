@@ -63,7 +63,7 @@ public class ProductController extends ControllerModel implements Serializable {
 
     public String getProduct(ProductBean productBean) {
         selectedProduct = productBean;
-        return retString("product");
+        return redirectString("product");
     }
 
     public ProductBean getSelectedProduct() {

@@ -62,14 +62,14 @@ public class AuthenticationController extends ControllerModel implements Seriali
 
         if (account instanceof AccountBean) {
             logged = true;
-            return retString("admin/index");
+            return redirectString("admin/index");
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Incorrect Username and Passowrd",
                             "Please enter correct username and Password"));
-            return retString("index");
+            return redirectString("index");
         }
     }
 
@@ -77,21 +77,21 @@ public class AuthenticationController extends ControllerModel implements Seriali
         accountBean = CustomerModel.getAccount(accountBean.getUsername(), accountBean.getPassword());
         if (accountBean instanceof AccountBean) {
             logged = true;
-            return retString("admin/index");
+            return redirectString("admin/index");
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Incorrect Username and Passowrd",
                             "Please enter correct username and Password"));
-            return retString("index");
+            return redirectString("index");
         }
     }
 
     public void logout() {
         accountBean = new AccountBean();
         logged = false;
-        //return retString("homepage.xhtml");
+        //return redirectString("homepage.xhtml");
     }
 
 }

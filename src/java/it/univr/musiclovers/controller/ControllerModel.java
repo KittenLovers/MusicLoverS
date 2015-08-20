@@ -15,6 +15,8 @@ import javax.faces.context.FacesContext;
 public abstract class ControllerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final ExternalContext CONTEXT = FacesContext.getCurrentInstance().getExternalContext();
+    private static final String FILE_EXT = CONTEXT.getInitParameter("it.univr.musiclovers.PAGE_EXT");
 
     protected ControllerModel() {
     }
@@ -32,18 +34,15 @@ public abstract class ControllerModel implements Serializable {
     }
 
     public static void redirect(String target) {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            context.redirect(context.getApplicationContextPath()
-                    .concat("/").concat(
-                            target.concat(context.getInitParameter("it.univr.musiclovers.PAGE_EXT"))));
+            CONTEXT.redirect(CONTEXT.getApplicationContextPath().concat("/").concat(target.concat(FILE_EXT)));
         } catch (IOException ex) {
             exceptionHandler(ex);
         }
     }
 
-    public static String retString(String target) {
-        return target.concat("?faces-redirect=true");
+    public static String redirectString(String target) {
+        return target.concat(FILE_EXT).concat("?faces-redirect=true");
     }
 
 }

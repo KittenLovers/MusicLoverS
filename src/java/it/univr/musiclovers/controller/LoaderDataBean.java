@@ -34,7 +34,7 @@ public class LoaderDataBean extends Model {
         executeQuery(loadQuery("../resource/sql/insert_employer.sql"));
         executeQuery(loadQuery("../resource/sql/insert_brand.sql"));
         executeQuery(loadQuery("../resource/sql/insert_professional.sql"));
-        executeQuery(loadQuery("../resource/sql/insert_products.sql"));
+        executeQuery(loadQuery("../resource/sql/insert_product.sql"));
     }
 
     private String loadQuery(String file) {
