@@ -17,25 +17,33 @@
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                         <h:form class="text-justify">
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.for_child}" id="for_child"/>
+                                <h:selectBooleanCheckbox value="${productController.filterBean.for_child}" id="for_child">
+                                    <f:ajax execute="for_child" render="product-list" 
+                                            onevent="ajaxEvent"/>
+                                </h:selectBooleanCheckbox>
                                 <h:outputLabel value="for child" for="for_child" />
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.inexpensive}" id="inexpensive"/>
+                                <h:selectBooleanCheckbox value="${productController.filterBean.inexpensive}" id="inexpensive">
+                                    <f:ajax execute="inexpensive" render="product-list" 
+                                            onevent="ajaxEvent"/>
+                                </h:selectBooleanCheckbox>
                                 <h:outputLabel value="inexpensive" for="inexpensive" />                        
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.professional}" id="professional"/>
+                                <h:selectBooleanCheckbox value="${productController.filterBean.professional}" id="professional">
+                                    <f:ajax execute="professional" render="product-list" 
+                                            onevent="ajaxEvent"/>
+                                </h:selectBooleanCheckbox>
                                 <h:outputLabel value="professional" for="professional" />
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.used}" id="used"/>
+                                <h:selectBooleanCheckbox value="${productController.filterBean.used}" id="used">
+                                    <f:ajax execute="used" render="product-list" 
+                                            onevent="ajaxEvent"/>
+                                </h:selectBooleanCheckbox>
                                 <h:outputLabel value="used" for="used" />
                             </div>
-                            <h:commandButton value="Submit">
-                                <f:ajax execute="for_child inexpensive professional used" render="product-list" 
-                                        onevent="function(data) { if (data.status === 'success') { mansory(); }); } }"/>
-                            </h:commandButton>
                         </h:form>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">

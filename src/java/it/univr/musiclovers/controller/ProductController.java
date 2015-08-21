@@ -24,19 +24,18 @@ import javax.faces.bean.RequestScoped;
 public class ProductController extends ControllerModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<ProductBean> products = new ArrayList<>();
     private ProductBean selectedProduct;
 
     @ManagedProperty(value = "#{filterBean}")
     private FilterBean filterBean;
 
     public List<ProductBean> getProducts() throws IOException {
-        getOnlineProducts();
-        return Collections.unmodifiableList(products);
+        return getOnlineProducts();
     }
 
-    public void getOnlineProducts() throws IOException {
+    public List<ProductBean> getOnlineProducts() throws IOException {
         Map<String, Boolean> filters = new LinkedHashMap<>();
+        List<ProductBean> result = new ArrayList<>();
         filters.put("online", true);
 
         if (filterBean.isFor_child()) {
@@ -56,10 +55,11 @@ public class ProductController extends ControllerModel implements Serializable {
         }
 
         try {
-            products = ProductModel.getProducts(filters);
+            result = ProductModel.getProducts(filters);
         } catch (SQLException ex) {
             exceptionHandler(ex);
         }
+        return result;
     }
 
     public String getProduct(ProductBean productBean) {
