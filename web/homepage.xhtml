@@ -54,11 +54,11 @@
                             <ui:repeat value="${productController.products}" var="product">
                                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
                                     <div class="thumbnail">
-                                        <h:link outcome="${productController.getProduct(product)}">
+                                        <h:outputLink value="${productController.getProduct(product.id)}">
                                             <h:graphicImage value="${product.productImages.get(0)}" />
-                                        </h:link>
+                                        </h:outputLink>
                                         <div class="caption">
-                                            <b>Nome: </b><h:link value="${product.name}" outcome="${productController.getProduct(product)}" /><br/>
+                                            <b>Nome: </b><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}" /><br/>
                                             <b>Prezzo:</b> ${product.price}<br/>
                                             <b>Economico:</b> ${product.inexpensive}<br/>
                                             <b>Professionale:</b> ${product.professional}<br/>

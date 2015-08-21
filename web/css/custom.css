@@ -3,11 +3,11 @@
     Author     : Marian Solomon
 */
 
-.my-fluid-container {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 footer > div > div {
     margin: 10px;
+}
+
+.zoom-gallery > a > img{
+    float: left;
+    max-height: 200px;
 }

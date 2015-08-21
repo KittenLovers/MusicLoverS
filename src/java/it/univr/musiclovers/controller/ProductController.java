@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +22,19 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class ProductController extends ControllerModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private ProductBean selectedProduct;
-
     @ManagedProperty(value = "#{filterBean}")
     private FilterBean filterBean;
 
-    public List<ProductBean> getProducts() throws IOException {
-        return getOnlineProducts();
+    private ProductBean selectedProduct;
+
+    private static final long serialVersionUID = 1L;
+
+    public FilterBean getFilterBean() {
+        return filterBean;
+    }
+
+    public void setFilterBean(FilterBean filter) {
+        this.filterBean = filter;
     }
 
     public List<ProductBean> getOnlineProducts() throws IOException {
@@ -62,25 +66,20 @@ public class ProductController extends ControllerModel implements Serializable {
         return result;
     }
 
-    public String getProduct(ProductBean productBean) {
-        selectedProduct = productBean;
-        return redirectString("product");
+    public String getProduct(int productID) {
+        return addParam(redirectString("product"), "productId", String.valueOf(productID));
+    }
+
+    public List<ProductBean> getProducts() throws IOException {
+        return getOnlineProducts();
     }
 
     public ProductBean getSelectedProduct() {
         return selectedProduct;
     }
 
-    public void setSelectedProduct(ProductBean selectedProduct) {
-        this.selectedProduct = selectedProduct;
-    }
-
-    public FilterBean getFilterBean() {
-        return filterBean;
-    }
-
-    public void setFilterBean(FilterBean filter) {
-        this.filterBean = filter;
+    public void setSelectedProduct(int productId) throws SQLException {
+        this.selectedProduct = ProductModel.getProduct(productId);
     }
 
 }

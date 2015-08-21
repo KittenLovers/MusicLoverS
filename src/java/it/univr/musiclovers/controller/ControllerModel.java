@@ -14,11 +14,20 @@ import javax.faces.context.FacesContext;
  */
 public abstract class ControllerModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private static final ExternalContext CONTEXT = FacesContext.getCurrentInstance().getExternalContext();
     private static final String FILE_EXT = CONTEXT.getInitParameter("it.univr.musiclovers.PAGE_EXT");
+    private static final long serialVersionUID = 1L;
 
     protected ControllerModel() {
+    }
+
+    public static String addExt(String target) {
+        return target.concat(FILE_EXT);
+    }
+
+    public static String addParam(String target, String key, String value) {
+        char delim = (target.contains("?") ? '&' : '?');
+        return target + delim + key + '=' + value;
     }
 
     public static void exceptionHandler(SQLException exception) throws IOException {
@@ -34,11 +43,15 @@ public abstract class ControllerModel implements Serializable {
     }
 
     public static void redirect(String target) throws IOException {
-            CONTEXT.redirect(CONTEXT.getApplicationContextPath().concat("/").concat(target.concat(FILE_EXT)));
+        CONTEXT.redirect(CONTEXT.getApplicationContextPath().concat("/").concat(redirectString(target)));
     }
 
     public static String redirectString(String target) {
-        return target.concat(FILE_EXT).concat("?faces-redirect=true");
+        String ret = target;
+        if (!ret.contains(FILE_EXT)) {
+            ret = ret.concat(FILE_EXT);
+        }
+        return addParam(ret, "faces-redirect", "true");
     }
 
 }

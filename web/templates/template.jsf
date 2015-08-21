@@ -13,17 +13,24 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <base href="/MusicLoverS/" />
 
-        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.js"/>
 
         <title><ui:insert name="windowTitle"/></title>
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
         <link rel="stylesheet" href="css/custom.css" />
 
-        <script src="js/bootstrap.js"></script>
-        <script src="js/imagesloaded.pkgd.js"></script>
-        <script src="js/isotope.pkgd.js"></script>
-        <script src="js/custom.js"></script>
+        <!-- Magnific Popup core CSS file -->
+        <link rel="stylesheet" href="magnific/magnific-popup.css"/>
+
+        <!-- Magnific Popup core JS file -->
+        <script src="magnific/jquery.magnific-popup.js"/>
+
+
+        <script src="js/bootstrap.js"/>
+        <script src="js/imagesloaded.pkgd.js"/>
+        <script src="js/isotope.pkgd.js"/>
+        <script src="js/custom.js"/>
 
 
     </h:head>

@@ -7,12 +7,15 @@
     <head><title>IGNORED</title></head>
     <body>
         <ui:composition template="templates/template.jsf">
+            <f:metadata>
+                <f:event type="preRenderView" listener="${productController.setSelectedProduct(param.productId)}"/>
+            </f:metadata>
             <ui:define name="content">
                 <div class="page-header">
-                    <h1><h:outputText value="${productController.selectedProduct.name}"/></h1>
+                    <h1><h:outputText value="#{productController.selectedProduct.name}"/></h1>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 lead">
+                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 lead">
                         <b>Nome: </b><h:outputText value="${productController.selectedProduct.name}"/><br/>
                         <b>Brand: </b><h:outputText value="${productController.selectedProduct.brand.name}"/><br/>
                         <b>Prezzo: </b><h:outputText value="${productController.selectedProduct.price}"/><br/>
@@ -21,19 +24,15 @@
                             <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
                         </h:outputFormat>
                     </div>
-                    <div class="col-lg-9">
-                        <div class="zoom-gallery">
-                            <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
-                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
-                                    <a href="${image}" data-source="${image}" title="${book.title}">
-                                        <img src="${image}" class="img-responsive book-thumb-image"/>
-                                    </a>
-                                </div>
-                            </ui:repeat>
-                        </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 zoom-gallery">
+                        <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                            <a href="${image}" data-source="${image}" title="${book.title}">
+                                <img src="${image}" class="img-responsive" id="product-image"/>
+                            </a>
+                        </ui:repeat>
                     </div>
                 </div>
-                <div class="panel panel-primary">
+                <div class="panel panel-primary page-header">
                     <div class="panel-heading">
                         <h3 class="panel-title">Descrizione</h3>
                     </div>
