@@ -72,11 +72,11 @@ CREATE TABLE IF NOT EXISTS MSL_PROFESSIONAL (
 
 CREATE TABLE IF NOT EXISTS MSL_ORDER (
   id SERIAL PRIMARY KEY,
-  price INT not null,
+  price FLOAT not null,
   sold_date TIMESTAMP,
   payment_type VARCHAR(45),
   product_id INT not null references MSL_PRODUCT(id),
-  empoyer_id INT not null references MSL_EMPLOYER(id),
+  employer_id INT not null references MSL_EMPLOYER(id),
   buyer_id INT not null references MSL_CUSTOMER(id),
   owner_id INT references MSL_PROFESSIONAL(customer_id)
 );
