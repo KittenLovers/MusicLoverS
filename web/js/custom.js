@@ -1,4 +1,4 @@
-$(window).ready(function mansory () {
+function mansory() {
     // init Isotope
     var $grid = $('.grid').isotope({
         itemSelector: '.grid-item',
@@ -12,5 +12,12 @@ $(window).ready(function mansory () {
     $grid.imagesLoaded().progress(function () {
         $grid.isotope('layout');
     });
+}
 
-});
+$(window).ready(mansory());
+
+function ajaxEvent(data) {
+    if (data.status === "success") {
+        mansory();
+    }
+}

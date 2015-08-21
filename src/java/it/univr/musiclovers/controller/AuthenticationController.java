@@ -87,10 +87,10 @@ public class AuthenticationController extends ControllerModel implements Seriali
         }
     }
 
-    public void logout() {
+    public String logout() {
         accountBean = new AccountBean();
         logged = false;
-        //return redirectString("homepage.xhtml");
+        return redirectString("homepage.xhtml");
     }
 
 }
