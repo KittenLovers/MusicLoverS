@@ -16,14 +16,16 @@
         <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
         <title><ui:insert name="windowTitle"/></title>
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="css/bootstrap.css" />
-        <!-- Optional theme -->
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="js/bootstrap.js"></script>
-
         <link rel="stylesheet" href="css/custom.css" />
+
+        <script src="js/bootstrap.js"></script>
+        <script src="js/imagesloaded.pkgd.js"></script>
+        <script src="js/isotope.pkgd.js"></script>
+        <script src="js/custom.js"></script>
+
+
     </h:head>
 
     <h:body>

@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,7 +25,7 @@ public class AuthenticationController extends ControllerModel implements Seriali
     private boolean logged = false;
     private static final long serialVersionUID = 1L;
 
-    public void check() {
+    public void check() throws IOException {
         if (!logged) {
             redirect("homepage");
         }

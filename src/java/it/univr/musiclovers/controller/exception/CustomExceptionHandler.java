@@ -1,6 +1,7 @@
 package it.univr.musiclovers.controller.exception;
 
 import it.univr.musiclovers.controller.ControllerModel;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +46,8 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             try {
                 Logger.getLogger(CustomExceptionHandler.class.getName()).log(Level.SEVERE, null, throwable);
                 ControllerModel.redirect("error");
+            } catch (IOException ex) {
+                Logger.getLogger(CustomExceptionHandler.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 i.remove();
             }

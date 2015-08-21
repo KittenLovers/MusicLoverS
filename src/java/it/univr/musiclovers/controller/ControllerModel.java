@@ -21,24 +21,20 @@ public abstract class ControllerModel implements Serializable {
     protected ControllerModel() {
     }
 
-    public static void exceptionHandler(SQLException exception) {
+    public static void exceptionHandler(SQLException exception) throws IOException {
         redirect("errorpage");
         for (Throwable throwable : exception) {
             Logger.getLogger(ControllerModel.class.getName()).log(Level.SEVERE, null, throwable);
         }
     }
 
-    public static void exceptionHandler(Exception exception) {
+    public static void exceptionHandler(Exception exception) throws IOException {
         redirect("errorpage");
         Logger.getLogger(ControllerModel.class.getName()).log(Level.SEVERE, null, exception);
     }
 
-    public static void redirect(String target) {
-        try {
+    public static void redirect(String target) throws IOException {
             CONTEXT.redirect(CONTEXT.getApplicationContextPath().concat("/").concat(target.concat(FILE_EXT)));
-        } catch (IOException ex) {
-            exceptionHandler(ex);
-        }
     }
 
     public static String redirectString(String target) {

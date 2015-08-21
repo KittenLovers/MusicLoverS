@@ -3,6 +3,7 @@ package it.univr.musiclovers.controller;
 import it.univr.musiclovers.model.ProductModel;
 import it.univr.musiclovers.model.beans.FilterBean;
 import it.univr.musiclovers.model.beans.ProductBean;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class ProductController extends ControllerModel implements Serializable {
     @ManagedProperty(value = "#{filterBean}")
     private FilterBean filterBean;
 
-    public List<ProductBean> getProducts() {
+    public List<ProductBean> getProducts() throws IOException {
         getOnlineProducts();
         return Collections.unmodifiableList(products);
     }
 
-    public void getOnlineProducts() {
+    public void getOnlineProducts() throws IOException {
         Map<String, Boolean> filters = new LinkedHashMap<>();
         filters.put("online", true);
 
