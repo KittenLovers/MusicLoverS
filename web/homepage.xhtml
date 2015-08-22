@@ -14,7 +14,7 @@
                     <p class="lead">Benvenuti su MusicLovers.com, l'ultima frontiera del mercato Nero!</p>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
                         <h:form class="text-justify">
                             <div class="checkbox">
                                 <h:selectBooleanCheckbox value="${productController.filterBean.for_child}" id="for_child">
@@ -46,13 +46,13 @@
                             </div>
                         </h:form>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                    <div class="col-lg-11 col-md-10 col-sm-12 col-xs-12">
                         <div class="grid" jsf:id="product-list">
                             <h:panelGroup rendered="${empty productController.products}" id="products-empty">
                                 <p class="lead text-danger">Nessuno strumento soddisfa i requisiti selezionati!</p>
                             </h:panelGroup>
                             <ui:repeat value="${productController.products}" var="product">
-                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 grid-item">
                                     <div class="thumbnail">
                                         <h:outputLink value="${productController.getProduct(product.id)}">
                                             <h:graphicImage value="${product.productImages.get(0)}" />

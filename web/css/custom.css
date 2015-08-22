@@ -11,3 +11,24 @@ footer > div > div {
     float: left;
     max-height: 200px;
 }
+
+.margin-10 {
+    margin: 10px;
+}
+
+.pabs {
+    position: absolute;
+    right: 20px;
+}
+
+.text-white {
+    color: white;
+}
+
+.column-image {
+    max-width: 250px;
+}
+
+.column-image img {
+    max-height: 100px;
+}

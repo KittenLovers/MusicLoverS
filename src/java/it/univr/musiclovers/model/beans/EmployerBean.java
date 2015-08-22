@@ -1,12 +1,13 @@
 package it.univr.musiclovers.model.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author blasco991
  */
-public class EmployerBean implements PersonBean {
+public class EmployerBean implements PersonBean, Serializable {
 
     private int id;
     private String code;

@@ -3,11 +3,10 @@ package it.univr.musiclovers.controller;
 import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.EmployerModel;
 import it.univr.musiclovers.model.beans.AccountBean;
+import it.univr.musiclovers.types.CodiceFiscale;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,13 +20,28 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class AuthenticationController extends ControllerModel implements Serializable {
 
-    private AccountBean accountBean = new AccountBean();
-    private boolean logged = false;
     private static final long serialVersionUID = 1L;
 
+    private AccountBean accountBean = new AccountBean();
+    private boolean logged = false;
+
     public void check() throws IOException {
-        if (!logged) {
-            redirect("homepage");
+        if (isLogged() && accountBean.isEmployer()) {
+            redirect("employer/");
+        } else if (isLogged() && accountBean.isProfessional()) {
+            redirect("customer/");
+        }
+    }
+
+    public void checkEmployer() throws IOException {
+        if (!isLogged() || !accountBean.isEmployer()) {
+            redirect("login");
+        }
+    }
+
+    public void checkProfessional() throws IOException {
+        if (!isLogged() || !accountBean.isProfessional()) {
+            redirect("login");
         }
     }
 
@@ -51,46 +65,41 @@ public class AuthenticationController extends ControllerModel implements Seriali
         return logged;
     }
 
+    public String login(String componendID, AccountBean account, String outcome) {
+        if (account instanceof AccountBean) {
+            accountBean = account;
+            logged = true;
+            return redirectString(outcome);
+        } else {
+            FacesContext.getCurrentInstance().addMessage(componendID, new FacesMessage("Username o Password errati!"));
+            return addExt("login");
+        }
+    }
+
     public String loginEmployer() {
         AccountBean account = null;
         try {
             account = EmployerModel.getAccount(accountBean.getUsername(), accountBean.getPassword());
         } catch (SQLException ex) {
-            Logger.getLogger(AuthenticationController.class.getName()).log(Level.SEVERE, null, ex);
+            exceptionHandler(ex);
         }
-
-        if (account instanceof AccountBean) {
-            logged = true;
-            return redirectString("admin/index");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Incorrect Username and Passowrd",
-                            "Please enter correct username and Password"));
-            return redirectString("index");
-        }
+        return login("loginEmployer", account, "employer/");
     }
 
-    public String loginProfessional() throws SQLException {
-        accountBean = CustomerModel.getAccount(accountBean.getUsername(), accountBean.getPassword());
-        if (accountBean instanceof AccountBean) {
-            logged = true;
-            return redirectString("admin/index");
-        } else {
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Incorrect Username and Passowrd",
-                            "Please enter correct username and Password"));
-            return redirectString("index");
+    public String loginProfessional() throws CodiceFiscale.MalformedCodiceFiscale {
+        AccountBean account = null;
+        try {
+            account = CustomerModel.getAccount(accountBean.getUsername(), accountBean.getPassword());
+        } catch (SQLException ex) {
+            exceptionHandler(ex);
         }
+        return login("loginProfessional", account, "customer/");
     }
 
     public String logout() {
         accountBean = new AccountBean();
         logged = false;
-        return redirectString("homepage.xhtml");
+        return redirectString("/homepage");
     }
 
 }

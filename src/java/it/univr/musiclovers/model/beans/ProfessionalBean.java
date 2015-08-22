@@ -1,10 +1,12 @@
 package it.univr.musiclovers.model.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author blasco991
  */
-public class ProfessionalBean extends CustomerBean implements PersonBean {
+public class ProfessionalBean extends CustomerBean implements PersonBean, Serializable {
 
     private String reduction;
     private String role;

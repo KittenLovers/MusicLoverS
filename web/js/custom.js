@@ -49,4 +49,14 @@ $(document).ready(function () {
         }
 
     });
+
+    $('.gallery').each(function () {
+        $(this).magnificPopup({
+            delegate: 'a',
+            gallery: {
+                enabled: true
+            },
+            type: 'image'
+        });
+    });
 });

@@ -8,6 +8,7 @@ public class ProductBean implements Serializable {
     private BrandBean brand;
     private String description;
     private boolean enable;
+    private boolean status;
     private boolean for_child;
     private int id;
     private boolean inexpensive;
@@ -53,6 +54,14 @@ public class ProductBean implements Serializable {
         this.min_age = min_age;
     }
 
+    public int getMin_age() {
+        return min_age;
+    }
+
+    public void setMin_age(int min_age) {
+        this.min_age = min_age;
+    }
+
     public String getName() {
         return name;
     }
@@ -75,6 +84,14 @@ public class ProductBean implements Serializable {
 
     public List<String> getProductImages() {
         return product_image;
+    }
+
+    public List<String> getProduct_image() {
+        return product_image;
+    }
+
+    public void setProduct_image(List<String> product_image) {
+        this.product_image = product_image;
     }
 
     public float getWeight() {
@@ -123,6 +140,14 @@ public class ProductBean implements Serializable {
 
     public void setProfessional(boolean professional) {
         this.professional = professional;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public boolean isUsed() {

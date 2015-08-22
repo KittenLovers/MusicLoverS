@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head><title>IGNORED</title></head>
+    <body>
+        <ui:composition template="/templates/template.jsf">
+            <f:metadata>
+                <f:event type="preRenderView" listener="${authenticationController.checkEmployer()}" />
+            </f:metadata>
+            <ui:define name="windowTitle">Administration</ui:define>
+            <ui:define name="content">
+                <div class="jumbotron text-center">
+                    <p class="lead">Bentornato ${authenticationController.username}!</p>
+                </div>
+                <div class="row">
+                    <h:dataTable value="${productController.products}" var="product" styleClass="table table-bordered table-hover table-responsive" 
+                                 headerClass="text-center" rowClasses="text-center" columnClasses="column-image,,,,,,,,">
+                        <h:column>
+                            <f:facet name="header">Immagine</f:facet>    				
+                            <div class="gallery">
+                                <a href="${product.productImages.get(0)}" data-source="${product.productImages.get(0)}" title="${product.name}">
+                                    <img class="img-responsive img-thumbnail" src="${product.productImages.get(0)}" />
+                                </a>
+                            </div>
+                            <f:attribute name="width" value="20" />                            
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name="header">Nome</f:facet>    				
+                                ${product.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Status</f:facet>
+                                ${product.status}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Online</f:facet>
+                                ${product.online}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Peso</f:facet>
+                                ${product.weight}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Economico</f:facet>
+                            <h:outputFormat rendered="${product.inexpensive}">
+                                <span class="glyphicon glyphicon-ok text-success">&nbsp;</span>
+                            </h:outputFormat>
+                            <h:outputFormat rendered="${not product.inexpensive}">
+                                <span class="glyphicon glyphicon-remove text-danger">&nbsp;</span>
+                            </h:outputFormat>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Professionale</f:facet>
+                            <h:outputFormat rendered="${product.professional}">
+                                <span class="glyphicon glyphicon-ok text-success">&nbsp;</span>
+                            </h:outputFormat>
+                            <h:outputFormat rendered="${not product.professional}">
+                                <span class="glyphicon glyphicon-remove text-danger">&nbsp;</span>
+                            </h:outputFormat>                        
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Per bambini</f:facet>
+                            <h:outputFormat rendered="${product.for_child}">
+                                <span class="glyphicon glyphicon-ok text-success">&nbsp;</span>
+                            </h:outputFormat>
+                            <h:outputFormat rendered="${not product.for_child}">
+                                <span class="glyphicon glyphicon-remove text-danger">&nbsp;</span>
+                            </h:outputFormat>                       
+                        </h:column>
+                        <h:column class="text-center">
+                            <f:facet name="header">Azioni</f:facet>
+                            <button type="button" class="btn btn-info" >
+                                <span class="glyphicon glyphicon-pencil">&nbsp;</span><h:outputLink class="text-white">Modifica</h:outputLink>
+                            </button>
+                            <button type="button" class="btn btn-danger" >
+                                <span class="glyphicon glyphicon-trash">&nbsp;</span><h:outputLink class="text-white">Elimina</h:outputLink>
+                            </button>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

@@ -27,12 +27,12 @@
                     <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 zoom-gallery">
                         <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
                             <a href="${image}" data-source="${image}" title="${book.title}">
-                                <img src="${image}" class="img-responsive" id="product-image"/>
+                                <img src="${image}" class="img-responsive img-thumbnail" id="product-image"/>
                             </a>
                         </ui:repeat>
                     </div>
                 </div>
-                <div class="panel panel-primary page-header">
+                <div class="panel panel-default page-header">
                     <div class="panel-heading">
                         <h3 class="panel-title">Descrizione</h3>
                     </div>

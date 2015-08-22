@@ -14,12 +14,8 @@ import javax.faces.context.FacesContext;
  */
 public abstract class ControllerModel implements Serializable {
 
-    private static final ExternalContext CONTEXT = FacesContext.getCurrentInstance().getExternalContext();
-    private static final String FILE_EXT = CONTEXT.getInitParameter("it.univr.musiclovers.PAGE_EXT");
+    private static final String FILE_EXT = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("it.univr.musiclovers.PAGE_EXT");
     private static final long serialVersionUID = 1L;
-
-    protected ControllerModel() {
-    }
 
     public static String addExt(String target) {
         return target.concat(FILE_EXT);
@@ -30,28 +26,43 @@ public abstract class ControllerModel implements Serializable {
         return target + delim + key + '=' + value;
     }
 
-    public static void exceptionHandler(SQLException exception) throws IOException {
-        redirect("errorpage");
+    public static void exceptionHandler(SQLException exception) {
+        try {
+            redirect("errorpage");
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for (Throwable throwable : exception) {
             Logger.getLogger(ControllerModel.class.getName()).log(Level.SEVERE, null, throwable);
         }
     }
 
-    public static void exceptionHandler(Exception exception) throws IOException {
-        redirect("errorpage");
-        Logger.getLogger(ControllerModel.class.getName()).log(Level.SEVERE, null, exception);
+    public static Object getSessionMapValue(String key) {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
 
     public static void redirect(String target) throws IOException {
-        CONTEXT.redirect(CONTEXT.getApplicationContextPath().concat("/").concat(redirectString(target)));
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getApplicationContextPath().concat("/").concat(normalizeUrl(target)));
     }
 
     public static String redirectString(String target) {
-        String ret = target;
-        if (!ret.contains(FILE_EXT)) {
-            ret = ret.concat(FILE_EXT);
-        }
+        String ret = normalizeUrl(target);
         return addParam(ret, "faces-redirect", "true");
     }
 
+    public static void setSessionMapValue(String key, Object value) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
+    }
+
+    private static String normalizeUrl(String target) {
+        String ret = target;
+        if (ret.endsWith("/")) {
+            ret = ret.concat("index".concat(FILE_EXT));
+        }
+        if (!ret.contains(FILE_EXT)) {
+            ret = ret.concat(FILE_EXT);
+        }
+        return ret;
+    }
 }

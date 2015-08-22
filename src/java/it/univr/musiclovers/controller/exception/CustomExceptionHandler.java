@@ -45,7 +45,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             Throwable throwable = context.getException();
             try {
                 Logger.getLogger(CustomExceptionHandler.class.getName()).log(Level.SEVERE, null, throwable);
-                ControllerModel.redirect("error");
+                ControllerModel.redirect("errorpage");
             } catch (IOException ex) {
                 Logger.getLogger(CustomExceptionHandler.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
