@@ -3,6 +3,7 @@ package it.univr.musiclovers.controller;
 import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.EmployerModel;
 import it.univr.musiclovers.model.beans.AccountBean;
+import it.univr.musiclovers.model.beans.PersonBean;
 import it.univr.musiclovers.types.CodiceFiscale;
 import java.io.IOException;
 import java.io.Serializable;
@@ -66,7 +67,7 @@ public class AuthenticationController extends ControllerModel implements Seriali
     }
 
     public String login(String componendID, AccountBean account, String outcome) {
-        if (account instanceof AccountBean) {
+        if (account instanceof AccountBean && account.getPerson() instanceof PersonBean) {
             accountBean = account;
             logged = true;
             return redirectString(outcome);
