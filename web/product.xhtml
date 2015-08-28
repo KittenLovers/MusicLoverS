@@ -13,7 +13,8 @@
     <body>
         <ui:composition template="templates/template.jsf">
             <f:metadata>
-                <f:event type="preRenderView" listener="${productController.setSelectedProduct(param.productId)}"/>
+                <f:viewParam name="productId" value="${productController.productId}"/>
+                <f:viewAction action="${productController.loadSelectedProduct}"/>
             </f:metadata>
             <ui:define name="content">
                 <div class="page-header">
