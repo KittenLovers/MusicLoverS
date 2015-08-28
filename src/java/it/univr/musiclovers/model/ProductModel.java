@@ -40,11 +40,11 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
-    public static ProductBean getProduct(int product_id) throws SQLException {
+    public static ProductBean getProduct(int productID) throws SQLException {
         ProductBean result = new ProductBean();
         String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, product_id);
+            prepareStatement.setInt(1, productID);
             try (ResultSet resultSet = prepareStatement.executeQuery()) {
                 if (resultSet.next()) {
                     result = (makeProduct(resultSet));
@@ -54,11 +54,11 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
-    public static List<String> getProductImages(int product_id) throws SQLException {
+    public static List<String> getProductImages(int productID) throws SQLException {
         LinkedList<String> result = new LinkedList<>();
         String query = "SELECT image FROM " + getTablePrefix() + "_PRODUCT_IMAGES WHERE product_id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, product_id);
+            prepareStatement.setInt(1, productID);
             try (ResultSet resultSet = prepareStatement.executeQuery()) {
                 while (resultSet.next()) {
                     result.add(resultSet.getString("image"));
@@ -112,6 +112,19 @@ public abstract class ProductModel extends Model implements Serializable {
         productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
         productBean.setProductImage(getProductImages(productBean.getId()));
         return productBean;
+    }
+
+    public static void removeProduct(int productID) throws SQLException {
+        String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, productID);
+            prepareStatement.execute();
+        }
+        query = "DELETE FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, productID);
+            prepareStatement.execute();
+        }
     }
 
 }

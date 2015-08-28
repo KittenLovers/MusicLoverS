@@ -1,6 +1,8 @@
 package it.univr.musiclovers.model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductBean implements Serializable {
@@ -8,7 +10,6 @@ public class ProductBean implements Serializable {
     private BrandBean brand;
     private String description;
     private boolean enable;
-    private boolean status;
     private boolean for_child;
     private int id;
     private boolean inexpensive;
@@ -18,6 +19,7 @@ public class ProductBean implements Serializable {
     private float price;
     private List<String> product_image;
     private boolean professional;
+    private boolean status;
     private boolean used;
     private float weight;
     private static final long serialVersionUID = 1L;
@@ -79,19 +81,19 @@ public class ProductBean implements Serializable {
     }
 
     public void setProductImage(List<String> product_image) {
-        this.product_image = product_image;
+        this.product_image = new ArrayList<>(product_image);
     }
 
     public List<String> getProductImages() {
-        return product_image;
+        return Collections.unmodifiableList(product_image);
     }
 
-    public List<String> getProduct_image() {
-        return product_image;
-    }
-
-    public void setProduct_image(List<String> product_image) {
-        this.product_image = product_image;
+    public String getThumb() {
+        if (product_image.isEmpty()) {
+            return "img/image-not-found.png";
+        } else {
+            return product_image.get(0);
+        }
     }
 
     public float getWeight() {
