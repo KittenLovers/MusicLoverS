@@ -76,21 +76,24 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Per bambini</f:facet>
-                            <h:outputFormat rendered="${product.for_child}">
+                            <h:outputFormat rendered="${product.forChild}">
                                 <span class="glyphicon glyphicon-ok text-success"/>
                             </h:outputFormat>
-                            <h:outputFormat rendered="${not product.for_child}">
+                            <h:outputFormat rendered="${not product.forChild}">
                                 <span class="glyphicon glyphicon-remove text-danger"/>
                             </h:outputFormat>                       
                         </h:column>
                         <h:column>
                             <f:facet name="header">Azioni</f:facet>
-                            <button type="button" class="btn btn-info margin-5">
-                                <span class="glyphicon glyphicon-pencil">&nbsp;</span>
-                                <h:outputLink class="text-white">Modifica</h:outputLink>
-                            </button>
                             <h:form class="margin-5">
-                                <h:commandLink action="${productController.removeProduct(product.id)}" class="text-white">
+                                <h:commandLink action="${productController.getProduct(product.id)}">
+                                    <button type="button" class="btn btn-info">
+                                        <span class="glyphicon glyphicon-pencil">&nbsp;Modifica</span>
+                                    </button>
+                                </h:commandLink>
+                            </h:form>
+                            <h:form class="margin-5">
+                                <h:commandLink action="${productController.removeProduct(product.id)}">
                                     <button type="button" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-trash">&nbsp;Elimina</span>
                                     </button>
