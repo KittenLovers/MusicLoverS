@@ -81,5 +81,9 @@ public class ProductController extends ControllerModel implements Serializable {
     public void setSelectedProduct(int productId) throws SQLException {
         this.selectedProduct = ProductModel.getProduct(productId);
     }
+    
+    public void removeProduct(int productID) throws SQLException{
+        ProductModel.removeProduct(productID);
+    }
 
 }
