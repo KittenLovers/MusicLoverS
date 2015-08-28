@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
         <link rel="stylesheet" href="css/custom.css" />
-        <title>IGNORED</title>
+        <title>IGNORED</title>       
     </head>    <body>
         <ui:composition template="templates/template.jsf">
             <ui:define name="windowTitle">Homepage</ui:define>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                        <h:form class="text-justify">
+                        <h:form class="text-justify">                            
                             <div class="checkbox">
                                 <h:selectBooleanCheckbox value="${productController.filterBean.forChild}" id="forChild">
                                     <f:ajax execute="forChild" render="product-list" 
@@ -63,7 +63,11 @@
                                         </h:outputLink>
                                         <div class="caption">
                                             <b>Nome: </b><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}" /><br/>
-                                            <b>Prezzo:</b> ${product.price}<br/>
+
+                                            <b>Prezzo:</b> 
+                                            <h:outputText value="${product.price}" >
+                                                <f:convertNumber minFractionDigits="2" />
+                                            </h:outputText> €<br/>
 
                                             <b>Economico:</b>
                                             <h:outputFormat rendered="${product.inexpensive}">
@@ -73,7 +77,7 @@
                                                 <span class="glyphicon glyphicon-remove text-danger">&nbsp;</span>
                                             </h:outputFormat><br/>
 
-                                            <b>Professional:</b> 
+                                            <b>Professionale:</b> 
                                             <h:outputFormat rendered="${product.professional}">
                                                 <span class="glyphicon glyphicon-ok text-success"/>
                                             </h:outputFormat>
@@ -92,6 +96,15 @@
                                             <h:outputFormat rendered="${product.minAge > 0}">
                                                 <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
                                             </h:outputFormat>
+
+                                            <b>Usato:</b> 
+                                            <h:outputFormat rendered="${product.used}">
+                                                <span class="glyphicon glyphicon-ok text-success"/>
+                                            </h:outputFormat>
+                                            <h:outputFormat rendered="${not product.used}">
+                                                <span class="glyphicon glyphicon-remove text-danger"/>
+                                            </h:outputFormat><br/>
+
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +113,7 @@
                     </div>
                 </div>
             </ui:define>
-        </ui:composition>
+        </ui:composition>        
     </body>
 </html>
 

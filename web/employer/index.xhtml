@@ -54,7 +54,9 @@
                             </h:outputFormat>                                </h:column>
                         <h:column>
                             <f:facet name="header">Peso (Kg)</f:facet>
-                                ${product.weight}
+                                <h:outputText value="${product.weight}">
+                            <f:convertNumber minFractionDigits="2" />
+                        </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Economico</f:facet>

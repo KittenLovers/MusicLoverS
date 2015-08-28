@@ -24,8 +24,12 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 lead">
                         <b>Nome: </b><h:outputText value="${productController.selectedProduct.name}"/><br/>
                         <b>Brand: </b><h:outputText value="${productController.selectedProduct.brand.name}"/><br/>
-                        <b>Prezzo: </b><h:outputText value="${productController.selectedProduct.price}"/><br/>
-                        <b>Peso: </b><h:outputText value="${productController.selectedProduct.weight}"/><br/>
+                        <b>Prezzo: </b><h:outputText value="${productController.selectedProduct.price}">
+                            <f:convertNumber minFractionDigits="2" />
+                        </h:outputText> €<br/>
+                        <b>Peso: </b><h:outputText value="${productController.selectedProduct.weight}">
+                            <f:convertNumber minFractionDigits="2" />
+                        </h:outputText> Kg<br/>
                         <h:outputFormat rendered="${product.minAge > 0}">
                             <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
                         </h:outputFormat>
