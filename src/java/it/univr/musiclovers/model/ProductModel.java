@@ -27,6 +27,30 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
+    public static void editProduct(ProductBean productBean) throws SQLException {
+        String query = "UPDATE FROM " + getTablePrefix() + "_product_images "
+                + "SET status = ?, online = ?, weight = ?, price = ?, name = ?, "
+                + "description = ?, inexpensive = ?, professional = ?, "
+                + "for_child = ?, used = ?, min_age = ?, brand_id = ? "
+                + "WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setBoolean(1, productBean.getStatus());
+            prepareStatement.setBoolean(2, productBean.isOnline());
+            prepareStatement.setFloat(3, productBean.getWeight());
+            prepareStatement.setFloat(4, productBean.getPrice());
+            prepareStatement.setString(5, productBean.getName());
+            prepareStatement.setString(6, productBean.getDescription());
+            prepareStatement.setBoolean(7, productBean.isInexpensive());
+            prepareStatement.setBoolean(8, productBean.isProfessional());
+            prepareStatement.setBoolean(9, productBean.isForChild());
+            prepareStatement.setBoolean(10, productBean.isUsed());
+            prepareStatement.setInt(11, productBean.getMinAge());
+            prepareStatement.setInt(12, productBean.getBrand().getId());
+            prepareStatement.setInt(13, productBean.getId());
+            prepareStatement.execute();
+        }
+    }
+
     public static List<ProductBean> getOnlineProducts() throws SQLException {
         ArrayList<ProductBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT WHERE online = 'true'";
@@ -95,25 +119,6 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
-    public static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
-        ProductBean productBean = new ProductBean();
-        productBean.setId(resultSet.getInt("id"));
-        productBean.setEnable(resultSet.getBoolean("status"));
-        productBean.setOnline(resultSet.getBoolean("online"));
-        productBean.setInexpensive(resultSet.getBoolean("inexpensive"));
-        productBean.setWeight(resultSet.getFloat("weight"));
-        productBean.setPrice(resultSet.getFloat("price"));
-        productBean.setName(resultSet.getString("name"));
-        productBean.setDescription(resultSet.getString("description"));
-        productBean.setFor_child(resultSet.getBoolean("for_child"));
-        productBean.setMinAge(resultSet.getInt("min_age"));
-        productBean.setProfessional(resultSet.getBoolean("professional"));
-        productBean.setUsed(resultSet.getBoolean("used"));
-        productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
-        productBean.setProductImage(getProductImages(productBean.getId()));
-        return productBean;
-    }
-
     public static void removeProduct(int productID) throws SQLException {
         String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
@@ -125,6 +130,25 @@ public abstract class ProductModel extends Model implements Serializable {
             prepareStatement.setInt(1, productID);
             prepareStatement.execute();
         }
+    }
+
+    private static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
+        ProductBean productBean = new ProductBean();
+        productBean.setId(resultSet.getInt("id"));
+        productBean.setEnable(resultSet.getBoolean("status"));
+        productBean.setOnline(resultSet.getBoolean("online"));
+        productBean.setInexpensive(resultSet.getBoolean("inexpensive"));
+        productBean.setWeight(resultSet.getFloat("weight"));
+        productBean.setPrice(resultSet.getFloat("price"));
+        productBean.setName(resultSet.getString("name"));
+        productBean.setDescription(resultSet.getString("description"));
+        productBean.setForChild(resultSet.getBoolean("for_child"));
+        productBean.setMinAge(resultSet.getInt("min_age"));
+        productBean.setProfessional(resultSet.getBoolean("professional"));
+        productBean.setUsed(resultSet.getBoolean("used"));
+        productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
+        productBean.setProductImage(getProductImages(productBean.getId()));
+        return productBean;
     }
 
 }

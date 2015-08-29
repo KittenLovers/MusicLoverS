@@ -12,8 +12,8 @@
             <base-name>it.univr.messages</base-name>
             <var>msgs</var>
         </resource-bundle>
-        <factory>
+        <!--<factory>
             <exception-handler-factory>it.univr.musiclovers.controller.exception.CustomExceptionHandlerFactory</exception-handler-factory>
-        </factory>
+        </factory>-->
     </application>
 </faces-config>
