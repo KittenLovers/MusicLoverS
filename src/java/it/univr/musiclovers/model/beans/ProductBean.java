@@ -145,4 +145,7 @@ public class ProductBean implements Serializable {
         this.used = used;
     }
 
+    public boolean isValid(){
+        return true;
+    }
 }

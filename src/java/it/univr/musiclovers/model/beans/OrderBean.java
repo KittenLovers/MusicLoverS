@@ -9,19 +9,44 @@ import java.util.Date;
 public class OrderBean {
 
     private int ID;
-    private float price;
-    private Date soldDAte;
-    private ProductBean product;
-    private EmployerBean seller;
     private CustomerBean buyer;
     private ProfessionalBean owner;
+    private String paymentType;
+    private float price;
+    private ProductBean product;
+    private EmployerBean seller;
+    private Date soldDate;
+
+    public CustomerBean getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(CustomerBean buyer) {
+        this.buyer = buyer;
+    }
 
     public int getID() {
         return ID;
     }
 
-    public void setId(int ID) {
+    public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public ProfessionalBean getOwner() {
+        return owner;
+    }
+
+    public void setOwner(ProfessionalBean owner) {
+        this.owner = owner;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     public float getPrice() {
@@ -30,14 +55,6 @@ public class OrderBean {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public Date getSoldDAte() {
-        return (Date) soldDAte.clone();
-    }
-
-    public void setSoldDAte(Date soldDAte) {
-        this.soldDAte = (Date) soldDAte.clone();
     }
 
     public ProductBean getProduct() {
@@ -56,20 +73,12 @@ public class OrderBean {
         this.seller = seller;
     }
 
-    public CustomerBean getBuyer() {
-        return buyer;
+    public Date getSoldDate() {
+        return soldDate;
     }
 
-    public void setBuyer(CustomerBean buyer) {
-        this.buyer = buyer;
-    }
-
-    public ProfessionalBean getOwner() {
-        return owner;
-    }
-
-    public void setOwner(ProfessionalBean owner) {
-        this.owner = owner;
+    public void setSoldDate(Date soldDate) {
+        this.soldDate = soldDate;
     }
 
 }

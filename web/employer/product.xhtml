@@ -13,17 +13,15 @@
     <body>
         <ui:composition template="/templates/template.jsf">
             <f:metadata>
-                <f:viewAction action="${authenticationController.checkEmployer()}" />
-                <f:viewParam name="productId" value="${productController.productId}"/>
-                <f:viewAction action="${productController.loadSelectedProduct}"/>
+                <f:viewAction action="${productController.setSelectedProduct(param.productID)}"/>
             </f:metadata>
             <ui:define name="windowTitle">Product</ui:define>
             <ui:define name="content">
                 <div class="page-header">
-                    <p class="lead">Bentornato ${authenticationController.username}!</p>
+                    <p class="lead">Modifica prodotto</p>
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <h:form>
+                    <h:form id="product-form">
                         <div class="form-group">
                             <h:outputLabel value="Nome :" for="productName"/>
                             <h:inputText value="${productController.selectedProduct.name}"
@@ -34,7 +32,9 @@
                             <h:outputText value="${productController.selectedProduct.brand.id}" />
                             <h:outputText value="${productController.selectedProduct.brand.name}" />    
                         </div>
-                        <h:commandButton action="${productController.editProduct(productController.selectedProduct)}" value="Modifica" />
+                        <h:commandButton value="Modifica">
+                            <f:ajax listener="${productController.editProduct()}" execute="productName" render="product-form" />
+                        </h:commandButton>
                     </h:form>
                 </div>
             </ui:define>

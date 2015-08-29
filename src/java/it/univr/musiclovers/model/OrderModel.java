@@ -47,8 +47,9 @@ public abstract class OrderModel extends Model implements Serializable {
 
     public static OrderBean makeOrderBean(ResultSet resultSet) throws SQLException, CodiceFiscale.MalformedCodiceFiscale {
         OrderBean orderBean = new OrderBean();
-        orderBean.setId(resultSet.getInt("id"));
+        orderBean.setID(resultSet.getInt("id"));
         orderBean.setPrice(resultSet.getFloat("price"));
+        orderBean.setSoldDate(resultSet.getDate("sold_date"));
         orderBean.setProduct(ProductModel.getProduct(resultSet.getInt("product_id")));
         orderBean.setSeller(EmployerModel.getAccount(resultSet.getInt("employer_id")));
         orderBean.setBuyer(null);

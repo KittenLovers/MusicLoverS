@@ -28,11 +28,11 @@ public abstract class ProductModel extends Model implements Serializable {
     }
 
     public static void editProduct(ProductBean productBean) throws SQLException {
-        String query = "UPDATE FROM " + getTablePrefix() + "_product_images "
+        String query = "UPDATE " + getTablePrefix() + "_product "
                 + "SET status = ?, online = ?, weight = ?, price = ?, name = ?, "
                 + "description = ?, inexpensive = ?, professional = ?, "
                 + "for_child = ?, used = ?, min_age = ?, brand_id = ? "
-                + "WHERE product_id = ?";
+                + "WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setBoolean(1, productBean.getStatus());
             prepareStatement.setBoolean(2, productBean.getOnline());
