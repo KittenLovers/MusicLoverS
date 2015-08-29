@@ -2,6 +2,23 @@
     Created on : 18-ago-2015, 15.39.10
     Author     : Marian Solomon
 */
+footer {
+    position: relative;
+}
+
+body > div.container {
+    min-height: 82vh;
+}
+
+footer {
+    position: relative;
+    margin-top: 10px;
+}
+
+footer {
+    position: relative;
+    margin-top: 10px;
+}
 
 footer > div > div {
     margin: 10px;
@@ -47,4 +64,13 @@ footer > div > div {
 
 .vertical-middle > tbody > tr > td {
     vertical-align: middle !important;
+}
+
+.price-bage {
+    position: relative;
+    right: 2px;
+    bottom: 24px;
+    float: right;
+    font-size: 15px;
+    background-color: #A93030;
 }
