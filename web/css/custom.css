@@ -10,6 +10,11 @@ body > div.container {
     min-height: 82vh;
 }
 
+footer {
+    position: relative;
+    margin-top: 10px;
+}
+
 footer > div > div {
     margin: 10px;
 }
