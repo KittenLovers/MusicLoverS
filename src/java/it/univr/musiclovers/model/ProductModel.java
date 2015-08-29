@@ -35,14 +35,14 @@ public abstract class ProductModel extends Model implements Serializable {
                 + "WHERE product_id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setBoolean(1, productBean.getStatus());
-            prepareStatement.setBoolean(2, productBean.isOnline());
+            prepareStatement.setBoolean(2, productBean.getOnline());
             prepareStatement.setFloat(3, productBean.getWeight());
             prepareStatement.setFloat(4, productBean.getPrice());
             prepareStatement.setString(5, productBean.getName());
             prepareStatement.setString(6, productBean.getDescription());
-            prepareStatement.setBoolean(7, productBean.isInexpensive());
+            prepareStatement.setBoolean(7, productBean.getInexpensive());
             prepareStatement.setBoolean(8, productBean.isProfessional());
-            prepareStatement.setBoolean(9, productBean.isForChild());
+            prepareStatement.setBoolean(9, productBean.getForChild());
             prepareStatement.setBoolean(10, productBean.isUsed());
             prepareStatement.setInt(11, productBean.getMinAge());
             prepareStatement.setInt(12, productBean.getBrand().getId());
@@ -135,7 +135,7 @@ public abstract class ProductModel extends Model implements Serializable {
     private static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
         ProductBean productBean = new ProductBean();
         productBean.setId(resultSet.getInt("id"));
-        productBean.setEnable(resultSet.getBoolean("status"));
+        productBean.setStatus(resultSet.getBoolean("status"));
         productBean.setOnline(resultSet.getBoolean("online"));
         productBean.setInexpensive(resultSet.getBoolean("inexpensive"));
         productBean.setWeight(resultSet.getFloat("weight"));

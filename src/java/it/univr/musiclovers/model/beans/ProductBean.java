@@ -105,15 +105,7 @@ public class ProductBean implements Serializable {
         this.weight = weight;
     }
 
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public boolean isForChild() {
+    public boolean getForChild() {
         return forChild;
     }
 
@@ -121,7 +113,7 @@ public class ProductBean implements Serializable {
         this.forChild = forChild;
     }
 
-    public boolean isInexpensive() {
+    public boolean getInexpensive() {
         return inexpensive;
     }
 
@@ -129,7 +121,7 @@ public class ProductBean implements Serializable {
         this.inexpensive = inexpensive;
     }
 
-    public boolean isOnline() {
+    public boolean getOnline() {
         return online;
     }
 

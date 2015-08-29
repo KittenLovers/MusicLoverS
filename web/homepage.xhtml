@@ -20,6 +20,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <p class="lead">Filtra i prodotti</p>
                         <h:form class="text-justify">                            
                             <div class="checkbox">
                                 <h:selectBooleanCheckbox value="${filterController.forChild}" id="forChild">
@@ -57,7 +58,7 @@
                                 <p class="lead text-danger">Nessuno strumento soddisfa i requisiti selezionati!</p>
                             </h:panelGroup>
                             <ui:repeat value="${filterController.onlineProducts}" var="product">
-                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 grid-item">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
                                     <div class="thumbnail">
                                         <h:outputLink value="${productController.getProduct(product.id)}">
                                             <h:graphicImage value="${product.thumb}" />
@@ -66,7 +67,7 @@
                                             <f:convertNumber minFractionDigits="2" />
                                         </h:outputText>
                                         <b><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}"/></b><br/>
-                                        <table class="table-striped table-condensed"> 
+                                        <table class="table table-responsive table-striped table-bordered table-condensed"> 
                                             <tr>
                                                 <td>Economico:</td>
                                                 <td>
@@ -79,7 +80,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Professionale:</b></td>
+                                                <td>Professional:</td>
                                                 <td>
                                                     <h:outputFormat rendered="${product.professional}">
                                                         <span class="glyphicon glyphicon-ok text-success"/>
@@ -90,7 +91,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Per bambini:</b></td>
+                                                <td>Per bambini:</td>
                                                 <td>
                                                     <h:outputFormat rendered="${product.forChild}">
                                                         <span class="glyphicon glyphicon-ok text-success"/>
@@ -102,8 +103,8 @@
                                             </tr>
                                             <h:outputFormat rendered="${product.minAge > 0}">
                                                 <tr>                                                    
-                                                    <td><b>Per bambini:</b></td>
-                                                    <td><b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span></td>                                               
+                                                    <td><b>Et&agrave; minima:</b></td>
+                                                    <td><span class="badge"> ${product.minAge}</span></td>                                               
                                                 </tr>
                                             </h:outputFormat>
                                             <tr>

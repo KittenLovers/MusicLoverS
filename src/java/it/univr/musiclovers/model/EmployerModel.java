@@ -31,6 +31,21 @@ public abstract class EmployerModel extends Model implements Serializable {
         return result;
     }
 
+    public static EmployerBean getAccount(int employerID) throws SQLException {
+        EmployerBean result = null;
+        String query = "SELECT * FROM " + getTablePrefix() + "_employer "
+                + "WHERE id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, employerID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = makeEmployerBean(resultSet);
+                }
+            }
+        }
+        return result;
+    }
+
     private static EmployerBean getEmployer(int accountID) throws SQLException {
         EmployerBean result = null;
         String query = "SELECT * FROM " + getTablePrefix() + "_employer "

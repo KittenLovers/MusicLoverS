@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author blasco991
  */
-public class OrderBeans {
+public class OrderBean {
 
     private int ID;
     private float price;
@@ -20,7 +20,7 @@ public class OrderBeans {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setId(int ID) {
         this.ID = ID;
     }
 

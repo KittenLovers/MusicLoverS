@@ -6,6 +6,10 @@ body > div.container {
     min-height: 82vh;
 }
 
+#products table, #orders table {
+    border-top: none;
+}
+
 footer {
     position: relative;
     margin-top: 10px;
