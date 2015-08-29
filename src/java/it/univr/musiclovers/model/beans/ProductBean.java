@@ -7,10 +7,12 @@ import java.util.List;
 
 public class ProductBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private BrandBean brand;
     private String description;
     private boolean enable;
-    private boolean for_child;
+    private boolean forChild;
     private int id;
     private boolean inexpensive;
     private int min_age;
@@ -22,7 +24,6 @@ public class ProductBean implements Serializable {
     private boolean status;
     private boolean used;
     private float weight;
-    private static final long serialVersionUID = 1L;
 
     public BrandBean getBrand() {
         return brand;
@@ -112,12 +113,12 @@ public class ProductBean implements Serializable {
         this.enable = enable;
     }
 
-    public boolean isFor_child() {
-        return for_child;
+    public boolean isForChild() {
+        return forChild;
     }
 
-    public void setFor_child(boolean for_child) {
-        this.for_child = for_child;
+    public void setForChild(boolean forChild) {
+        this.forChild = forChild;
     }
 
     public boolean isInexpensive() {

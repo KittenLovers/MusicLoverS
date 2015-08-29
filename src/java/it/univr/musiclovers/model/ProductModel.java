@@ -105,7 +105,7 @@ public abstract class ProductModel extends Model implements Serializable {
         productBean.setPrice(resultSet.getFloat("price"));
         productBean.setName(resultSet.getString("name"));
         productBean.setDescription(resultSet.getString("description"));
-        productBean.setFor_child(resultSet.getBoolean("for_child"));
+        productBean.setForChild(resultSet.getBoolean("for_child"));
         productBean.setMinAge(resultSet.getInt("min_age"));
         productBean.setProfessional(resultSet.getBoolean("professional"));
         productBean.setUsed(resultSet.getBoolean("used"));
