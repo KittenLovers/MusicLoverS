@@ -14,6 +14,19 @@ public abstract class ProductModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public List<ProductBean> getProducts() throws SQLException {
+        ArrayList<ProductBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
+        try (Statement statement = getConnection().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
     public static void editProduct(ProductBean productBean) throws SQLException {
         String query = "UPDATE FROM " + getTablePrefix() + "_product_images "
                 + "SET status = ?, online = ?, weight = ?, price = ?, name = ?, "
@@ -136,19 +149,6 @@ public abstract class ProductModel extends Model implements Serializable {
         productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
         productBean.setProductImage(getProductImages(productBean.getId()));
         return productBean;
-    }
-
-    public List<ProductBean> getProducts() throws SQLException {
-        ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
-        try (Statement statement = getConnection().createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    result.add(makeProduct(resultSet));
-                }
-            }
-        }
-        return result;
     }
 
 }
