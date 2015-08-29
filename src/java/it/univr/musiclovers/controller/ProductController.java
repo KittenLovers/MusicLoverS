@@ -5,19 +5,23 @@ import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Marian Solomon
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ProductController extends ControllerModel implements Serializable {
 
+    private ProductBean selectedProduct;
     private static final long serialVersionUID = 1L;
 
-    private ProductBean selectedProduct;
+    public void editProduct() throws SQLException {
+        selectedProduct.isValid();
+        ProductModel.editProduct(selectedProduct);
+    }
 
     public String getProduct(int productID) {
         return addParam(normalizeUrl("product"), "productID", String.valueOf(productID));
