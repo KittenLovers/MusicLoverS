@@ -15,11 +15,11 @@ public class ProductBean implements Serializable {
     private boolean forChild;
     private int id;
     private boolean inexpensive;
-    private int min_age;
+    private int minAge;
     private String name;
     private boolean online;
     private float price;
-    private List<String> product_image;
+    private List<String> productImage;
     private boolean professional;
     private boolean status;
     private boolean used;
@@ -50,19 +50,11 @@ public class ProductBean implements Serializable {
     }
 
     public int getMinAge() {
-        return min_age;
+        return minAge;
     }
 
     public void setMinAge(int min_age) {
-        this.min_age = min_age;
-    }
-
-    public int getMin_age() {
-        return min_age;
-    }
-
-    public void setMin_age(int min_age) {
-        this.min_age = min_age;
+        this.minAge = min_age;
     }
 
     public String getName() {
@@ -82,18 +74,26 @@ public class ProductBean implements Serializable {
     }
 
     public void setProductImage(List<String> product_image) {
-        this.product_image = new ArrayList<>(product_image);
+        this.productImage = new ArrayList<>(product_image);
     }
 
     public List<String> getProductImages() {
-        return Collections.unmodifiableList(product_image);
+        return Collections.unmodifiableList(productImage);
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getThumb() {
-        if (product_image.isEmpty()) {
+        if (productImage.isEmpty()) {
             return "img/image-not-found.png";
         } else {
-            return product_image.get(0);
+            return productImage.get(0);
         }
     }
 
@@ -143,14 +143,6 @@ public class ProductBean implements Serializable {
 
     public void setProfessional(boolean professional) {
         this.professional = professional;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public boolean isUsed() {

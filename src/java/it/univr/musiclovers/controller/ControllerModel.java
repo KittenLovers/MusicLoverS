@@ -41,6 +41,17 @@ public abstract class ControllerModel implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
     }
 
+    public static String normalizeUrl(String target) {
+        String ret = target;
+        if (ret.endsWith("/")) {
+            ret = ret.concat("index".concat(FILE_EXT));
+        }
+        if (!ret.contains(FILE_EXT)) {
+            ret = ret.concat(FILE_EXT);
+        }
+        return ret;
+    }
+
     public static void redirect(String target) throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getApplicationContextPath().concat("/").concat(normalizeUrl(target)));
@@ -53,16 +64,5 @@ public abstract class ControllerModel implements Serializable {
 
     public static void setSessionMapValue(String key, Object value) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
-    }
-
-    private static String normalizeUrl(String target) {
-        String ret = target;
-        if (ret.endsWith("/")) {
-            ret = ret.concat("index".concat(FILE_EXT));
-        }
-        if (!ret.contains(FILE_EXT)) {
-            ret = ret.concat(FILE_EXT);
-        }
-        return ret;
     }
 }

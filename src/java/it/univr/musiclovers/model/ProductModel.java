@@ -2,8 +2,15 @@ package it.univr.musiclovers.model;
 
 import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.Serializable;
-import java.sql.*;
-import java.util.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -14,17 +21,28 @@ public abstract class ProductModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public List<ProductBean> getProducts() throws SQLException {
-        ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
-        try (Statement statement = getConnection().createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    result.add(makeProduct(resultSet));
-                }
-            }
+    public static void editProduct(ProductBean productBean) throws SQLException {
+        String query = "UPDATE FROM " + getTablePrefix() + "_product_images "
+                + "SET status = ?, online = ?, weight = ?, price = ?, name = ?, "
+                + "description = ?, inexpensive = ?, professional = ?, "
+                + "for_child = ?, used = ?, min_age = ?, brand_id = ? "
+                + "WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setBoolean(1, productBean.getStatus());
+            prepareStatement.setBoolean(2, productBean.isOnline());
+            prepareStatement.setFloat(3, productBean.getWeight());
+            prepareStatement.setFloat(4, productBean.getPrice());
+            prepareStatement.setString(5, productBean.getName());
+            prepareStatement.setString(6, productBean.getDescription());
+            prepareStatement.setBoolean(7, productBean.isInexpensive());
+            prepareStatement.setBoolean(8, productBean.isProfessional());
+            prepareStatement.setBoolean(9, productBean.isForChild());
+            prepareStatement.setBoolean(10, productBean.isUsed());
+            prepareStatement.setInt(11, productBean.getMinAge());
+            prepareStatement.setInt(12, productBean.getBrand().getId());
+            prepareStatement.setInt(13, productBean.getId());
+            prepareStatement.execute();
         }
-        return result;
     }
 
     public static List<ProductBean> getOnlineProducts() throws SQLException {
@@ -95,7 +113,20 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
-    public static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
+    public static void removeProduct(int productID) throws SQLException {
+        String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, productID);
+            prepareStatement.execute();
+        }
+        query = "DELETE FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, productID);
+            prepareStatement.execute();
+        }
+    }
+
+    private static ProductBean makeProduct(ResultSet resultSet) throws SQLException {
         ProductBean productBean = new ProductBean();
         productBean.setId(resultSet.getInt("id"));
         productBean.setEnable(resultSet.getBoolean("status"));
@@ -114,17 +145,17 @@ public abstract class ProductModel extends Model implements Serializable {
         return productBean;
     }
 
-    public static void removeProduct(int productID) throws SQLException {
-        String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
-        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, productID);
-            prepareStatement.execute();
+    public List<ProductBean> getProducts() throws SQLException {
+        ArrayList<ProductBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
+        try (Statement statement = getConnection().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
+            }
         }
-        query = "DELETE FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
-        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, productID);
-            prepareStatement.execute();
-        }
+        return result;
     }
 
 }

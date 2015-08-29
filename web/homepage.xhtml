@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
         <link rel="stylesheet" href="css/custom.css" />
         <title>IGNORED</title>       
-    </head>    <body>
+    </head>    
+    <body>
         <ui:composition template="templates/template.jsf">
             <ui:define name="windowTitle">Homepage</ui:define>
             <ui:define name="content">
@@ -21,28 +22,28 @@
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                         <h:form class="text-justify">                            
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.forChild}" id="forChild">
+                                <h:selectBooleanCheckbox value="${filterController.forChild}" id="forChild">
                                     <f:ajax execute="forChild" render="product-list" 
                                             onevent="ajaxEvent"/>
                                 </h:selectBooleanCheckbox>
                                 <h:outputLabel value="for child" for="forChild" />
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.inexpensive}" id="inexpensive">
+                                <h:selectBooleanCheckbox value="${filterController.inexpensive}" id="inexpensive">
                                     <f:ajax execute="inexpensive" render="product-list" 
                                             onevent="ajaxEvent"/>
                                 </h:selectBooleanCheckbox>
                                 <h:outputLabel value="inexpensive" for="inexpensive" />                        
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.professional}" id="professional">
+                                <h:selectBooleanCheckbox value="${filterController.professional}" id="professional">
                                     <f:ajax execute="professional" render="product-list" 
                                             onevent="ajaxEvent"/>
                                 </h:selectBooleanCheckbox>
                                 <h:outputLabel value="professional" for="professional" />
                             </div>
                             <div class="checkbox">
-                                <h:selectBooleanCheckbox value="${productController.filterBean.used}" id="used">
+                                <h:selectBooleanCheckbox value="${filterController.used}" id="used">
                                     <f:ajax execute="used" render="product-list" 
                                             onevent="ajaxEvent"/>
                                 </h:selectBooleanCheckbox>
@@ -52,60 +53,71 @@
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                         <div class="grid" jsf:id="product-list">
-                            <h:panelGroup rendered="${empty productController.products}" id="products-empty">
+                            <h:panelGroup rendered="${empty filterController.onlineProducts}" id="products-empty">
                                 <p class="lead text-danger">Nessuno strumento soddisfa i requisiti selezionati!</p>
                             </h:panelGroup>
-                            <ui:repeat value="${productController.products}" var="product">
-                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 grid-item">
+                            <ui:repeat value="${filterController.onlineProducts}" var="product">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 grid-item">
                                     <div class="thumbnail">
                                         <h:outputLink value="${productController.getProduct(product.id)}">
                                             <h:graphicImage value="${product.thumb}" />
                                         </h:outputLink>
-                                        <div class="caption">
-                                            <b>Nome: </b><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}" /><br/>
-
-                                            <b>Prezzo:</b> 
-                                            <h:outputText value="${product.price}" >
-                                                <f:convertNumber minFractionDigits="2" />
-                                            </h:outputText> €<br/>
-
-                                            <b>Economico:</b>
-                                            <h:outputFormat rendered="${product.inexpensive}">
-                                                <span class="glyphicon glyphicon-ok text-success">&nbsp;</span>
-                                            </h:outputFormat>
-                                            <h:outputFormat rendered="${not product.inexpensive}">
-                                                <span class="glyphicon glyphicon-remove text-danger">&nbsp;</span>
-                                            </h:outputFormat><br/>
-
-                                            <b>Professionale:</b> 
-                                            <h:outputFormat rendered="${product.professional}">
-                                                <span class="glyphicon glyphicon-ok text-success"/>
-                                            </h:outputFormat>
-                                            <h:outputFormat rendered="${not product.professional}">
-                                                <span class="glyphicon glyphicon-remove text-danger"/>
-                                            </h:outputFormat><br/>
-
-                                            <b>Per bambini:</b> 
-                                            <h:outputFormat rendered="${product.forChild}">
-                                                <span class="glyphicon glyphicon-ok text-success"/>
-                                            </h:outputFormat>
-                                            <h:outputFormat rendered="${not product.forChild}">
-                                                <span class="glyphicon glyphicon-remove text-danger"/>
-                                            </h:outputFormat><br/>
-
+                                        <h:outputText class="bg-info badge price-bage" value="${product.price} €" >
+                                            <f:convertNumber minFractionDigits="2" />
+                                        </h:outputText>
+                                        <b><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}"/></b><br/>
+                                        <table class="table-striped table-condensed"> 
+                                            <tr>
+                                                <td>Economico:</td>
+                                                <td>
+                                                    <h:outputFormat rendered="${product.inexpensive}">
+                                                        <span class="glyphicon glyphicon-ok text-success"/>
+                                                    </h:outputFormat>
+                                                    <h:outputFormat rendered="${not product.inexpensive}">
+                                                        <span class="glyphicon glyphicon-remove text-danger"/>
+                                                    </h:outputFormat>                              
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Professionale:</b></td>
+                                                <td>
+                                                    <h:outputFormat rendered="${product.professional}">
+                                                        <span class="glyphicon glyphicon-ok text-success"/>
+                                                    </h:outputFormat>
+                                                    <h:outputFormat rendered="${not product.professional}">
+                                                        <span class="glyphicon glyphicon-remove text-danger"/>
+                                                    </h:outputFormat>                           
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Per bambini:</b></td>
+                                                <td>
+                                                    <h:outputFormat rendered="${product.forChild}">
+                                                        <span class="glyphicon glyphicon-ok text-success"/>
+                                                    </h:outputFormat>
+                                                    <h:outputFormat rendered="${not product.forChild}">
+                                                        <span class="glyphicon glyphicon-remove text-danger"/>
+                                                    </h:outputFormat>                                
+                                                </td>
+                                            </tr>
                                             <h:outputFormat rendered="${product.minAge > 0}">
-                                                <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
+                                                <tr>                                                    
+                                                    <td><b>Per bambini:</b></td>
+                                                    <td><b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span></td>                                               
+                                                </tr>
                                             </h:outputFormat>
-
-                                            <b>Usato:</b> 
-                                            <h:outputFormat rendered="${product.used}">
-                                                <span class="glyphicon glyphicon-ok text-success"/>
-                                            </h:outputFormat>
-                                            <h:outputFormat rendered="${not product.used}">
-                                                <span class="glyphicon glyphicon-remove text-danger"/>
-                                            </h:outputFormat><br/>
-
-                                        </div>
+                                            <tr>
+                                                <td><b>Usato:</b></td>
+                                                <td>
+                                                    <h:outputFormat rendered="${product.used}">
+                                                        <span class="glyphicon glyphicon-ok text-success"/>
+                                                    </h:outputFormat>
+                                                    <h:outputFormat rendered="${not product.used}">
+                                                        <span class="glyphicon glyphicon-remove text-danger"/>
+                                                    </h:outputFormat>                                
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </ui:repeat>
