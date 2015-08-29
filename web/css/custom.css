@@ -2,10 +2,6 @@
     Created on : 18-ago-2015, 15.39.10
     Author     : Marian Solomon
 */
-footer {
-    position: relative;
-}
-
 body > div.container {
     min-height: 82vh;
 }
@@ -15,9 +11,17 @@ footer {
     margin-top: 10px;
 }
 
-footer {
-    position: relative;
-    margin-top: 10px;
+.footer-img {
+    max-width: 250px;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-brand > img {
+    max-height: 200%;
+    padding: 0px 10px;
 }
 
 footer > div > div {
@@ -55,7 +59,7 @@ footer > div > div {
 }
 
 .column-image img {
-    max-height: 100px;
+    max-height: 50px;
 }
 
 .vertical-middle {

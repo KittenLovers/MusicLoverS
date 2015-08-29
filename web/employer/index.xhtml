@@ -17,7 +17,7 @@
             </f:metadata>
             <ui:define name="windowTitle">Administration</ui:define>
             <ui:define name="content">
-                <div class="jumbotron text-center">
+                <div class="page-header">
                     <p class="lead">Bentornato ${authenticationController.username}!</p>
                 </div>
                 <div class="row">
@@ -89,13 +89,6 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Azioni</f:facet>
-                            <h:form class="margin-5">
-                                <h:commandLink action="${productController.getProduct(product.id)}">
-                                    <button type="button" class="btn btn-info">
-                                        <span class="glyphicon glyphicon-pencil">&nbsp;Modifica</span>
-                                    </button>
-                                </h:commandLink>
-                            </h:form>
                             <h:form class="margin-5">
                                 <h:commandLink action="${productController.removeProduct(product.id)}">
                                     <button type="button" class="btn btn-danger">

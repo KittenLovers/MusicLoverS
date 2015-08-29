@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
@@ -15,24 +12,22 @@
         <ui:composition template="templates/template.jsf">
             <ui:define name="windowTitle">Homepage</ui:define>
             <ui:define name="content">
-                <div class="content">
-                    <div class="page-header">
-                        <h1>Errore di sistema</h1>
+                <div class="page-header">
+                    <h1>Errore di sistema</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 jumbotron">
+                        <p>
+                            Ops, qualcosa non è andato a buon fine.
+                            Ti preghiamo di riprovare ad aggiornare la pagine, 
+                            se l'errore dovesse persistere provare a ricominciare 
+                            la tua navigazione dalla <a href='homepage'>Homepage</a>
+                            o contattare il nostro supporto tecnico 
+                            <a href="mailto:info@kittenlovers.com">info@kittenlovers.com</a>.
+                        </p>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 jumbotron">
-                            <p>
-                                Ops, qualcosa non è andato a buon fine.
-                                Ti preghiamo di riprovare ad aggiornare la pagine, 
-                                se l'errore dovesse persistere provare a ricominciare 
-                                la tua navigazione dalla <a href='homepage'>Homepage</a>
-                                o contattare il nostro supporto tecnico 
-                                <a href="mailto:info@kittenlovers.com">info@kittenlovers.com</a>.
-                            </p>
-                        </div>
-                        <div class="col-lg-8">
-                            <img class="img-responsive img-thumbnail" src="img/love-music.jpg"/>
-                        </div>
+                    <div class="col-lg-8">
+                        <img class="img-responsive img-thumbnail" src="img/love-music.jpg"/>
                     </div>
                 </div>
             </ui:define>
