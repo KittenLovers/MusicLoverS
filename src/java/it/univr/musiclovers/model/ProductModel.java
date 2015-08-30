@@ -16,7 +16,7 @@ public abstract class ProductModel extends Model implements Serializable {
 
     public List<ProductBean> getProducts() throws SQLException {
         ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT";
+        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT ORDER BY id ASC";
         try (Statement statement = getConnection().createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
@@ -35,14 +35,14 @@ public abstract class ProductModel extends Model implements Serializable {
                 + "WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setBoolean(1, productBean.isStatus());
-            prepareStatement.setBoolean(2, productBean.getOnline());
+            prepareStatement.setBoolean(2, productBean.isOnline());
             prepareStatement.setFloat(3, productBean.getWeight());
             prepareStatement.setFloat(4, productBean.getPrice());
             prepareStatement.setString(5, productBean.getName());
             prepareStatement.setString(6, productBean.getDescription());
-            prepareStatement.setBoolean(7, productBean.getInexpensive());
+            prepareStatement.setBoolean(7, productBean.isInexpensive());
             prepareStatement.setBoolean(8, productBean.isProfessional());
-            prepareStatement.setBoolean(9, productBean.getForChild());
+            prepareStatement.setBoolean(9, productBean.isForChild());
             prepareStatement.setBoolean(10, productBean.isUsed());
             prepareStatement.setInt(11, productBean.getMinAge());
             prepareStatement.setInt(12, productBean.getBrand().getId());
@@ -118,6 +118,41 @@ public abstract class ProductModel extends Model implements Serializable {
             }
         }
         return result;
+    }
+
+    public static void insertProduct(ProductBean productBean) throws SQLException {
+        String query = "INSERT INTO " + getTablePrefix() + "_product "
+                + "(status, online, weight, price, name, description, inexpensive, "
+                + "professional, for_child, used, min_age, brand_id) VALUES"
+                + "(?,?,?,?,?,?,?,?,?,?,?,?)";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            prepareStatement.setBoolean(1, productBean.isStatus());
+            prepareStatement.setBoolean(2, productBean.isOnline());
+            prepareStatement.setFloat(3, productBean.getWeight());
+            prepareStatement.setFloat(4, productBean.getPrice());
+            prepareStatement.setString(5, productBean.getName());
+            prepareStatement.setString(6, productBean.getDescription());
+            prepareStatement.setBoolean(7, productBean.isInexpensive());
+            prepareStatement.setBoolean(8, productBean.isProfessional());
+            prepareStatement.setBoolean(9, productBean.isForChild());
+            prepareStatement.setBoolean(10, productBean.isUsed());
+            prepareStatement.setInt(11, productBean.getMinAge());
+            prepareStatement.setInt(12, productBean.getBrand().getId());
+            int affectedRows = prepareStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating product failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = prepareStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    productBean.setId(generatedKeys.getInt("id"));
+                } else {
+                    throw new SQLException("Creating product failed, no ID obtained.");
+                }
+            }
+        }
+
     }
 
     public static void removeProduct(int productID) throws SQLException {

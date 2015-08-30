@@ -22,12 +22,11 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class FilterController implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private boolean forChild;
     private boolean inexpensive;
     private boolean professional;
     private boolean used;
+    private static final long serialVersionUID = 1L;
 
     public boolean getForChild() {
         return forChild;
@@ -41,6 +40,10 @@ public class FilterController implements Serializable {
         Map<String, Boolean> filters = new LinkedHashMap<>();
         filters.put("online", true);
         return getProducts(filters);
+    }
+
+    public List<ProductBean> getProducts() throws IOException {
+        return getProducts(new LinkedHashMap<>());
     }
 
     @PostConstruct
@@ -72,10 +75,6 @@ public class FilterController implements Serializable {
 
     public void setUsed(boolean used) {
         this.used = used;
-    }
-
-    private List<ProductBean> getProducts() throws IOException {
-        return getProducts(new LinkedHashMap<>());
     }
 
     private List<ProductBean> getProducts(Map<String, Boolean> filters) throws IOException {

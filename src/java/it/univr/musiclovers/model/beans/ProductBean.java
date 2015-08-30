@@ -7,9 +7,7 @@ import java.util.List;
 
 public class ProductBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private BrandBean brand;
+    private BrandBean brand = new BrandBean();
     private String description;
     private boolean forChild;
     private int id;
@@ -23,6 +21,7 @@ public class ProductBean implements Serializable {
     private boolean status;
     private boolean used;
     private float weight;
+    private static final long serialVersionUID = 1L;
 
     public BrandBean getBrand() {
         return brand;
@@ -80,14 +79,6 @@ public class ProductBean implements Serializable {
         return Collections.unmodifiableList(productImage);
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public String getThumb() {
         if (productImage.isEmpty()) {
             return "img/image-not-found.png";
@@ -104,7 +95,7 @@ public class ProductBean implements Serializable {
         this.weight = weight;
     }
 
-    public boolean getForChild() {
+    public boolean isForChild() {
         return forChild;
     }
 
@@ -112,7 +103,7 @@ public class ProductBean implements Serializable {
         this.forChild = forChild;
     }
 
-    public boolean getInexpensive() {
+    public boolean isInexpensive() {
         return inexpensive;
     }
 
@@ -120,7 +111,7 @@ public class ProductBean implements Serializable {
         this.inexpensive = inexpensive;
     }
 
-    public boolean getOnline() {
+    public boolean isOnline() {
         return online;
     }
 
@@ -136,6 +127,14 @@ public class ProductBean implements Serializable {
         this.professional = professional;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public boolean isUsed() {
         return used;
     }
@@ -144,7 +143,4 @@ public class ProductBean implements Serializable {
         this.used = used;
     }
 
-    public boolean isValid(){
-        return true;
-    }
 }

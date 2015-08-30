@@ -35,17 +35,19 @@
                         <button type="button" class="btn btn-info pull-right margin-1">
                             <span class="glyphicon glyphicon-plus">&nbsp;Ordine</span>
                         </button>
-                        <button type="button" class="btn btn-warning pull-right margin-1">
-                            <span class="glyphicon glyphicon-plus">&nbsp;Prodotto</span>
-                        </button>
+                        <h:link outcome="product.xhtml">
+                            <button type="button" class="btn btn-warning pull-right margin-1">
+                                <span class="glyphicon glyphicon-plus">&nbsp;Prodotto</span>
+                            </button>
+                        </h:link>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active fade in" id="products">
-                            <h:dataTable value="${filterController.onlineProducts}" var="product" 
+                            <h:dataTable value="${filterController.products}" var="product" 
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
-                                         columnClasses="column-image,,,,,,,,vertical-middle">
+                                         columnClasses="column-image,,,,,,,,,vertical-middle">
                                 <h:column>
                                     <f:facet name="header">Immagine</f:facet>    				
                                     <div class="gallery">
@@ -53,6 +55,10 @@
                                             <img class="img-responsive img-thumbnail" src="${product.thumb}" />
                                         </a>
                                     </div>
+                                </h:column>
+                                <h:column>    				
+                                    <f:facet name="header">#</f:facet>    				
+                                        ${product.id}
                                 </h:column>
                                 <h:column>    				
                                     <f:facet name="header">Nome</f:facet>    				

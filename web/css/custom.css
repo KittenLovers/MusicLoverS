@@ -86,4 +86,9 @@ footer > div > div {
 
 .alert {
     padding: 6px;
+    margin-bottom: 0px;
+}
+
+.height-34 {
+    height: 34px !important;
 }
