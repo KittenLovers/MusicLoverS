@@ -20,6 +20,7 @@ public class ProductController extends ControllerModel implements Serializable {
 
     public void editProduct() throws SQLException {
         selectedProduct.isValid();
+        //FacesContext.getCurrentInstance().addMessage("product-form:productName", new FacesMessage("Il nome del prodotto è obbligatorio!"));
         ProductModel.editProduct(selectedProduct);
     }
 

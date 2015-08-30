@@ -34,7 +34,7 @@ public abstract class ProductModel extends Model implements Serializable {
                 + "for_child = ?, used = ?, min_age = ?, brand_id = ? "
                 + "WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setBoolean(1, productBean.getStatus());
+            prepareStatement.setBoolean(1, productBean.isStatus());
             prepareStatement.setBoolean(2, productBean.getOnline());
             prepareStatement.setFloat(3, productBean.getWeight());
             prepareStatement.setFloat(4, productBean.getPrice());
@@ -104,6 +104,7 @@ public abstract class ProductModel extends Model implements Serializable {
                     query += "AND ";
                 }
             }
+            query += "ORDER BY id ASC";
         }
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             int i = 0;

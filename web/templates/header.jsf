@@ -23,8 +23,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Link</a></li>
+                            <li><a href="about.xhtml">About Us</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
@@ -38,14 +37,21 @@
                                 </ul>
                             </li>
                         </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><h:outputLink value="login.xhtml" rendered="${not authenticationController.logged}">Login</h:outputLink></li>
-                        </ul>
-                        <h:form class="navbar-form navbar-right" rendered="${authenticationController.logged}">
-                            <div class="form-group">
-                                <h:commandButton value="Logout" class="btn btn-warning" type="submit" action="${authenticationController.logout()}" />
-                            </div>
-                        </h:form>
+                        <ui:fragment rendered="${not authenticationController.logged}">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><h:outputLink value="login.xhtml">Login</h:outputLink></li>
+                            </ul>
+                        </ui:fragment>
+                        <ui:fragment rendered="${authenticationController.logged}">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><h:outputLink value="employer/">Amministrazione</h:outputLink></li>
+                                <h:form class="navbar-form navbar-right">
+                                    <div class="form-group">
+                                        <h:commandButton value="Logout" class="btn btn-warning" type="submit" action="${authenticationController.logout()}" />
+                                    </div>
+                                </h:form>
+                            </ul>
+                        </ui:fragment>
                     </div>
                 </div>
             </nav>

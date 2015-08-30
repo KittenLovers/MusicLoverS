@@ -11,7 +11,6 @@ public class ProductBean implements Serializable {
 
     private BrandBean brand;
     private String description;
-    private boolean enable;
     private boolean forChild;
     private int id;
     private boolean inexpensive;
@@ -81,7 +80,7 @@ public class ProductBean implements Serializable {
         return Collections.unmodifiableList(productImage);
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 

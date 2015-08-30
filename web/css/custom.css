@@ -68,6 +68,7 @@ footer > div > div {
 
 .vertical-middle {
     vertical-align: middle !important;
+    vertical-align: -webkit-baseline-middle !important;
 }
 
 .vertical-middle > tbody > tr > td {
@@ -81,4 +82,8 @@ footer > div > div {
     float: right;
     font-size: 15px;
     background-color: #A93030;
+}
+
+.alert {
+    padding: 6px;
 }

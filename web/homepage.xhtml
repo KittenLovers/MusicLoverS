@@ -16,12 +16,12 @@
             <ui:define name="windowTitle">Homepage</ui:define>
             <ui:define name="content">
                 <div class="page-header">
-                    <p class="lead">Benvenuti su MusicLovers.com, l'ultima frontiera del mercato Nero!</p>
+                    <h1>Benvenuti su MusicLovers.com <small>| L'ultima frontiera del mercato nero!</small></h1>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 text-justify">
                         <p class="lead">Filtra i prodotti</p>
-                        <h:form class="text-justify">                            
+                        <h:form class="margin-5">                            
                             <div class="checkbox">
                                 <h:selectBooleanCheckbox value="${filterController.forChild}" id="forChild">
                                     <f:ajax execute="forChild" render="product-list" 
