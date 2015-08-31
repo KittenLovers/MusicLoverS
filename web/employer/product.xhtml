@@ -13,6 +13,7 @@
     <body>
         <ui:composition template="/templates/template.jsf">
             <f:metadata>
+                <f:event type="preRenderView" listener="${authenticationController.checkEmployer()}" />
                 <f:viewAction action="${productController.setSelectedProduct(param.productID)}"/>
             </f:metadata>
             <ui:define name="windowTitle">Product</ui:define>
@@ -78,8 +79,8 @@
                             </div>
                             <h:message for="productBrand" styleClass="alert alert-danger col-xs-5" />
                         </div>
-                        <div class="checkbox col-xs-1"></div>
                         <div class="form-group">
+                            <div class="checkbox col-xs-1"></div>
                             <h:outputLabel value="Economico :" class="col-xs-2 control-label"/>
                             <div class="checkbox col-xs-1">
                                 <h:selectBooleanCheckbox value="${productController.selectedProduct.inexpensive}"/> 
@@ -89,8 +90,8 @@
                                 <h:selectBooleanCheckbox value="${productController.selectedProduct.professional}"/> 
                             </div>
                         </div>
-                        <div class="checkbox col-xs-1"></div>
                         <div class="form-group">
+                            <div class="checkbox col-xs-1"></div>
                             <h:outputLabel value="Per bambini :" class="col-xs-2 control-label"/>
                             <div class="checkbox col-xs-1">
                                 <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}"/> 
@@ -100,25 +101,27 @@
                                 <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
                             </div>
                         </div>
-                        <h:outputLabel value="Immagini" class="col-xs-1 control-label"/>
-                        <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
-                            <div class="product-img-remove-btn col-xs-2">
-                                <h:graphicImage value="${image}" class="little-thumb">
-                                    <h:commandLink>
-                                        <span class="glyphicon glyphicon-minus-sign"></span>
-                                        <f:ajax event="click" listener="${productController.removeImage(image)}" render="product-form"></f:ajax>
-                                    </h:commandLink>
-                                </h:graphicImage>
+                        <div class="checkbox col-xs-12"></div>
+                        <h:panelGroup id="image-list" class="form-group">
+                            <h:outputLabel value="Immagini" class="col-xs-1 control-label"/>
+                            <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                                <div class="product-img-remove-btn col-xs-2">
+                                    <h:graphicImage value="${image}" class="little-thumb">
+                                        <h:commandLink>
+                                            <span class="glyphicon glyphicon-minus-sign"></span>
+                                            <f:ajax listener="${productController.removeImage(image)}" render="product-form:image-list"/>
+                                        </h:commandLink>
+                                    </h:graphicImage>
+                                </div>
+                            </ui:repeat>
+                            <div class="col-xs-1">
+                                <h:inputFile id="product-image" value="${productController.file}">
+                                    <f:ajax event="valueChange" listener="${productController.processImage()}" execute="product-image" render="image-list"/>
+                                </h:inputFile>
                             </div>
-                        </ui:repeat>
-                        <div class="col-xs-1">
-                            <h:inputFile id="product-image" value="${productController.file}">
-                                <f:ajax event="valueChange" listener="${productController.processImage()}" execute="product-image" render="product-form"></f:ajax>
-                            </h:inputFile>
-                        </div>
-                        <div class="form-group">
-                        </div>
-                        <div class="checkbox col-xs-2"></div>
+                        </h:panelGroup>
+                        <div class="checkbox col-xs-12"></div>
+                        <div class="checkbox col-xs-1"></div>
                         <h:commandButton action="${productController.processProductForm()}" value="Invia" class="btn btn-info col-xs-6"/>
                     </h:form>
                 </div>
