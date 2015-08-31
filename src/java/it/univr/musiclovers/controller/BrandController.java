@@ -31,7 +31,7 @@ public class BrandController extends ControllerModel implements Serializable {
         this.selectedBrand = BrandModel.getBrand(brandId);
     }
 
-    public BrandBean getSelectedProduct() {
+    public BrandBean getSelectedBrand() {
         return selectedBrand;
     }
 

@@ -54,6 +54,7 @@ public abstract class OrderModel extends Model implements Serializable {
         orderBean.setSeller(EmployerModel.getAccount(resultSet.getInt("employer_id")));
         orderBean.setBuyer(null);
         orderBean.setOwner(CustomerModel.getProfessional(resultSet.getInt("owner_id")));
+        orderBean.setPaymentType(resultSet.getString("payment_type"));
         return orderBean;
     }
 

@@ -133,7 +133,7 @@ INSERT INTO MSL_PRODUCT_IMAGES(image, product_id) values
 ('img/products/p45a.jpg',   45),
 ('img/products/p45b.jpg',   45),
 ('img/products/p45c.jpg',   45),
-('img/products/p46d.jpg',   45),
+('img/products/p45d.jpg',   45),
 ('img/products/p46a.jpg',   46),
 ('img/products/p46b.jpg',   46),
 ('img/products/p46c.jpg',   46),

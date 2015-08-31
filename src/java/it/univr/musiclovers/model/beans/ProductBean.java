@@ -2,7 +2,6 @@ package it.univr.musiclovers.model.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ProductBean implements Serializable {

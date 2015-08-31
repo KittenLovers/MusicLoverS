@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 lead">
                         <b>Nome: </b><h:outputText value="${productController.selectedProduct.name}"/><br/>
-                        <b>Brand: </b><h:outputText value="${productController.selectedProduct.brand.name}"/><br/>
+                        <b>Brand: </b><h:link value="${productController.selectedProduct.brand.name}" outcome="${brandController.getBrand(productController.selectedProduct.brand.id)}"/><br/>
                         <b>Prezzo: </b><h:outputText value="${productController.selectedProduct.price}">
                             <f:convertNumber minFractionDigits="2" />
                         </h:outputText> €<br/>
@@ -36,7 +36,7 @@
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 zoom-gallery">
                         <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
                             <a href="${image}" data-source="${image}" title="${productController.selectedProduct.name}">
-                                <img src="${image}" class="img-responsive img-rounded margin-1" id="product-image"/>
+                                <h:graphicImage value="${image}" class="img-responsive img-rounded margin-1" id="product-image"/>
                             </a>
                         </ui:repeat>
                     </div>

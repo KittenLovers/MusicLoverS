@@ -1,6 +1,3 @@
-/**
- * Bean per la tabella Product
- */
 package it.univr.musiclovers.model.beans;
 
 import java.io.Serializable;
@@ -8,7 +5,6 @@ import java.io.Serializable;
 public class BrandBean implements Serializable {
 
     private String description;
-
     private int id;
     private String link;
     private String logo;

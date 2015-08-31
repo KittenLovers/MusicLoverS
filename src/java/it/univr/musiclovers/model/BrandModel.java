@@ -1,7 +1,5 @@
 package it.univr.musiclovers.model;
 
-import static it.univr.musiclovers.model.Model.getConnection;
-import static it.univr.musiclovers.model.Model.getTablePrefix;
 import it.univr.musiclovers.model.beans.*;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
