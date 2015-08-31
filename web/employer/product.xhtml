@@ -34,17 +34,21 @@
                     <div class="form-group">
                         <h:outputLabel value="Nome :" for="productName" class="col-xs-2 control-label"/>
                         <div class="col-xs-5">
-                            <h:inputText value="${productController.selectedProduct.name}" id="productName" class="form-control" required="true" requiredMessage="Il nome è obbligatorio"/>
+                            <h:inputText value="${productController.selectedProduct.name}" id="productName" class="form-control" required="true" requiredMessage="Il nome è obbligatorio">
+                                <f:validateRegex pattern="([a-zA-Z0-9.()\s-èòàùì'é@#])" />
+                            </h:inputText>   
                         </div>
                         <h:message for="productName" styleClass="alert alert-danger col-xs-5" />
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Peso (Kg):" for="productWeight" class="col-xs-2 control-label"/>
                         <div class="col-xs-2">
-                            <h:inputText value="${productController.selectedProduct.weight}" id="productWeight" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
-                                <f:convertNumber pattern="#0.000" />
+                            <h:inputText value="${productController.selectedProduct.weight}" id="productWeight" class="form-control" required="true" requiredMessage="Il peso è obbligatorio" validatorMessage="Peso non valido">
+                                <f:convertNumber pattern="#0.000" />                                    
+                                <f:validateDoubleRange minimum="0.001" />
                             </h:inputText>
                         </div>
+                        <h:message for="productWeight" styleClass="alert alert-danger col-xs-5" />
                         <h:outputLabel value="Stato :" class="col-xs-2 control-label"/>
                         <div class="checkbox col-xs-1">
                             <h:selectBooleanCheckbox value="${productController.selectedProduct.status}"/> 
@@ -53,10 +57,12 @@
                     <div class="form-group">
                         <h:outputLabel value="Prezzo :" for="productPrice" class="col-xs-2 control-label"/>
                         <div class="col-xs-2">
-                            <h:inputText value="${productController.selectedProduct.price}" id="productPrice" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
+                            <h:inputText value="${productController.selectedProduct.price}" id="productPrice" class="form-control" required="true" requiredMessage="Il prezzo è obbligatorio" validatorMessage="Prezzo non valido">
                                 <f:convertNumber type="currency" pattern="#0.00" />
+                                <f:validateDoubleRange minimum="0.01" />
                             </h:inputText>
                         </div>
+                        <h:message for="productPrice" styleClass="alert alert-danger col-xs-5" />
                         <h:outputLabel value="Online :" class="col-xs-2 control-label"/>
                         <div class="checkbox col-xs-1">
                             <h:selectBooleanCheckbox value="${productController.selectedProduct.online}"/> 

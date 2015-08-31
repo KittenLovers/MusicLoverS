@@ -101,7 +101,7 @@ footer > div > div {
     width: 100%;
 }
 
-.product-img-remove-btn > a {
+.product-img-remove-btn a {
     position: absolute;
     top: -15px;
     right: 22px;
