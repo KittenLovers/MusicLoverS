@@ -100,17 +100,23 @@
                                 <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
                             </div>
                         </div>
-                        <div class="form-group" id="images-list">
-                            <h:outputLabel value="Immagini" class="col-xs-2 control-label"/>
-                            <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
-                                <h:graphicImage value="${image}" class="little-thumb"/>
-                            </ui:repeat>
-                            <span class="btn btn-default btn-file">
-                            <span class="glyphicon glyphicon-plus-sign"/>
-                                <h:inputFile id="product-image">
-                                    <f:ajax event="click" listener="${productController.processImage()}" execute="product-image" render="images-list"></f:ajax>
-                                </h:inputFile>
-                            </span>
+                        <h:outputLabel value="Immagini" class="col-xs-1 control-label"/>
+                        <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                            <div class="product-img-remove-btn col-xs-2">
+                                <h:graphicImage value="${image}" class="little-thumb">
+                                    <h:commandLink>
+                                        <span class="glyphicon glyphicon-minus-sign"></span>
+                                        <f:ajax event="click" listener="${productController.removeImage(image)}" render="product-form"></f:ajax>
+                                    </h:commandLink>
+                                </h:graphicImage>
+                            </div>
+                        </ui:repeat>
+                        <div class="col-xs-1">
+                            <h:inputFile id="product-image" value="${productController.file}">
+                                <f:ajax event="valueChange" listener="${productController.processImage()}" execute="product-image" render="product-form"></f:ajax>
+                            </h:inputFile>
+                        </div>
+                        <div class="form-group">
                         </div>
                         <div class="checkbox col-xs-2"></div>
                         <h:commandButton action="${productController.processProductForm()}" value="Invia" class="btn btn-info col-xs-6"/>

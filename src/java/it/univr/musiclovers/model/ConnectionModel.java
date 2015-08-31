@@ -30,11 +30,14 @@ public class ConnectionModel implements Serializable {
 
     /**
      *
-     * @throws java.sql.SQLException
      */
-    protected static void cleanUp() throws SQLException {
+    protected static void cleanUp() {
         for (Entry<Integer, Entry<Integer, Connection>> connection : connectionPool.entrySet()) {
-            connection.getValue().getValue().close();
+            try {
+                connection.getValue().getValue().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ContextEventListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -47,10 +50,6 @@ public class ConnectionModel implements Serializable {
             model = new ConnectionModel();
         }
         return model;
-    }
-
-    private ConnectionModel() {
-        buildModel();
     }
 
     public static String getTablePrefix() {
@@ -107,6 +106,10 @@ public class ConnectionModel implements Serializable {
                 }
             }
         }
+    }
+
+    private ConnectionModel() {
+        buildModel();
     }
 
 }

@@ -98,6 +98,21 @@ footer > div > div {
     max-width: 140px; 
 }
 
+.product-img-remove-btn {
+}
+
+.product-img-remove-btn > a {
+    position: absolute;
+    top: -17px;
+    right: 22px;
+    font-size: 30px;
+    color: crimson;
+}
+
+.product-img-remove-btn > a:hover, .product-img-remove-btn > a:focus {
+    text-decoration: none;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;

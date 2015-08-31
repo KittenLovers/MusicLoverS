@@ -2,8 +2,15 @@ package it.univr.musiclovers.model;
 
 import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.Serializable;
-import java.sql.*;
-import java.util.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -13,19 +20,6 @@ import java.util.Map.Entry;
 public abstract class ProductModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public List<ProductBean> getProducts() throws SQLException {
-        ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT ORDER BY id ASC";
-        try (Statement statement = getConnection().createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    result.add(makeProduct(resultSet));
-                }
-            }
-        }
-        return result;
-    }
 
     public static void editProduct(ProductBean productBean) throws SQLException {
         String query = "UPDATE " + getTablePrefix() + "_product "
@@ -49,6 +43,8 @@ public abstract class ProductModel extends Model implements Serializable {
             prepareStatement.setInt(13, productBean.getId());
             prepareStatement.execute();
         }
+        removeProductImages(productBean.getId());
+        insertProductImages(productBean);
     }
 
     public static List<ProductBean> getOnlineProducts() throws SQLException {
@@ -151,20 +147,27 @@ public abstract class ProductModel extends Model implements Serializable {
                     throw new SQLException("Creating product failed, no ID obtained.");
                 }
             }
+            insertProductImages(productBean);
         }
-
     }
 
     public static void removeProduct(int productID) throws SQLException {
-        String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
+        removeProductImages(productID);
+        String query = "DELETE FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setInt(1, productID);
             prepareStatement.execute();
         }
-        query = "DELETE FROM " + getTablePrefix() + "_PRODUCT WHERE id = ?";
-        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, productID);
-            prepareStatement.execute();
+    }
+
+    private static void insertProductImages(ProductBean productBean) throws SQLException {
+        for (String image : productBean.getProductImages()) {
+            String query = "INSERT INTO " + getTablePrefix() + "_product_images (image, product_id) VALUES (?,?)";
+            try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+                prepareStatement.setString(1, image);
+                prepareStatement.setInt(2, productBean.getId());
+                prepareStatement.execute();
+            }
         }
     }
 
@@ -185,6 +188,14 @@ public abstract class ProductModel extends Model implements Serializable {
         productBean.setBrand(BrandModel.getBrand(resultSet.getInt("brand_id")));
         productBean.setProductImage(getProductImages(productBean.getId()));
         return productBean;
+    }
+
+    private static void removeProductImages(int productID) throws SQLException {
+        String query = "DELETE FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, productID);
+            prepareStatement.execute();
+        }
     }
 
 }

@@ -16,7 +16,7 @@ public class ProductBean implements Serializable {
     private String name;
     private boolean online;
     private float price;
-    private List<String> productImage;
+    private List<String> productImage = new ArrayList<>();
     private boolean professional;
     private boolean status;
     private boolean used;
@@ -76,7 +76,7 @@ public class ProductBean implements Serializable {
     }
 
     public List<String> getProductImages() {
-        return Collections.unmodifiableList(productImage);
+        return productImage;
     }
 
     public String getThumb() {
