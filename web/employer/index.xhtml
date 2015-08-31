@@ -27,6 +27,15 @@
                             <a href="#products" aria-controls="home" role="tab" data-toggle="tab">Prodotti</a>
                         </li>
                         <li role="presentation">
+                            <a href="#brands" aria-controls="home" role="tab" data-toggle="tab">Brands</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#customers" aria-controls="home" role="tab" data-toggle="tab">Clienti</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#accounts" aria-controls="home" role="tab" data-toggle="tab">Account</a>
+                        </li>
+                        <li role="presentation">
                             <a href="#orders" aria-controls="profile" role="tab" data-toggle="tab">Vendite</a>
                         </li>
                         <button type="button" class="btn btn-success pull-right margin-1">
@@ -139,6 +148,48 @@
                                 </h:column>
                             </h:dataTable>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="brands">
+                            <h:dataTable value="${brandController.brands}" var="brand" 
+                                         styleClass="table table-bordered table-hover table-responsive" 
+                                         headerClass="text-center" rowClasses="text-center" 
+                                         columnClasses="column-image,,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header">Logo</f:facet>    
+                                    <div class="gallery">
+                                        <a href="${brand.logo}" data-source="${brand.logo}" title="${brand.logo}">
+                                            <img class="img-responsive img-thumbnail" src="${brand.logo}" />
+                                        </a>
+                                    </div>
+                                </h:column>   
+                                <h:column>    				
+                                    <f:facet name="header"># ID</f:facet>    				
+                                        ${brand.id}
+                                </h:column>   
+                                <h:column>    				
+                                    <f:facet name="header">Nome</f:facet>    				
+                                    <h:outputLink value="${brand.link}" target="_blank">${brand.name}</h:outputLink>  
+                                </h:column>                      
+                                <h:column>
+                                    <f:facet name="header">Azioni</f:facet>
+                                    <h:form class="margin-5">
+                                        <h:link outcome="${brandController.getBrand(brand.id)}">
+                                            <button type="button" class="btn btn-info">
+                                                <span class="glyphicon glyphicon-pencil">&nbsp;Modifica</span>
+                                            </button>
+                                        </h:link>
+                                    </h:form>
+                                    <h:form class="margin-5">
+                                        <h:commandLink action="${brandController.removeBrand(brand.id)}">
+                                            <button type="button" class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-trash">&nbsp;Elimina</span>
+                                            </button>
+                                        </h:commandLink>
+                                    </h:form>
+                                </h:column>
+                            </h:dataTable>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="customers"></div>
+                        <div role="tabpanel" class="tab-pane fade" id="accounts"></div>
                         <div role="tabpanel" class="tab-pane fade" id="orders">
                             <h:dataTable value="${orderController.order}" var="order" 
                                          styleClass="table table-bordered table-hover table-responsive" 
@@ -153,12 +204,12 @@
                                         ${order.price}
                                 </h:column>                      
                                 <h:column>    				
-                                    <f:facet name="header">Sold date</f:facet>    				
-                                        ${order.soldDate}
-                                </h:column>                      
-                                <h:column>    				
                                     <f:facet name="header">Payment Type</f:facet>    				
                                         ${order.paymentType}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Sold date</f:facet>    				
+                                        ${order.soldDate}
                                 </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header">Product</f:facet>    
@@ -167,7 +218,7 @@
                                             <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
                                         </a>
                                     </div>
-                                    <b><h:link value="${order.product.name}" outcome="${productController.getProduct(order.product.id)}"/></b>
+                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
                                 </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header">Employer</f:facet>    				

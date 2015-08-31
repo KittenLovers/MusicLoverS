@@ -30,7 +30,7 @@ public abstract class BrandModel extends Model implements Serializable {
             prepareStatement.setString(4, selectedBrand.getLogo());
             prepareStatement.setInt(5, selectedBrand.getId());
             prepareStatement.execute();
-        }        
+        }
     }
 
     public static BrandBean getBrand(int id) throws SQLException {
@@ -82,11 +82,19 @@ public abstract class BrandModel extends Model implements Serializable {
                 } else {
                     throw new SQLException("Creating brand failed, no ID obtained.");
                 }
-            }            
+            }
         }
-    }    
+    }
 
-    public static BrandBean makeBrandBean(ResultSet resultSet) throws SQLException {
+    public static void removeBrand(int brandID) throws SQLException {
+        String query = "DELETE FROM " + getTablePrefix() + "_BRAND WHERE id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setInt(1, brandID);
+            prepareStatement.execute();
+        }
+    }
+
+    private static BrandBean makeBrandBean(ResultSet resultSet) throws SQLException {
         BrandBean brandBean = new BrandBean();
         brandBean.setId(resultSet.getInt("id"));
         brandBean.setName(resultSet.getString("name"));
@@ -94,14 +102,6 @@ public abstract class BrandModel extends Model implements Serializable {
         brandBean.setLink(resultSet.getString(4));
         brandBean.setLogo(resultSet.getString(5));
         return brandBean;
-    }
-
-    public static void removeBrand(int brandID) throws SQLException {        
-        String query = "DELETE FROM " + getTablePrefix() + "_BRAND WHERE id = ?";
-        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-            prepareStatement.setInt(1, brandID);
-            prepareStatement.execute();
-        }
     }
 
 }

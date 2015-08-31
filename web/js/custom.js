@@ -1,9 +1,15 @@
+$(window).load(function () {
+    // Animate loader off screen
+    $(".se-pre-con").delay(500).fadeOut("2000");
+    $("#contents").fadeIn("slow");
+});
+
 function mansory() {
     // init Isotope
     var $grid = $('.grid').isotope({
         itemSelector: '.grid-item',
         //percentPosition: true,
-        transitionDuration: '0.6s',
+        transitionDuration: '1s',
         masonry: {
             columnHeight: '.grid-item'
         }
@@ -11,7 +17,7 @@ function mansory() {
 
     // layout Isotope after each image loads
     $grid.imagesLoaded().progress(function () {
-        $grid.isotope('layout');
+        $grid.delay(1500).isotope('layout');
     });
 }
 
@@ -20,8 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function ajaxEvent(data) {
+    $(".se-pre-con").fadeIn("fast");
     if (data.status === "success") {
-        mansory();
+        $(".se-pre-con").delay(100).fadeOut("3000");
     }
 }
 
@@ -35,7 +42,8 @@ $(document).ready(function () {
         image: {
             verticalFit: true,
             titleSrc: function (item) {
-                return item.el.attr('title') + ' &middot; <a class="image-source-link" href="' + item.el.attr('data-source') + '" target="_blank">image source</a>';
+                return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'
+                        + item.el.attr('data-source') + '" target="_blank">image source</a>';
             }
         },
         gallery: {

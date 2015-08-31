@@ -13,7 +13,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <base href="/MusicLoverS/" />
 
-        <script src="https://code.jquery.com/jquery-2.1.4.js"/>
+        <script src="js/jquery-2.1.4.js"/>
 
         <title><ui:insert name="windowTitle"/></title>
         <link rel="stylesheet" href="css/bootstrap.css" />
@@ -30,8 +30,8 @@
         <script src="js/bootstrap.js"/>
         <script src="js/imagesloaded.pkgd.js"/>
         <script src="js/isotope.pkgd.js"/>
+        <script src="js/loadImg.js"></script>
         <script src="js/custom.js"/>
-
 
     </h:head>
 
@@ -41,7 +41,8 @@
         </ui:insert>
         <h:messages styleClass="alert" globalOnly="true" infoClass="alert-info" fatalClass="alert-danger"
                     warnClass="alert-warning" errorClass="alert-danger"/>
-        <div class="container">
+        <div class="se-pre-con"></div>
+        <div class="container" id="contents">
             <ui:insert name="content"/>
         </div>
         <ui:insert name="footer">

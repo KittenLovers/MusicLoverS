@@ -54,8 +54,11 @@
                     <h:commandButton action="${brandController.processBrandForm()}" value="Invia" type="submit" class="btn btn-info col-xs-2 col-xs-offset-2 button-send"/>
                 </h:form>
                 <h:panelGroup layout="block" id="image-list" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-10">
-                    <h:outputLabel value="Logo" class="col-xs-1 control-label"/>
-                    <h:graphicImage value="${brandController.selectedBrand.logo}" class="little-thumb" id="brand-logo"/>
+                    <div class="col-xs-1"></div>
+                    <h:outputLabel value="Logo :" class="col-xs-1 control-label"/>
+                    <div class="col-xs-4">
+                        <h:graphicImage value="${brandController.selectedBrand.logo}" class="little-thumb" id="brand-logo"/>
+                    </div>
                     <div class="col-xs-1">
                         <f:ajax event="valueChange" listener="${brandController.processImage()}" execute="logo" render="brand-logo">
                             <h:form enctype="multipart/form-data">
