@@ -80,7 +80,7 @@ public abstract class ProductModel extends Model implements Serializable {
 
     public static List<String> getProductImages(int productID) throws SQLException {
         LinkedList<String> result = new LinkedList<>();
-        String query = "SELECT image FROM " + getTablePrefix() + "_PRODUCT_IMAGES WHERE product_id = ?";
+        String query = "SELECT image FROM " + getTablePrefix() + "_product_images WHERE product_id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
             prepareStatement.setInt(1, productID);
             try (ResultSet resultSet = prepareStatement.executeQuery()) {

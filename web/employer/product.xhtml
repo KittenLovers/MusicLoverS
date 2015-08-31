@@ -5,9 +5,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <link rel="stylesheet" href="css/bootstrap.css" />
-        <link rel="stylesheet" href="css/bootstrap-theme.css" />
-        <link rel="stylesheet" href="css/custom.css" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/bootstrap-theme.css" />
+        <link rel="stylesheet" href="../css/custom.css" />
         <title>IGNORED</title>
     </head>
     <body>
@@ -24,7 +24,7 @@
                     </p>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h:form id="product-form" class="form-horizontal">
+                    <h:form id="product-form" class="form-horizontal" enctype="multipart/form-data" >
                         <div class="form-group">
                             <h:outputLabel value="ID :" class="col-xs-2 control-label"/>
                             <div class="col-xs-1">
@@ -45,9 +45,9 @@
                                     <f:convertNumber pattern="#0.000" />
                                 </h:inputText>
                             </div>
-                            <h:outputLabel value="Stato :" for="productStatus" class="col-xs-2 control-label"/>
+                            <h:outputLabel value="Stato :" class="col-xs-2 control-label"/>
                             <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.status}" id="productStatus"/> 
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.status}"/> 
                             </div>
                         </div>
                         <div class="form-group">
@@ -57,29 +57,63 @@
                                     <f:convertNumber type="currency" pattern="#0.00" />
                                 </h:inputText>
                             </div>
-                            <h:outputLabel value="Online :" for="productOnline" class="col-xs-2 control-label"/>
+                            <h:outputLabel value="Online :" class="col-xs-2 control-label"/>
                             <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.online}" id="productOnline"/> 
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.online}"/> 
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel value="Descrizione :" for="productDescription" class="col-xs-2 control-label"/>
                             <div class="col-xs-5">
-                                <h:inputTextarea value="${productController.selectedProduct.description}" id="productDescription" class="form-control"/>
+                                <h:inputTextarea value="${productController.selectedProduct.description}" id="productDescription" class="form-control" rows="5"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel value="Marchio :" for="productBrand" class="col-xs-2 control-label"/>
                             <div class="col-xs-5">
-                                <h:selectOneMenu value="#{productController.selectedProduct.brand.id}" id="productBrand" styleClass="form-control height-34" required="true" requiredMessage="Il marchio è obbligatorio">
-                                    <f:selectItem itemDisabled="true" itemLabel="Seleziona il marchio" />
-                                    <f:selectItems value="#{brandController.brands}" var="brand" itemLabel="#{brand.name}" itemValue="#{brand.id}" />
+                                <h:selectOneMenu value="${productController.selectedProduct.brand.id}" id="productBrand" styleClass="form-control height-34" required="true" requiredMessage="Il marchio è obbligatorio">
+                                    <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il marchio" />
+                                    <f:selectItems value="${brandController.brands}" var="brand" itemLabel="${brand.name}" itemValue="${brand.id}" />
                                 </h:selectOneMenu>
                             </div>
                             <h:message for="productBrand" styleClass="alert alert-danger col-xs-5" />
                         </div>
-                        <h:commandButton action="${productController.processProductForm()}" value="Modifica" class="btn btn-info">
-                        </h:commandButton>
+                        <div class="checkbox col-xs-1"></div>
+                        <div class="form-group">
+                            <h:outputLabel value="Economico :" class="col-xs-2 control-label"/>
+                            <div class="checkbox col-xs-1">
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.inexpensive}"/> 
+                            </div>
+                            <h:outputLabel value="Professionale :" class="col-xs-2 control-label"/>
+                            <div class="checkbox col-xs-1">
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.professional}"/> 
+                            </div>
+                        </div>
+                        <div class="checkbox col-xs-1"></div>
+                        <div class="form-group">
+                            <h:outputLabel value="Per bambini :" class="col-xs-2 control-label"/>
+                            <div class="checkbox col-xs-1">
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}"/> 
+                            </div>
+                            <h:outputLabel value="Usato :" class="col-xs-2 control-label"/>
+                            <div class="checkbox col-xs-1">
+                                <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
+                            </div>
+                        </div>
+                        <div class="form-group" id="images-list">
+                            <h:outputLabel value="Immagini" class="col-xs-2 control-label"/>
+                            <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                                <h:graphicImage value="${image}" class="little-thumb"/>
+                            </ui:repeat>
+                            <span class="btn btn-default btn-file">
+                            <span class="glyphicon glyphicon-plus-sign"/>
+                                <h:inputFile id="product-image">
+                                    <f:ajax event="click" listener="${productController.processImage()}" execute="product-image" render="images-list"></f:ajax>
+                                </h:inputFile>
+                            </span>
+                        </div>
+                        <div class="checkbox col-xs-2"></div>
+                        <h:commandButton action="${productController.processProductForm()}" value="Invia" class="btn btn-info col-xs-6"/>
                     </h:form>
                 </div>
             </ui:define>

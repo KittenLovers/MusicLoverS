@@ -6,14 +6,22 @@ package it.univr.musiclovers.model.beans;
 import java.io.Serializable;
 
 public class BrandBean implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    // === Properties ============================================================
-    private int id;
-    private String name;
     private String description;
+
+    private int id;
     private String link;
     private String logo;
+    private String name;
+    private static final long serialVersionUID = 1L;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -21,14 +29,6 @@ public class BrandBean implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLink() {
@@ -47,12 +47,12 @@ public class BrandBean implements Serializable {
         this.logo = logo;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
