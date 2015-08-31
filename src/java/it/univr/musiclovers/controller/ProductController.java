@@ -93,9 +93,9 @@ public class ProductController extends ControllerModel implements Serializable {
         return redirectString("index.xhtml");
     }
 
-    public void removeImage(String image) throws SQLException {
+    public String removeImage(String image) throws SQLException {
         selectedProduct.getProductImages().remove(image);
-        //ProductModel.editProduct(selectedProduct);
+        return "pippo.xhtml";
     }
 
     public void removeProduct(int productID) throws SQLException {

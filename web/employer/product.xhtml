@@ -24,107 +24,108 @@
                         <h:outputText value="Inserisci prodotto" rendered="${productController.selectedProduct.id == 0}"/>
                     </p>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h:form id="product-form" class="form-horizontal" enctype="multipart/form-data" >
-                        <div class="form-group">
-                            <h:outputLabel value="ID :" class="col-xs-2 control-label"/>
-                            <div class="col-xs-1">
-                                <h:inputText value="${productController.selectedProduct.id}" disabled="true" class="form-control"/>
-                            </div>
+                <h:form id="product-form" class="form-horizontal col-xs-12">
+                    <div class="form-group">
+                        <h:outputLabel value="ID :" class="col-xs-2 control-label"/>
+                        <div class="col-xs-1">
+                            <h:inputText value="${productController.selectedProduct.id}" disabled="true" class="form-control"/>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Nome :" for="productName" class="col-xs-2 control-label"/>
-                            <div class="col-xs-5">
-                                <h:inputText value="${productController.selectedProduct.name}" id="productName" class="form-control" required="true" requiredMessage="Il nome è obbligatorio"/>
-                            </div>
-                            <h:message for="productName" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Nome :" for="productName" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:inputText value="${productController.selectedProduct.name}" id="productName" class="form-control" required="true" requiredMessage="Il nome è obbligatorio"/>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Peso (Kg):" for="productWeight" class="col-xs-2 control-label"/>
-                            <div class="col-xs-2">
-                                <h:inputText value="${productController.selectedProduct.weight}" id="productWeight" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
-                                    <f:convertNumber pattern="#0.000" />
-                                </h:inputText>
-                            </div>
-                            <h:outputLabel value="Stato :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.status}"/> 
-                            </div>
+                        <h:message for="productName" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Peso (Kg):" for="productWeight" class="col-xs-2 control-label"/>
+                        <div class="col-xs-2">
+                            <h:inputText value="${productController.selectedProduct.weight}" id="productWeight" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
+                                <f:convertNumber pattern="#0.000" />
+                            </h:inputText>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Prezzo :" for="productPrice" class="col-xs-2 control-label"/>
-                            <div class="col-xs-2">
-                                <h:inputText value="${productController.selectedProduct.price}" id="productPrice" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
-                                    <f:convertNumber type="currency" pattern="#0.00" />
-                                </h:inputText>
-                            </div>
-                            <h:outputLabel value="Online :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.online}"/> 
-                            </div>
+                        <h:outputLabel value="Stato :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.status}"/> 
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Descrizione :" for="productDescription" class="col-xs-2 control-label"/>
-                            <div class="col-xs-5">
-                                <h:inputTextarea value="${productController.selectedProduct.description}" id="productDescription" class="form-control" rows="5"/>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Prezzo :" for="productPrice" class="col-xs-2 control-label"/>
+                        <div class="col-xs-2">
+                            <h:inputText value="${productController.selectedProduct.price}" id="productPrice" class="form-control" required="true" requiredMessage="Il peso è obbligatorio">
+                                <f:convertNumber type="currency" pattern="#0.00" />
+                            </h:inputText>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Marchio :" for="productBrand" class="col-xs-2 control-label"/>
-                            <div class="col-xs-5">
-                                <h:selectOneMenu value="${productController.selectedProduct.brand.id}" id="productBrand" styleClass="form-control height-34" required="true" requiredMessage="Il marchio è obbligatorio">
-                                    <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il marchio" />
-                                    <f:selectItems value="${brandController.brands}" var="brand" itemLabel="${brand.name}" itemValue="${brand.id}" />
-                                </h:selectOneMenu>
-                            </div>
-                            <h:message for="productBrand" styleClass="alert alert-danger col-xs-5" />
+                        <h:outputLabel value="Online :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.online}"/> 
                         </div>
-                        <div class="form-group">
-                            <div class="checkbox col-xs-1"></div>
-                            <h:outputLabel value="Economico :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.inexpensive}"/> 
-                            </div>
-                            <h:outputLabel value="Professionale :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.professional}"/> 
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Descrizione :" for="productDescription" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:inputTextarea value="${productController.selectedProduct.description}" id="productDescription" class="form-control" rows="5"/>
                         </div>
-                        <div class="form-group">
-                            <div class="checkbox col-xs-1"></div>
-                            <h:outputLabel value="Per bambini :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}"/> 
-                            </div>
-                            <h:outputLabel value="Usato :" class="col-xs-2 control-label"/>
-                            <div class="checkbox col-xs-1">
-                                <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Marchio :" for="productBrand" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:selectOneMenu value="${productController.selectedProduct.brand.id}" id="productBrand" styleClass="form-control height-34" required="true" requiredMessage="Il marchio è obbligatorio">
+                                <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il marchio" />
+                                <f:selectItems value="${brandController.brands}" var="brand" itemLabel="${brand.name}" itemValue="${brand.id}" />
+                            </h:selectOneMenu>
                         </div>
-                        <div class="checkbox col-xs-12"></div>
-                        <h:panelGroup id="image-list" class="form-group">
-                            <h:outputLabel value="Immagini" class="col-xs-1 control-label"/>
-                            <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
-                                <div class="product-img-remove-btn col-xs-2">
-                                    <h:graphicImage value="${image}" class="little-thumb">
-                                        <h:commandLink>
+                        <h:message for="productBrand" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1"></div>
+                        <h:outputLabel value="Economico :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.inexpensive}"/> 
+                        </div>
+                        <h:outputLabel value="Professionale :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.professional}"/> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1"></div>
+                        <h:outputLabel value="Per bambini :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}"/> 
+                        </div>
+                        <h:outputLabel value="Usato :" class="col-xs-2 control-label"/>
+                        <div class="checkbox col-xs-1">
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
+                        </div>
+                    </div>
+                    <div class="col-xs-12"></div>
+                    <h:commandButton action="${productController.processProductForm()}" value="Invia" type="submit" class="btn btn-info col-xs-2 col-xs-offset-2 button-send"/>
+                </h:form>
+                <h:panelGroup layout="block" id="image-list" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-10">
+                    <h:outputLabel value="Immagini" class="col-xs-1 control-label"/>
+                    <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
+                        <div class="product-img-remove-btn col-xs-2">
+                            <h:graphicImage value="${image}" class="little-thumb">
+                                <f:ajax event="click" listener="${productController.removeImage(image)}" execute="" render="image-list">
+                                    <h:form enctype="multipart/form-data" class="product-img-remove-btn">
+                                        <a>          
                                             <span class="glyphicon glyphicon-minus-sign"></span>
-                                            <f:ajax listener="${productController.removeImage(image)}" render="product-form:image-list"/>
-                                        </h:commandLink>
-                                    </h:graphicImage>
-                                </div>
-                            </ui:repeat>
-                            <div class="col-xs-1">
-                                <h:inputFile id="product-image" value="${productController.file}">
-                                    <f:ajax event="valueChange" listener="${productController.processImage()}" execute="product-image" render="image-list"/>
-                                </h:inputFile>
-                            </div>
-                        </h:panelGroup>
-                        <div class="checkbox col-xs-12"></div>
-                        <div class="checkbox col-xs-1"></div>
-                        <h:commandButton action="${productController.processProductForm()}" value="Invia" class="btn btn-info col-xs-6"/>
-                    </h:form>
-                </div>
+                                        </a>
+                                    </h:form>
+                                </f:ajax>
+                            </h:graphicImage>
+                        </div>
+                    </ui:repeat>
+                    <div class="col-xs-1">
+                        <f:ajax event="valueChange" listener="${productController.processImage()}" execute="product-image" render="image-list">
+                            <h:form enctype="multipart/form-data">
+                                <h:inputFile id="product-image" value="${productController.file}"/>
+                            </h:form>
+                        </f:ajax>
+                    </div>
+                </h:panelGroup>
             </ui:define>
         </ui:composition>
     </body>

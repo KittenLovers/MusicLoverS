@@ -101,15 +101,13 @@ footer > div > div {
     width: 100%;
 }
 
-.product-img-remove-btn {
-}
-
 .product-img-remove-btn > a {
     position: absolute;
-    top: -17px;
+    top: -15px;
     right: 22px;
     font-size: 30px;
     color: crimson;
+    cursor: pointer;
 }
 
 
@@ -137,4 +135,10 @@ footer > div > div {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.button-send {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
