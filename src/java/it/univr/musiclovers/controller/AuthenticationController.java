@@ -4,6 +4,7 @@ import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.EmployerModel;
 import it.univr.musiclovers.model.beans.AccountBean;
 import it.univr.musiclovers.model.beans.PersonBean;
+import it.univr.musiclovers.model.beans.ProfessionalBean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -59,6 +60,10 @@ public class AuthenticationController extends ControllerModel implements Seriali
 
     public void setUsername(String username) {
         accountBean.setUsername(username);
+    }
+    
+    public int getProfessionalID() {
+        return ((ProfessionalBean)accountBean.getPerson()).getId();
     }
 
     public boolean isLogged() {
