@@ -4,6 +4,7 @@ import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.beans.CustomerBean;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -20,6 +21,10 @@ public class CustomerController extends ControllerModel implements Serializable 
     
     public String getCustomer(int customerID) {
         return addParam(normalizeUrl("customer"), "customerID", String.valueOf(customerID));
+    }
+    
+    public List<CustomerBean> getCustomers() throws SQLException {
+        return CustomerModel.getCustomers();
     }
 
     public CustomerBean getSelectedCustomer() {

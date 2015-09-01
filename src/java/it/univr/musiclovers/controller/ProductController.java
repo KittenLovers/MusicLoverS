@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -50,6 +52,10 @@ public class ProductController extends ControllerModel implements Serializable {
 
     public String getProduct(int productID) {
         return addParam(normalizeUrl("product"), "productID", String.valueOf(productID));
+    }
+    
+    public List<ProductBean> getProducts() throws SQLException {
+        return ProductModel.getProducts(new HashMap<>());
     }
 
     public ProductBean getSelectedProduct() {

@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,6 +31,19 @@ public abstract class CustomerModel extends Model implements Serializable {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     result = makeCustomerBean(resultSet);
+                }
+            }
+        }
+        return result;
+    }
+    
+    public static List<CustomerBean> getCustomers() throws SQLException {
+        ArrayList<CustomerBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_customer ORDER BY id ASC";
+        try (Statement statement = getConnection().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeCustomerBean(resultSet));
                 }
             }
         }
@@ -62,6 +77,19 @@ public abstract class CustomerModel extends Model implements Serializable {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     result = makeProfessionalBean(resultSet);
+                }
+            }
+        }
+        return result;
+    }
+    
+    public static List<ProfessionalBean> getProfessionals() throws SQLException {
+        ArrayList<ProfessionalBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_professional ORDER BY id ASC";
+        try (Statement statement = getConnection().createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    result.add(makeProfessionalBean(resultSet));
                 }
             }
         }
