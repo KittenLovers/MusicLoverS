@@ -39,7 +39,7 @@
         <ui:insert name="header">
             <ui:include src="/templates/header.jsf" />
         </ui:insert>
-        <h:messages styleClass="text-center list-no-decoration" globalOnly="true" 
+        <h:messages styleClass="text-center list-no-decoration" globalOnly="true" showDetail="true" 
                     infoClass="alert alert-info alert-dismissible" fatalClass="alert alert-danger alert-dismissible"
                     warnClass="alert alert-warning alert-dismissible" errorClass="alert alert-danger alert-dismissible"/>
         <div class="se-pre-con"></div>

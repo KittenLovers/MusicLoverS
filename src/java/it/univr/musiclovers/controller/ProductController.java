@@ -95,7 +95,7 @@ public class ProductController extends ControllerModel implements Serializable {
         if (OrderModel.getOrdersByProduct(productID).isEmpty()) {
             ProductModel.removeProduct(productID);
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Impossibile elminare prodotto","Impossibile eliminare un prodotto a cui vi sono ancora ordini associati!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Errore", ":  impossibile eliminare un prodotto a cui vi sono ancora ordini associati!"));
         }
     }
 
