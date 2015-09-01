@@ -8,8 +8,19 @@ import java.io.Serializable;
  */
 public class ProfessionalBean extends CustomerBean implements PersonBean, Serializable {
 
+    private int accountID;
+
     private String reduction;
     private String role;
+    private static final long serialVersionUID = 1L;
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
 
     public String getReduction() {
         return reduction;

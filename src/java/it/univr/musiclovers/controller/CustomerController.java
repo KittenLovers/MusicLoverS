@@ -16,15 +16,19 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CustomerController extends ControllerModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;   
     private CustomerBean selectedCustomer;
-    
+    private static final long serialVersionUID = 1L;
+
     public String getCustomer(int customerID) {
         return addParam(normalizeUrl("customer"), "customerID", String.valueOf(customerID));
     }
-    
+
     public List<CustomerBean> getCustomers() throws SQLException {
         return CustomerModel.getCustomers();
+    }
+
+    public List<Integer> getProfessionalIDs() throws SQLException {
+        return CustomerModel.getProfessionalIDs();
     }
 
     public CustomerBean getSelectedCustomer() {
@@ -33,7 +37,7 @@ public class CustomerController extends ControllerModel implements Serializable 
 
     public void setSelectedCustomer(int customerID) throws SQLException {
         this.selectedCustomer = CustomerModel.getCustomer(customerID);
-    }    
+    }
 
     public String processCustomerForm() throws SQLException {
         if (selectedCustomer.getId() > 0) {
@@ -42,7 +46,7 @@ public class CustomerController extends ControllerModel implements Serializable 
             CustomerModel.insertCustomer(selectedCustomer);
         }
         return redirectString("index.xhtml");
-    }    
+    }
 
     public void removeCustomer(int customerID) throws SQLException {
         CustomerModel.removeCustomer(customerID);

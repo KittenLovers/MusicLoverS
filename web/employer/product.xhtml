@@ -35,7 +35,7 @@
                         <h:outputLabel value="Nome :" for="productName" class="col-xs-2 control-label"/>
                         <div class="col-xs-5">
                             <h:inputText value="${productController.selectedProduct.name}" id="productName" class="form-control" required="true" requiredMessage="Il nome è obbligatorio">
-                                <f:validateRegex pattern="([a-zA-Z0-9.()\s-èòàùì'é@#])" />
+                                <!--<f:validateRegex pattern="([a-zA-Z0-9.()\s-èòàùì'é@#])" />-->
                             </h:inputText>   
                         </div>
                         <h:message for="productName" styleClass="alert alert-danger col-xs-5" />
@@ -97,14 +97,23 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-1"></div>
-                        <h:outputLabel value="Per bambini :" class="col-xs-2 control-label"/>
+                        <h:outputLabel value="Per bambini :" class="col-xs-2 control-label" for="forChild"/>
                         <div class="checkbox col-xs-1">
-                            <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}"/> 
+                            <h:selectBooleanCheckbox value="${productController.selectedProduct.forChild}" id="forChild">
+                                <f:ajax event="click" render="productMinAge forChild" /> 
+                            </h:selectBooleanCheckbox> 
                         </div>
                         <h:outputLabel value="Usato :" class="col-xs-2 control-label"/>
                         <div class="checkbox col-xs-1">
                             <h:selectBooleanCheckbox value="${productController.selectedProduct.used}"/> 
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-1"></div>
+                        <h:outputLabel value="Et&agrave; minima :" for="productMinAge" class="col-xs-2 control-label"/>
+                        <div class="col-xs-2">
+                            <h:inputText value="${productController.selectedProduct.minAge}" disabled="#{not productController.selectedProduct.forChild}" id="productMinAge" class="form-control" required="true" requiredMessage="Il prezzo è obbligatorio" validatorMessage="Prezzo non valido"/>                        </div>
+                        <h:message for="productMinAge" styleClass="alert alert-danger col-xs-5" />
                     </div>
                     <div class="col-xs-12"></div>
                     <h:commandButton action="${productController.processProductForm()}" value="Invia" type="submit" class="btn btn-info col-xs-2 col-xs-offset-2 button-send"/>

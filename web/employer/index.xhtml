@@ -39,13 +39,15 @@
                             <a href="#orders" aria-controls="profile" role="tab" data-toggle="tab">Vendite</a>
                         </li>
                         <h:link outcome="customer.xhtml">
-                        <button type="button" class="btn btn-success pull-right margin-1">
-                            <span class="glyphicon glyphicon-plus">&nbsp;Cliente</span>
-                        </button>
+                            <button type="button" class="btn btn-success pull-right margin-1">
+                                <span class="glyphicon glyphicon-plus">&nbsp;Cliente</span>
+                            </button>
                         </h:link>
-                        <button type="button" class="btn btn-info pull-right margin-1">
-                            <span class="glyphicon glyphicon-plus">&nbsp;Ordine</span>
-                        </button>
+                        <h:link outcome="order.xhtml">
+                            <button type="button" class="btn btn-info pull-right margin-1">
+                                <span class="glyphicon glyphicon-plus">&nbsp;Ordine</span>
+                            </button>
+                        </h:link>
                         <h:link outcome="product.xhtml">
                             <button type="button" class="btn btn-warning pull-right margin-1">
                                 <span class="glyphicon glyphicon-plus">&nbsp;Prodotto</span>
@@ -190,7 +192,64 @@
                                 </h:column>
                             </h:dataTable>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="customers"></div>
+                        <div role="tabpanel" class="tab-pane fade" id="customers">
+                            <h:dataTable value="${customerController.customers}" var="customer" 
+                                         styleClass="table table-bordered table-hover table-responsive" 
+                                         headerClass="text-center" rowClasses="text-center" 
+                                         columnClasses=",,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header"># ID</f:facet>    				
+                                        ${customer.id}
+                                </h:column>   
+                                <h:column>    				
+                                    <f:facet name="header">Nome</f:facet>    				
+                                        ${customer.name}
+                                </h:column>   
+                                <h:column>    				
+                                    <f:facet name="header">Cognome</f:facet>    				
+                                        ${customer.surname}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Email</f:facet>    				
+                                        ${customer.email}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Codice Fiscale</f:facet>    				
+                                        ${customer.code}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Cognome</f:facet>    				
+                                        ${customer.surname}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Professionista</f:facet>
+                                    <h:outputFormat rendered="${customerController.professionalIDs.contains(customer.id)}">
+                                        <span class="glyphicon glyphicon-ok text-success"/>
+                                    </h:outputFormat>
+                                    <h:outputFormat rendered="${not customerController.professionalIDs.contains(customer.id)}">
+                                        <span class="glyphicon glyphicon-remove text-danger"/>
+                                    </h:outputFormat>                           
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Azioni</f:facet>
+                                    <h:form class="margin-5">
+                                        <h:link outcome="${customerController.getCustomer(customer.id)}">
+                                            <button type="button" class="btn btn-info">
+                                                <span class="glyphicon glyphicon-pencil">&nbsp;Modifica</span>
+                                            </button>
+                                        </h:link>
+                                    </h:form>
+                                    <h:form class="margin-5">
+                                        <h:commandLink action="${customerController.removeCustomer(customer.id)}">
+                                            <button type="button" class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-trash">&nbsp;Elimina</span>
+                                            </button>
+                                        </h:commandLink>
+                                    </h:form>
+                                </h:column>
+                            </h:dataTable>
+
+                        </div>
                         <div role="tabpanel" class="tab-pane fade" id="accounts"></div>
                         <div role="tabpanel" class="tab-pane fade" id="orders">
                             <h:dataTable value="${orderController.order}" var="order" 
