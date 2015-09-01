@@ -2,6 +2,7 @@ package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.beans.CustomerBean;
+import it.univr.musiclovers.model.beans.ProfessionalBean;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,6 +28,10 @@ public class CustomerController extends ControllerModel implements Serializable 
         return CustomerModel.getCustomers();
     }
 
+    public List<ProfessionalBean> getProfessionals() throws SQLException {
+        return CustomerModel.getProfessionals();
+    }
+    
     public List<Integer> getProfessionalIDs() throws SQLException {
         return CustomerModel.getProfessionalIDs();
     }

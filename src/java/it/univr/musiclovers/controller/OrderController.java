@@ -1,9 +1,9 @@
 package it.univr.musiclovers.controller;
 
+import static it.univr.musiclovers.controller.ControllerModel.redirectString;
 import static it.univr.musiclovers.model.Model.getConnection;
 import static it.univr.musiclovers.model.Model.getTablePrefix;
 import it.univr.musiclovers.model.OrderModel;
-import it.univr.musiclovers.model.beans.CustomerBean;
 import it.univr.musiclovers.model.beans.EmployerBean;
 import it.univr.musiclovers.model.beans.OrderBean;
 import java.io.Serializable;
@@ -23,19 +23,19 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class OrderController extends ControllerModel implements Serializable {
 
-    private OrderBean orderBeans;
+    private OrderBean selectedOrder;    
     private static final long serialVersionUID = 1L;
 
     public List<OrderBean> getOrder() throws SQLException {
         return OrderModel.getOrders();
     }
 
-    public OrderBean getOrderBeans() {
-        return orderBeans;
+    public OrderBean getSelectedOrder() {
+        return selectedOrder;
     }
 
-    public void setOrderBeans(OrderBean orderBeans) {
-        this.orderBeans = orderBeans;
+    public void setSelectedOrder(int orderID) throws SQLException {
+        this.selectedOrder = OrderModel.getOrder(orderID);
     }
 
     public String getProduct(int orderID) {
@@ -44,6 +44,15 @@ public class OrderController extends ControllerModel implements Serializable {
 
     public void removeOrder(int orderID) throws SQLException {
 
+    }
+    
+    public String processProductOrderForm() throws SQLException {
+        if (selectedOrder.getID() > 0) {
+            OrderModel.editOrder(selectedOrder);
+        } else {
+            OrderModel.insertOrder(selectedOrder);
+        }
+        return redirectString("index.xhtml");
     }
     
     public List<EmployerBean> getEmployers() throws SQLException{

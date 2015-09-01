@@ -1,6 +1,6 @@
 package it.univr.musiclovers.model.beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -9,12 +9,12 @@ import java.util.Date;
 public class OrderBean {
 
     private int ID;
-    private CustomerBean buyer;
-    private ProfessionalBean owner;
+    private CustomerBean buyer = new CustomerBean();
+    private ProfessionalBean owner = new ProfessionalBean();
     private String paymentType;
     private float price;
-    private ProductBean product;
-    private EmployerBean seller;
+    private ProductBean product = new ProductBean();
+    private EmployerBean seller = new EmployerBean();
     private Date soldDate;
 
     public CustomerBean getBuyer() {

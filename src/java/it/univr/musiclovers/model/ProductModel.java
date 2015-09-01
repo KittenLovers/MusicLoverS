@@ -90,7 +90,7 @@ public abstract class ProductModel extends Model implements Serializable {
 
     public static List<ProductBean> getProducts(Map<String, Boolean> filters) throws SQLException {
         ArrayList<ProductBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_PRODUCT ";
+        String query = "SELECT * FROM " + getTablePrefix() + "_product ";
         if (filters.size() > 0) {
             query += "WHERE ";
             for (Iterator<Entry<String, Boolean>> it = filters.entrySet().iterator(); it.hasNext();) {

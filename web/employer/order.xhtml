@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/bootstrap-theme.css" />
+        <link rel="stylesheet" href="../css/custom.css" />
+        <title>IGNORED</title>
+    </head>
+    <body>
+        <ui:composition template="/templates/template.jsf">
+            <f:metadata>
+                <f:event type="preRenderView" listener="${authenticationController.checkEmployer()}" />
+                <f:viewAction action="${orderController.setSelectedOrder(param.orderID)}"/>
+            </f:metadata>
+            <ui:define name="windowTitle">Order</ui:define>
+            <ui:define name="content">
+                <div class="page-header">
+                    <p class="lead">
+                        <h:outputText value="Modifica order" rendered="${orderController.selectedOrder.ID > 0}"/>
+                        <h:outputText value="Inserisci order" rendered="${orderController.selectedOrder.ID == 0}"/>
+                    </p>
+                </div>
+                <h:form id="order-form" class="form-horizontal col-xs-12">
+                    <div class="form-group">
+                        <h:outputLabel value="ID :" class="col-xs-2 control-label"/>
+                        <div class="col-xs-1">
+                            <h:inputText value="${orderController.selectedOrder.ID}" disabled="true" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Prodotto :" for="orderProduct" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:selectOneMenu value="${orderController.selectedOrder.product.id}" id="orderProduct" styleClass="form-control height-34" required="true" requiredMessage="Il prodotto è obbligatorio">
+                                <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il prodotto" />
+                                <f:selectItems value="${productController.products}" var="product" itemLabel="${product.name}" itemValue="${product.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <h:message for="orderProduct" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Prezzo :" for="orderPrice" class="col-xs-2 control-label"/>
+                        <div class="col-xs-2">
+                            <h:inputText value="${orderController.selectedOrder.price}" id="orderPrice" class="form-control" required="true" requiredMessage="Il prezzo è obbligatorio" validatorMessage="Prezzo non valido">
+                                <f:convertNumber pattern="#0.00" />                                    
+                                <f:validateDoubleRange minimum="0.01" />
+                            </h:inputText>
+                        </div>
+                        <h:message for="orderPrice" styleClass="alert alert-danger col-xs-5" />                        
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Pagamento :" for="orderPaymentType" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:inputText value="${orderController.selectedOrder.paymentType}" id="orderPaymentType" class="form-control" required="true" requiredMessage="La modalità di pagamento è obbligatoria" />                               
+                        </div>
+                        <h:message for="orderPaymentType" styleClass="alert alert-danger col-xs-5" />                        
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Acquirente :" for="orderBuyer" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:selectOneMenu value="${orderController.selectedOrder.buyer.id}" id="orderBuyer" styleClass="form-control height-34" required="true" requiredMessage="L'acquirente è obbligatorio">
+                                <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona l'acquirente" />
+                                <f:selectItems value="${customerController.customers}" var="customer" itemLabel="${customer.email}" itemValue="${customer.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <h:message for="orderBuyer" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Commesso :" for="orderSeller" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:selectOneMenu value="${orderController.selectedOrder.seller.id}" id="orderSeller" styleClass="form-control height-34" required="true" requiredMessage="Il commesso è obbligatorio">
+                                <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il commesso" />
+                                <f:selectItems value="${orderController.employers}" var="employer" itemLabel="${employer.code}" itemValue="${employer.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <h:message for="orderBuyer" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Proprietario :" for="orderOwner" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:selectOneMenu value="${orderController.selectedOrder.owner.id}" id="orderOwner" styleClass="form-control height-34">
+                                <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il proprietario" />
+                                <f:selectItems value="${customerController.professionals}" var="professional" itemLabel="${professional.email}" itemValue="${professional.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <h:message for="orderBuyer" styleClass="alert alert-danger col-xs-5" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Data di vendita :" for="orderSoldDate" class="col-xs-2 control-label"/>
+                        <div class="col-xs-5">
+                            <h:inputText value="${orderController.selectedOrder.soldDate}" id="orderSoldDate" class="form-control" required="true" requiredMessage="La data di vendita è obbligatoria" />                               
+                        </div>
+                        <h:message for="orderSoldDate" styleClass="alert alert-danger col-xs-5" />                        
+                    </div>
+                    <div class="col-xs-12"></div>
+                    <h:commandButton action="${orderController.processOrderForm()}" value="Invia" type="submit" class="btn btn-info col-xs-2 col-xs-offset-2 button-send"/>
+                    <h:button outcome="${orderController.cancel()}" value="Annulla" class="btn btn-danger col-xs-2 col-xs-offset-2 button-cancel"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+

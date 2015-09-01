@@ -116,7 +116,8 @@ public abstract class CustomerModel extends Model implements Serializable {
 
     public static List<ProfessionalBean> getProfessionals() throws SQLException {
         ArrayList<ProfessionalBean> result = new ArrayList<>();
-        String query = "SELECT * FROM " + getTablePrefix() + "_professional";
+        String query = "SELECT * FROM " + getTablePrefix() + "_professional "
+                + "JOIN " + getTablePrefix() + "_customer  ON id = customer_id";
         try (Statement statement = getConnection().createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(query)) {
                 while (resultSet.next()) {
