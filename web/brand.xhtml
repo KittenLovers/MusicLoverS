@@ -23,7 +23,7 @@
                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 lead">
                         <b>Nome: </b><h:outputText value="${brandController.selectedBrand.name}"/><br/>
                         <b>Sito web: </b>
-                        <h:outputLink target="_blank" href="${brandController.selectedBrand.link}">${brandController.selectedBrand.link}</h:outputLink>
+                        <h:outputLink target="_blank" value="${brandController.selectedBrand.link}">${brandController.selectedBrand.link}</h:outputLink>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 text-center">
                         <h:graphicImage value="${brandController.selectedBrand.logo}" class="img-responsive img-rounded"/>

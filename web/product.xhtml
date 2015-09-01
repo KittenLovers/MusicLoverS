@@ -29,13 +29,39 @@
                         <b>Peso: </b><h:outputText value="${productController.selectedProduct.weight}">
                             <f:convertNumber minFractionDigits="2" />
                         </h:outputText> Kg<br/>
-                        <h:outputFormat rendered="${product.minAge > 0}">
-                            <b>Et&agrave; minima:</b> <span class="badge"> ${product.minAge}</span><br/>
-                        </h:outputFormat>
+                        <table class="table-responsive table-condensed margin-top-10"> 
+                            <tr><td>Economico:</td>
+                                <td>
+                                    <h:outputFormat rendered="${productController.selectedProduct.inexpensive}"><span class="glyphicon glyphicon-ok text-success"/></h:outputFormat>
+                                    <h:outputFormat rendered="${not productController.selectedProduct.inexpensive}"><span class="glyphicon glyphicon-remove text-danger"/></h:outputFormat>                              
+                                </td>
+                            </tr>
+                            <tr><td>Professionale:</td>
+                                <td>
+                                    <h:outputFormat rendered="${productController.selectedProduct.professional}"><span class="glyphicon glyphicon-ok text-success"/></h:outputFormat>
+                                    <h:outputFormat rendered="${not productController.selectedProduct.professional}"><span class="glyphicon glyphicon-remove text-danger"/></h:outputFormat>                           
+                                </td>
+                            </tr>
+                            <tr><td>Usato:</td>
+                                <td>
+                                    <h:outputFormat rendered="${productController.selectedProduct.used}"><span class="glyphicon glyphicon-ok text-success"/></h:outputFormat>
+                                    <h:outputFormat rendered="${not productController.selectedProduct.used}"><span class="glyphicon glyphicon-remove text-danger"/></h:outputFormat>                                
+                                </td>
+                            </tr>
+                            <tr><td>Per bambini:</td>
+                                <td>
+                                    <h:outputFormat rendered="${productController.selectedProduct.forChild}"><span class="glyphicon glyphicon-ok text-success"/></h:outputFormat>
+                                    <h:outputFormat rendered="${not productController.selectedProduct.forChild}"><span class="glyphicon glyphicon-remove text-danger"/></h:outputFormat>                                
+                                </td>
+                            </tr>
+                            <h:outputFormat rendered="${productController.selectedProduct.minAge > 0}">
+                                <tr><td>Et&agrave; minima:</td><td><span class="badge"> ${productController.selectedProduct.minAge}</span></td></tr>
+                            </h:outputFormat>
+                        </table>
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 zoom-gallery">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 zoom-gallery grid">
                         <ui:repeat value="${productController.selectedProduct.productImages}" var="image">
-                            <a href="${image}" data-source="${image}" title="${productController.selectedProduct.name}">
+                            <a href="${image}" data-source="${image}" title="${productController.selectedProduct.name}" class="grid-item">
                                 <h:graphicImage value="${image}" class="img-responsive img-rounded margin-1" id="product-image"/>
                             </a>
                         </ui:repeat>

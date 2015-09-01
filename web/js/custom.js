@@ -1,7 +1,7 @@
 $(window).load(function () {
     // Animate loader off screen
-    $(".se-pre-con").delay(500).fadeOut("2000");
-    $("#contents").fadeIn("slow");
+    $(".se-pre-con").fadeOut("slow");
+    $('#contents').css('visibility', 'visible').hide().fadeIn("fast");
 });
 
 function mansory() {
@@ -26,9 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function ajaxEvent(data) {
-    $(".se-pre-con").fadeIn("fast");
+//    $(".se-pre-con").fadeIn("fast");
+    $(".se-pre-con").show();
     if (data.status === "success") {
-        $(".se-pre-con").delay(100).fadeOut("3000");
+        $(".se-pre-con").fadeOut("slow");
+        mansory();
     }
 }
 
@@ -68,4 +70,5 @@ $(document).ready(function () {
             type: 'image'
         });
     });
+
 });
