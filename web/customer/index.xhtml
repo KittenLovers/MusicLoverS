@@ -29,7 +29,16 @@
                             <h:dataTable value="${orderController.getOrdersBySeller(authenticationController.professionalID)}" var="order" 
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
-                                         columnClasses=",,,,column-image,,,,vertical-middle">
+                                         columnClasses="column-image,,,,,,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header">Product</f:facet>    
+                                    <div class="gallery">
+                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
+                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
+                                        </a>
+                                    </div>
+                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
+                                </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header"># ID</f:facet>    				
                                         ${order.ID}
@@ -45,15 +54,6 @@
                                 <h:column>    				
                                     <f:facet name="header">Sold date</f:facet>    				
                                         ${order.soldDate}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Product</f:facet>    
-                                    <div class="gallery">
-                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
-                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
-                                        </a>
-                                    </div>
-                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
                                 </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header">Employer</f:facet>    				
@@ -73,7 +73,16 @@
                             <h:dataTable value="${orderController.getOrdersByBuyer(authenticationController.professionalID)}" var="order" 
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
-                                         columnClasses=",,,,column-image,,,,vertical-middle">
+                                         columnClasses="column-image,,,,,,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header">Product</f:facet>    
+                                    <div class="gallery">
+                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
+                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
+                                        </a>
+                                    </div>
+                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
+                                </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header"># ID</f:facet>    				
                                         ${order.ID}
@@ -89,15 +98,6 @@
                                 <h:column>    				
                                     <f:facet name="header">Sold date</f:facet>    				
                                         ${order.soldDate}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Product</f:facet>    
-                                    <div class="gallery">
-                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
-                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
-                                        </a>
-                                    </div>
-                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
                                 </h:column>                      
                                 <h:column>    				
                                     <f:facet name="header">Employer</f:facet>    				
