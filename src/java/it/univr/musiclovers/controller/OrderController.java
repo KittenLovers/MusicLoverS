@@ -40,7 +40,7 @@ public class OrderController extends ControllerModel implements Serializable {
         return result;
     }
 
-    public List<OrderBean> getOrder() throws SQLException, ParseException {
+    public List<OrderBean> getOrders() throws SQLException, ParseException {
         return OrderModel.getOrders();
     }
 

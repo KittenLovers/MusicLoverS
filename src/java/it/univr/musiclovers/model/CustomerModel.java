@@ -85,13 +85,13 @@ public abstract class CustomerModel extends Model implements Serializable {
         return result;
     }
 
-    public static ProfessionalBean getProfessional(int accountID) throws SQLException {
+    public static ProfessionalBean getProfessional(int customerID) throws SQLException {
         ProfessionalBean result = null;
         String query = "SELECT * FROM " + getTablePrefix() + "_professional "
-                + "JOIN " + getTablePrefix() + "_customer  ON id = customer_id "
-                + "WHERE account_id = ?";
+                + "JOIN " + getTablePrefix() + "_customer ON id = customer_id "
+                + "WHERE customer_id = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            preparedStatement.setInt(1, accountID);
+            preparedStatement.setInt(1, customerID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     result = makeProfessionalBean(resultSet);
