@@ -74,10 +74,10 @@
                         <div class="col-xs-5">
                             <h:selectOneMenu value="${orderController.selectedOrder.seller.id}" id="orderSeller" styleClass="form-control height-34" required="true" requiredMessage="Il commesso è obbligatorio">
                                 <f:selectItem itemDisabled="true" itemValue="0" itemLabel="Seleziona il commesso" />
-                                <f:selectItems value="${orderController.employers}" var="employer" itemLabel="${employer.code}" itemValue="${employer.id}" />
+                                <f:selectItems value="${orderController.employers}" var="employer" itemLabel="${employer.id}: ${employer.name} ${employer.surname}" itemValue="${employer.id}" />
                             </h:selectOneMenu>
                         </div>
-                        <h:message for="orderBuyer" styleClass="alert alert-danger col-xs-5" />
+                        <h:message for="orderSeller" styleClass="alert alert-danger col-xs-5" />
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Proprietario :" for="orderOwner" class="col-xs-2 control-label"/>
@@ -87,7 +87,7 @@
                                 <f:selectItems value="${customerController.professionals}" var="professional" itemLabel="${professional.email}" itemValue="${professional.id}" />
                             </h:selectOneMenu>
                         </div>
-                        <h:message for="orderBuyer" styleClass="alert alert-danger col-xs-5" />
+                        <h:message for="orderOwner" styleClass="alert alert-danger col-xs-5" />
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Data di vendita :" for="orderSoldDate" class="col-xs-2 control-label"/>

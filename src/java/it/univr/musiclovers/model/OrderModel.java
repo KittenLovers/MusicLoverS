@@ -33,6 +33,7 @@ public abstract class OrderModel extends Model implements Serializable {
             prepareStatement.setInt(5, orderBean.getSeller().getId());
             prepareStatement.setInt(6, orderBean.getBuyer().getId());
             prepareStatement.setInt(7, orderBean.getOwner().getId());
+            prepareStatement.setInt(8, orderBean.getID());
             prepareStatement.execute();
         }
     }
