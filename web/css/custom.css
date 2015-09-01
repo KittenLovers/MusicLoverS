@@ -146,6 +146,11 @@ footer > div > div {
     top: 0px;
     right: 0px;
 }
+.button-cancel {
+    position: absolute;
+    top: 0px;
+    right: 200px;
+}
 
 .unselectable { 
     -moz-user-select: none; 

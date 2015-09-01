@@ -17,6 +17,10 @@ public abstract class ControllerModel implements Serializable {
     private static final String FILE_EXT = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("it.univr.musiclovers.PAGE_EXT");
     private static final long serialVersionUID = 1L;
 
+    public String cancel() throws SQLException {
+        return redirectString("index.xhtml");
+    }
+
     public static String addExt(String target) {
         return target.concat(FILE_EXT);
     }
@@ -65,4 +69,5 @@ public abstract class ControllerModel implements Serializable {
     public static void setSessionMapValue(String key, Object value) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(key, value);
     }
+
 }
