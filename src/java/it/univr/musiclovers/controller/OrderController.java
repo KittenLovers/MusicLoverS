@@ -79,11 +79,11 @@ public class OrderController extends ControllerModel implements Serializable {
         return employerBean;
     }
 
-    public List<OrderBean> getOrdersBySeller(int sellerID) throws SQLException {
+    public List<OrderBean> getOrdersBySeller(int sellerID) throws SQLException, ParseException {
         return OrderModel.getOrdersBySeller(sellerID);
     }
 
-    public List<OrderBean> getOrdersByBuyer(int buyerID) throws SQLException {
+    public List<OrderBean> getOrdersByBuyer(int buyerID) throws SQLException, ParseException {
         return OrderModel.getOrdersByBuyer(buyerID);
     }
 }
