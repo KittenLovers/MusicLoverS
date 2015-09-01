@@ -10,6 +10,10 @@ body > div.container {
     border-top: none;
 }
 
+.tab-content table tr td:first-child {
+    min-width: 100px;
+}
+
 footer {
     position: relative;
     margin-top: 10px;

@@ -71,7 +71,7 @@ public abstract class OrderModel extends Model implements Serializable {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, buyerID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     result.add(makeOrderBean(resultSet));
                 }
             }
@@ -85,7 +85,7 @@ public abstract class OrderModel extends Model implements Serializable {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, sellerID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     result.add(makeOrderBean(resultSet));
                 }
             }
