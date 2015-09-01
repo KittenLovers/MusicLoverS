@@ -10,6 +10,10 @@ body > div.container {
     border-top: none;
 }
 
+.tab-content table tr td {
+    vertical-align: middle;
+}
+
 footer {
     position: relative;
     margin-top: 10px;
@@ -64,6 +68,9 @@ footer > div > div {
 
 .column-image {
     max-width: 250px;
+}
+.column-date {
+    min-width: 100px;
 }
 
 .column-image img {

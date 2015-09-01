@@ -196,7 +196,7 @@
                             <h:dataTable value="${customerController.customers}" var="customer" 
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
-                                         columnClasses=",,,,vertical-middle">
+                                         columnClasses=",,,,">
                                 <h:column>    				
                                     <f:facet name="header"># ID</f:facet>    				
                                         ${customer.id}
@@ -255,7 +255,7 @@
                             <h:dataTable value="${orderController.orders}" var="order" 
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
-                                         columnClasses=",,,,column-image,,,,vertical-middle">
+                                         columnClasses=",,,column-date,column-image,,,,">
                                 <h:column>    				
                                     <f:facet name="header"># ID</f:facet>    				
                                         ${order.ID}
