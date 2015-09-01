@@ -1,7 +1,6 @@
 package it.univr.musiclovers.model;
 
 import it.univr.musiclovers.model.beans.*;
-import it.univr.musiclovers.types.CodiceFiscale;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ public abstract class OrderModel extends Model implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static OrderBean getOrder(int orderID) throws SQLException, CodiceFiscale.MalformedCodiceFiscale {
+    public static OrderBean getOrder(int orderID) throws SQLException {
         OrderBean result = new OrderBean();
         String query = "SELECT * FROM " + getTablePrefix() + "_order "
                 + " WHERE id = ?";
@@ -32,7 +31,7 @@ public abstract class OrderModel extends Model implements Serializable {
         return result;
     }
 
-    public static List<OrderBean> getOrders() throws SQLException, CodiceFiscale.MalformedCodiceFiscale {
+    public static List<OrderBean> getOrders() throws SQLException {
         List<OrderBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_order";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
@@ -45,7 +44,7 @@ public abstract class OrderModel extends Model implements Serializable {
         return result;
     }
 
-    public static OrderBean makeOrderBean(ResultSet resultSet) throws SQLException, CodiceFiscale.MalformedCodiceFiscale {
+    public static OrderBean makeOrderBean(ResultSet resultSet) throws SQLException {
         OrderBean orderBean = new OrderBean();
         orderBean.setID(resultSet.getInt("id"));
         orderBean.setPrice(resultSet.getFloat("price"));

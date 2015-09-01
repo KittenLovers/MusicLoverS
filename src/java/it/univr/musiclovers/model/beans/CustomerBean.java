@@ -1,7 +1,5 @@
 package it.univr.musiclovers.model.beans;
 
-import it.univr.musiclovers.types.CodiceFiscale;
-
 /**
  *
  * @author blasco991
@@ -9,7 +7,7 @@ import it.univr.musiclovers.types.CodiceFiscale;
 public class CustomerBean {
 
     private int id;
-    private CodiceFiscale code;
+    private String code;
     private String name;
     private String surname;
     private String city;
@@ -25,11 +23,11 @@ public class CustomerBean {
         this.id = id;
     }
 
-    public CodiceFiscale getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(CodiceFiscale code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

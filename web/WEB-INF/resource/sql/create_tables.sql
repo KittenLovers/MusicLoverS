@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS MSL_CUSTOMER (
   city VARCHAR(64) not null,
   telephone VARCHAR(64),
   mobile VARCHAR(64),
-  email VARCHAR(64)
+  email VARCHAR(64) not null
 );
 
 CREATE TABLE IF NOT EXISTS MSL_PROFESSIONAL (

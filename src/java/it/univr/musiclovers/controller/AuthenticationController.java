@@ -4,7 +4,6 @@ import it.univr.musiclovers.model.CustomerModel;
 import it.univr.musiclovers.model.EmployerModel;
 import it.univr.musiclovers.model.beans.AccountBean;
 import it.univr.musiclovers.model.beans.PersonBean;
-import it.univr.musiclovers.types.CodiceFiscale;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -87,7 +86,7 @@ public class AuthenticationController extends ControllerModel implements Seriali
         return login("loginEmployer", account, "employer/");
     }
 
-    public String loginProfessional() throws CodiceFiscale.MalformedCodiceFiscale {
+    public String loginProfessional() {
         AccountBean account = null;
         try {
             account = CustomerModel.getAccount(accountBean.getUsername(), accountBean.getPassword());

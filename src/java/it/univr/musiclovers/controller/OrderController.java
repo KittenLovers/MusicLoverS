@@ -2,7 +2,6 @@ package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.OrderModel;
 import it.univr.musiclovers.model.beans.OrderBean;
-import it.univr.musiclovers.types.CodiceFiscale;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,7 +19,7 @@ public class OrderController extends ControllerModel implements Serializable {
     private OrderBean orderBeans;
     private static final long serialVersionUID = 1L;
 
-    public List<OrderBean> getOrder() throws SQLException, CodiceFiscale.MalformedCodiceFiscale {
+    public List<OrderBean> getOrder() throws SQLException {
         return OrderModel.getOrders();
     }
 
