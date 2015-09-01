@@ -66,7 +66,7 @@ public abstract class OrderModel extends Model implements Serializable {
                 + "buyer_id = ?, owner_id = ? "
                 + "WHERE id = ?";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
-             prepareStatement.setFloat(1, orderBean.getPrice());
+            prepareStatement.setFloat(1, orderBean.getPrice());
             prepareStatement.setDate(2, orderBean.getSoldDate());
             prepareStatement.setString(3, orderBean.getPaymentType());
             prepareStatement.setInt(4, orderBean.getProduct().getId());
@@ -79,7 +79,7 @@ public abstract class OrderModel extends Model implements Serializable {
 
     public static void insertOrder(OrderBean orderBean) throws SQLException {
         String query = "INSERT INTO " + getTablePrefix() + "_order "
-                + "(price, sold_date, payment_type, product_id, employer_id, buyer_id, owner_id) VALUES "              
+                + "(price, sold_date, payment_type, product_id, employer_id, buyer_id, owner_id) VALUES "
                 + "(?,?,?,?,?,?,?)";
         try (PreparedStatement prepareStatement = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             prepareStatement.setFloat(1, orderBean.getPrice());
@@ -101,8 +101,36 @@ public abstract class OrderModel extends Model implements Serializable {
                 } else {
                     throw new SQLException("Creating order failed, no ID obtained.");
                 }
-            }            
+            }
         }
+    }
+
+    public static List<OrderBean> getOrdersBySeller(int sellerID) throws SQLException {
+        List<OrderBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_order WHERE owner_id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, sellerID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result.add(makeOrderBean(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<OrderBean> getOrdersByBuyer(int buyerID) throws SQLException {
+        List<OrderBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_order WHERE buyer_id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, buyerID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result.add(makeOrderBean(resultSet));
+                }
+            }
+        }
+        return result;
     }
 
 }

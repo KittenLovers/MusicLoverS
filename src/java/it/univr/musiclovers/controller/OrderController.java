@@ -13,17 +13,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Marian Solomon
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class OrderController extends ControllerModel implements Serializable {
 
-    private OrderBean selectedOrder;    
+    private OrderBean selectedOrder;
     private static final long serialVersionUID = 1L;
 
     public List<OrderBean> getOrder() throws SQLException {
@@ -45,7 +45,7 @@ public class OrderController extends ControllerModel implements Serializable {
     public void removeOrder(int orderID) throws SQLException {
 
     }
-    
+
     public String processProductOrderForm() throws SQLException {
         if (selectedOrder.getID() > 0) {
             OrderModel.editOrder(selectedOrder);
@@ -54,8 +54,8 @@ public class OrderController extends ControllerModel implements Serializable {
         }
         return redirectString("index.xhtml");
     }
-    
-    public List<EmployerBean> getEmployers() throws SQLException{
+
+    public List<EmployerBean> getEmployers() throws SQLException {
         ArrayList<EmployerBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_employer ORDER BY id ASC";
         try (Statement statement = getConnection().createStatement()) {
@@ -67,8 +67,8 @@ public class OrderController extends ControllerModel implements Serializable {
         }
         return result;
     }
-    
-     private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
+
+    private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
         EmployerBean employerBean = new EmployerBean();
         employerBean.setId(resultSet.getInt("id"));
         employerBean.setCode(resultSet.getString("code"));
@@ -77,6 +77,12 @@ public class OrderController extends ControllerModel implements Serializable {
         employerBean.setBirthDate(resultSet.getDate("birthDate"));
         return employerBean;
     }
-            
 
+    public List<OrderBean> getOrdersBySeller(int sellerID) throws SQLException {
+        return OrderModel.getOrdersBySeller(sellerID);
+    }
+
+    public List<OrderBean> getOrdersByBuyer(int buyerID) throws SQLException {
+        return OrderModel.getOrdersByBuyer(buyerID);
+    }
 }

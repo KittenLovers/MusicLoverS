@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head><title>IGNORED</title></head>
     <body>
         <ui:composition template="/templates/template.jsf">
@@ -15,6 +16,104 @@
                     <p class="lead">Bentornato ${authenticationController.username}!</p>
                 </div>
                 <div class="row">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#selling" aria-controls="home" role="tab" data-toggle="tab">Vendite</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#bid" aria-controls="home" role="tab" data-toggle="tab">Acquisti</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade" id="selling" >
+                            <h:dataTable value="${orderController.getOrdersBySeller(authenticationController.professionalID)}" var="order" 
+                                         styleClass="table table-bordered table-hover table-responsive" 
+                                         headerClass="text-center" rowClasses="text-center" 
+                                         columnClasses=",,,,column-image,,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header"># ID</f:facet>    				
+                                        ${order.ID}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Price</f:facet>    				
+                                        ${order.price}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Payment Type</f:facet>    				
+                                        ${order.paymentType}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Sold date</f:facet>    				
+                                        ${order.soldDate}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Product</f:facet>    
+                                    <div class="gallery">
+                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
+                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
+                                        </a>
+                                    </div>
+                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Employer</f:facet>    				
+                                        ${order.seller.code}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Buyer</f:facet>    				
+                                        ${order.buyer.email}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Owner</f:facet>    				
+                                        ${order.owner.email}
+                                </h:column>                      
+                            </h:dataTable>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="bid" >
+                            <h:dataTable value="${orderController.getOrdersByBuyer(authenticationController.professionalID)}" var="order" 
+                                         styleClass="table table-bordered table-hover table-responsive" 
+                                         headerClass="text-center" rowClasses="text-center" 
+                                         columnClasses=",,,,column-image,,,,vertical-middle">
+                                <h:column>    				
+                                    <f:facet name="header"># ID</f:facet>    				
+                                        ${order.ID}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Price</f:facet>    				
+                                        ${order.price}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Payment Type</f:facet>    				
+                                        ${order.paymentType}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Sold date</f:facet>    				
+                                        ${order.soldDate}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Product</f:facet>    
+                                    <div class="gallery">
+                                        <a href="${order.product.thumb}" data-source="${order.product.thumb}" title="${order.product.name}">
+                                            <img class="img-responsive img-thumbnail" src="${order.product.thumb}" />
+                                        </a>
+                                    </div>
+                                    <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Employer</f:facet>    				
+                                        ${order.seller.code}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Buyer</f:facet>    				
+                                        ${order.buyer.email}
+                                </h:column>                      
+                                <h:column>    				
+                                    <f:facet name="header">Owner</f:facet>    				
+                                        ${order.owner.email}
+                                </h:column>                      
+                            </h:dataTable>
+                        </div>                        
+                    </div> 
                 </div> 
             </ui:define>
         </ui:composition>
