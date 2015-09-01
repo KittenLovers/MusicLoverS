@@ -80,6 +80,20 @@ public abstract class OrderModel extends Model implements Serializable {
         return result;
     }
 
+    public static List<OrderBean> getOrdersByProduct(int productID) throws SQLException, ParseException {
+        List<OrderBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_order WHERE product_id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, productID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(makeOrderBean(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
     public static List<OrderBean> getOrdersBySeller(int sellerID) throws SQLException, ParseException {
         List<OrderBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_order WHERE owner_id = ?";

@@ -35,6 +35,9 @@ function ajaxEvent(data) {
 }
 
 $(document).ready(function () {
+    $('body > ul > li.alert.alert-danger.alert-dismissible')
+            .prepend('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+
     $('.zoom-gallery').magnificPopup({
         delegate: 'a',
         type: 'image',

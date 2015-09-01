@@ -95,11 +95,6 @@ footer > div > div {
     background-color: #A93030;
 }
 
-.alert {
-    padding: 6px;
-    margin-bottom: 0px;
-}
-
 .height-34 {
     height: 34px !important;
 }
@@ -157,6 +152,26 @@ footer > div > div {
     position: absolute;
     top: 0px;
     right: 200px;
+}
+
+.alert {
+    padding: 6px;
+    margin-bottom: 0px;
+}
+
+.list-no-decoration {
+    list-style-type: none;
+}
+li.alert.alert-dismissible{
+    padding: 10px;
+    padding-right: 35px;
+}
+
+body ul li.alert {
+    position: relative;
+    max-width: 60%;
+    margin: 0 auto;
+    z-index: 99999;
 }
 
 .unselectable { 

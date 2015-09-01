@@ -1,13 +1,16 @@
 package it.univr.musiclovers.controller;
 
+import it.univr.musiclovers.model.OrderModel;
 import it.univr.musiclovers.model.ProductModel;
 import it.univr.musiclovers.model.beans.ProductBean;
 import java.io.*;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -21,7 +24,6 @@ import javax.servlet.http.Part;
 @ManagedBean
 @SessionScoped
 public class ProductController extends ControllerModel implements Serializable {
-
 
     private Part file;
     private ProductBean selectedProduct;
@@ -38,7 +40,7 @@ public class ProductController extends ControllerModel implements Serializable {
     public String getProduct(int productID) {
         return addParam(normalizeUrl("product"), "productID", String.valueOf(productID));
     }
-    
+
     public List<ProductBean> getProducts() throws SQLException {
         return ProductModel.getProducts(new HashMap<>());
     }
@@ -89,8 +91,12 @@ public class ProductController extends ControllerModel implements Serializable {
         return "pippo.xhtml";
     }
 
-    public void removeProduct(int productID) throws SQLException {
-        ProductModel.removeProduct(productID);
+    public void removeProduct(int productID) throws SQLException, ParseException {
+        if (OrderModel.getOrdersByProduct(productID).isEmpty()) {
+            ProductModel.removeProduct(productID);
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Impossibile elminare prodotto","Impossibile eliminare un prodotto a cui vi sono ancora ordini associati!"));
+        }
     }
 
     private static String getFilename(Part part) {

@@ -76,7 +76,7 @@ public class AuthenticationController extends ControllerModel implements Seriali
             logged = true;
             return redirectString(outcome);
         } else {
-            FacesContext.getCurrentInstance().addMessage(componendID, new FacesMessage("Username o Password errati!"));
+            FacesContext.getCurrentInstance().addMessage(componendID, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username o Password errati!", "Username o Password errati!"));
             return addExt("login");
         }
     }
