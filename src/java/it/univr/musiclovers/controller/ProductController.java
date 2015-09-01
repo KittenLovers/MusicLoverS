@@ -2,12 +2,7 @@ package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.ProductModel;
 import it.univr.musiclovers.model.beans.ProductBean;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,20 +22,10 @@ import javax.servlet.http.Part;
 @SessionScoped
 public class ProductController extends ControllerModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     private Part file;
     private ProductBean selectedProduct;
-
-    private static String getFilename(Part part) {
-        for (String cd : part.getHeader("content-disposition").split(";")) {
-            if (cd.trim().startsWith("filename")) {
-                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
-            }
-        }
-        return null;
-    }
+    private static final long serialVersionUID = 1L;
 
     public Part getFile() {
         return file;
@@ -106,6 +91,16 @@ public class ProductController extends ControllerModel implements Serializable {
 
     public void removeProduct(int productID) throws SQLException {
         ProductModel.removeProduct(productID);
+    }
+
+    private static String getFilename(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
     }
 
 }

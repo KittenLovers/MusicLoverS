@@ -292,7 +292,24 @@
                                 <h:column>    				
                                     <f:facet name="header">Owner</f:facet>    				
                                         ${order.owner.email}
-                                </h:column>                      
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">Azioni</f:facet>
+                                    <h:form class="margin-5">
+                                        <h:link outcome="${orderController.getOrder(order.ID)}">
+                                            <button type="button" class="btn btn-info">
+                                                <span class="glyphicon glyphicon-pencil">&nbsp;Modifica</span>
+                                            </button>
+                                        </h:link>
+                                    </h:form>
+                                    <h:form class="margin-5">
+                                        <h:commandLink action="${orderController.removeOrder(order.ID)}">
+                                            <button type="button" class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-trash">&nbsp;Elimina</span>
+                                            </button>
+                                        </h:commandLink>
+                                    </h:form>
+                                </h:column>
                             </h:dataTable>
                         </div>
                     </div>

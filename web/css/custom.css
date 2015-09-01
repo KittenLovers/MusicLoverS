@@ -1,9 +1,9 @@
 /* 
-    Created on : 18-ago-2015, 15.39.10
+    Created on : 01-ago-2015, 15.39.10
     Author     : Marian Solomon
 */
 body > div.container {
-    min-height: 82vh;
+    min-height: 69vh;
 }
 
 .tab-content .tab-pane table {

@@ -10,52 +10,24 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Marian Solomon
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class OrderController extends ControllerModel implements Serializable {
 
-    private OrderBean selectedOrder;    
+    private OrderBean selectedOrder;
     private static final long serialVersionUID = 1L;
 
-    public List<OrderBean> getOrder() throws SQLException {
-        return OrderModel.getOrders();
-    }
-
-    public OrderBean getSelectedOrder() {
-        return selectedOrder;
-    }
-
-    public void setSelectedOrder(int orderID) throws SQLException {
-        this.selectedOrder = OrderModel.getOrder(orderID);
-    }
-
-    public String getProduct(int orderID) {
-        return addParam(normalizeUrl("order"), "orderID", String.valueOf(orderID));
-    }
-
-    public void removeOrder(int orderID) throws SQLException {
-
-    }
-    
-    public String processProductOrderForm() throws SQLException {
-        if (selectedOrder.getID() > 0) {
-            OrderModel.editOrder(selectedOrder);
-        } else {
-            OrderModel.insertOrder(selectedOrder);
-        }
-        return redirectString("index.xhtml");
-    }
-    
-    public List<EmployerBean> getEmployers() throws SQLException{
+    public List<EmployerBean> getEmployers() throws SQLException {
         ArrayList<EmployerBean> result = new ArrayList<>();
         String query = "SELECT * FROM " + getTablePrefix() + "_employer ORDER BY id ASC";
         try (Statement statement = getConnection().createStatement()) {
@@ -67,8 +39,37 @@ public class OrderController extends ControllerModel implements Serializable {
         }
         return result;
     }
-    
-     private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
+
+    public List<OrderBean> getOrder() throws SQLException, ParseException {
+        return OrderModel.getOrders();
+    }
+
+    public String getOrder(int orderID) {
+        return addParam(normalizeUrl("order"), "orderID", String.valueOf(orderID));
+    }
+
+    public OrderBean getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public void setSelectedOrder(int orderID) throws SQLException, ParseException {
+        this.selectedOrder = OrderModel.getOrder(orderID);
+    }
+
+    public String processOrderForm() throws SQLException {
+        if (selectedOrder.getID() > 0) {
+            OrderModel.editOrder(selectedOrder);
+        } else {
+            OrderModel.insertOrder(selectedOrder);
+        }
+        return redirectString("index.xhtml");
+    }
+
+    public void removeOrder(int orderID) throws SQLException {
+
+    }
+
+    private static EmployerBean makeEmployerBean(ResultSet resultSet) throws SQLException {
         EmployerBean employerBean = new EmployerBean();
         employerBean.setId(resultSet.getInt("id"));
         employerBean.setCode(resultSet.getString("code"));
@@ -77,6 +78,5 @@ public class OrderController extends ControllerModel implements Serializable {
         employerBean.setBirthDate(resultSet.getDate("birthDate"));
         return employerBean;
     }
-            
 
 }

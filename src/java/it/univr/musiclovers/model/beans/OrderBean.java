@@ -1,7 +1,5 @@
 package it.univr.musiclovers.model.beans;
 
-import java.sql.Date;
-
 /**
  *
  * @author blasco991
@@ -15,7 +13,7 @@ public class OrderBean {
     private float price;
     private ProductBean product = new ProductBean();
     private EmployerBean seller = new EmployerBean();
-    private Date soldDate;
+    private String soldDate;
 
     public CustomerBean getBuyer() {
         return buyer;
@@ -73,11 +71,11 @@ public class OrderBean {
         this.seller = seller;
     }
 
-    public Date getSoldDate() {
+    public String getSoldDate() {
         return soldDate;
     }
 
-    public void setSoldDate(Date soldDate) {
+    public void setSoldDate(String soldDate) {
         this.soldDate = soldDate;
     }
 
