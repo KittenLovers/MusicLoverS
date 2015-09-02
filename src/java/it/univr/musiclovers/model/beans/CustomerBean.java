@@ -1,19 +1,45 @@
 package it.univr.musiclovers.model.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author blasco991
  */
-public class CustomerBean {
+public class CustomerBean implements Serializable {
 
-    private int id;
+    private String city;
     private String code;
+    private String email;
+    private int id;
+    private String mobile;
     private String name;
     private String surname;
-    private String city;
     private String telephone;
-    private String mobile;
-    private String email;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getId() {
         return id;
@@ -23,12 +49,12 @@ public class CustomerBean {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getName() {
@@ -47,36 +73,12 @@ public class CustomerBean {
         this.surname = surname;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getTelephone() {
         return telephone;
     }
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

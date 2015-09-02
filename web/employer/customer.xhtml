@@ -78,6 +78,33 @@
                         </div>   
                         <h:message for="customerEmail" styleClass="alert alert-danger col-xs-5" />
                     </div>                    
+                    <div class="form-group">
+                        <h:outputLabel value="Professionista:" class="col-xs-2 control-label" />
+                        <div class="checkbox col-xs-1">
+                            <input type="checkbox" id="isProfessional" />
+                            <script>
+                                $(document).ready(function () {
+                                    
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div id="professionalSection" hidden="hidden">
+                        <div class="form-group">
+                            <h:outputLabel value="Username :" for="professionalUsername" class="col-xs-2 control-label"/>
+                            <div class="col-xs-4">
+                                <h:inputText value="${customerController.professionalBean.username}" class="form-control" required="true" requiredMessage="Il prezzo è obbligatorio" validatorMessage="Prezzo non valido"/>      
+                            </div>
+                            <h:message for="professionalUsername" styleClass="alert alert-danger col-xs-5" />
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Password :" for="professionalPassword" class="col-xs-2 control-label"/>
+                            <div class="col-xs-4">
+                                <h:inputSecret value="${customerController.professionalBean.password}" class="form-control" required="true" requiredMessage="Il prezzo è obbligatorio" validatorMessage="Prezzo non valido"/>      
+                            </div>
+                            <h:message for="professionalPassword" styleClass="alert alert-danger col-xs-5" />
+                        </div>
+                    </div>
                     <div class="col-xs-12"></div>
                     <h:commandButton action="${customerController.processCustomerForm()}" value="Invia" type="submit" class="btn btn-info col-xs-2 col-xs-offset-2 button-send"/>
                     <h:button outcome="${customerController.cancel()}" value="Annulla" class="btn btn-danger col-xs-2 col-xs-offset-2 button-cancel"/>

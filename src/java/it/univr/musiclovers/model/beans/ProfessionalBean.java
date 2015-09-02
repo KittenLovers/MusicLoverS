@@ -10,7 +10,7 @@ public class ProfessionalBean extends CustomerBean implements PersonBean, Serial
 
     private int accountID;
 
-    private String reduction;
+    private int reduction;
     private String role;
     private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,11 @@ public class ProfessionalBean extends CustomerBean implements PersonBean, Serial
         this.accountID = accountID;
     }
 
-    public String getReduction() {
+    public int getReduction() {
         return reduction;
     }
 
-    public void setReduction(String reduction) {
+    public void setReduction(int reduction) {
         this.reduction = reduction;
     }
 

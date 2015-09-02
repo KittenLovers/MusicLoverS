@@ -1,6 +1,7 @@
 package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.CustomerModel;
+import it.univr.musiclovers.model.beans.AccountBean;
 import it.univr.musiclovers.model.beans.CustomerBean;
 import it.univr.musiclovers.model.beans.ProfessionalBean;
 import java.io.Serializable;
@@ -17,8 +18,9 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CustomerController extends ControllerModel implements Serializable {
 
-    private CustomerBean selectedCustomer;
     private static final long serialVersionUID = 1L;
+    private AccountBean professionalBean;
+    private CustomerBean selectedCustomer;
 
     public String getCustomer(int customerID) {
         return addParam(normalizeUrl("customer"), "customerID", String.valueOf(customerID));
@@ -28,12 +30,16 @@ public class CustomerController extends ControllerModel implements Serializable 
         return CustomerModel.getCustomers();
     }
 
-    public List<ProfessionalBean> getProfessionals() throws SQLException {
-        return CustomerModel.getProfessionals();
+    public AccountBean getProfessionalBean() {
+        return professionalBean;
     }
-    
+
     public List<Integer> getProfessionalIDs() throws SQLException {
         return CustomerModel.getProfessionalIDs();
+    }
+
+    public List<ProfessionalBean> getProfessionals() throws SQLException {
+        return CustomerModel.getProfessionals();
     }
 
     public CustomerBean getSelectedCustomer() {
@@ -42,13 +48,16 @@ public class CustomerController extends ControllerModel implements Serializable 
 
     public void setSelectedCustomer(int customerID) throws SQLException {
         this.selectedCustomer = CustomerModel.getCustomer(customerID);
+        this.professionalBean = CustomerModel.getAccount(CustomerModel.getProfessional(customerID).getAccountID());
     }
 
     public String processCustomerForm() throws SQLException {
         if (selectedCustomer.getId() > 0) {
             CustomerModel.editCustomer(selectedCustomer);
+            CustomerModel.editProfessional(professionalBean);
         } else {
             CustomerModel.insertCustomer(selectedCustomer);
+            CustomerModel.insertProfessional(professionalBean);
         }
         return redirectString("index.xhtml");
     }

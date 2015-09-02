@@ -39,6 +39,18 @@ public abstract class CustomerModel extends Model implements Serializable {
         }
     }
 
+    public static void editProfessional(AccountBean accountBean) throws SQLException {
+        String query = "UPDATE " + getTablePrefix() + "_professional "
+                + "SET role = ?, reduction = ? "
+                + "WHERE customer_id = ?";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query)) {
+            prepareStatement.setString(1, ((ProfessionalBean) accountBean.getPerson()).getRole());
+            prepareStatement.setInt(2, ((ProfessionalBean) accountBean.getPerson()).getReduction());
+            prepareStatement.setInt(3, ((ProfessionalBean) accountBean.getPerson()).getId());
+            prepareStatement.execute();
+        }
+    }
+
     public static AccountBean getAccount(String username, String password) throws SQLException {
         AccountBean result = null;
         String query = "SELECT * "
@@ -47,6 +59,22 @@ public abstract class CustomerModel extends Model implements Serializable {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    result = makeProfessionalAccountBean(resultSet);
+                }
+            }
+        }
+        return result;
+    }
+
+    public static AccountBean getAccount(int accountID) throws SQLException {
+        AccountBean result = null;
+        String query = "SELECT * "
+                + "FROM " + getTablePrefix() + "_account "
+                + "WHERE id = ?";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, accountID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     result = makeProfessionalAccountBean(resultSet);
@@ -86,7 +114,7 @@ public abstract class CustomerModel extends Model implements Serializable {
     }
 
     public static ProfessionalBean getProfessional(int customerID) throws SQLException {
-        ProfessionalBean result = null;
+        ProfessionalBean result = new ProfessionalBean();
         String query = "SELECT * FROM " + getTablePrefix() + "_professional "
                 + "JOIN " + getTablePrefix() + "_customer ON id = customer_id "
                 + "WHERE customer_id = ?";
@@ -100,6 +128,7 @@ public abstract class CustomerModel extends Model implements Serializable {
         }
         return result;
     }
+
     public static ProfessionalBean getProfessionalByAccountID(int accountID) throws SQLException {
         ProfessionalBean result = null;
         String query = "SELECT * FROM " + getTablePrefix() + "_professional "
@@ -171,6 +200,42 @@ public abstract class CustomerModel extends Model implements Serializable {
         }
     }
 
+    public static void insertProfessional(AccountBean accountBean) throws SQLException {
+        String query = "INSERT INTO " + getTablePrefix() + "_account "
+                + "(username, password) VALUES"
+                + "(?,?)";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            prepareStatement.setString(1, accountBean.getUsername());
+            prepareStatement.setString(2, accountBean.getPassword());
+            int affectedRows = prepareStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating account failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = prepareStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    accountBean.setId(generatedKeys.getInt("id"));
+                } else {
+                    throw new SQLException("Creating account failed, no ID obtained.");
+                }
+            }
+        }
+        ProfessionalBean professionalBean = ((ProfessionalBean) accountBean.getPerson());
+        insertCustomer(professionalBean);
+
+        query = "INSERT INTO " + getTablePrefix() + "_professional "
+                + "(customer_id, account_id, role, redcution) VALUES"
+                + "(?,?,?,?)";
+        try (PreparedStatement prepareStatement = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            prepareStatement.setInt(1, professionalBean.getId());
+            prepareStatement.setInt(2, accountBean.getId());
+            prepareStatement.setString(3, professionalBean.getRole());
+            prepareStatement.setInt(4, professionalBean.getReduction());
+            prepareStatement.executeUpdate();
+        }
+    }
+
     public static void removeCustomer(int customerID) throws SQLException {
 
         //todo check ordes
@@ -192,22 +257,6 @@ public abstract class CustomerModel extends Model implements Serializable {
                 prepareStatement.execute();
             }
         }
-    }
-
-    private static AccountBean getAccount(int accountID) throws SQLException {
-        AccountBean result = null;
-        String query = "SELECT * "
-                + "FROM " + getTablePrefix() + "_account "
-                + "WHERE id = ?";
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
-            preparedStatement.setInt(1, accountID);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    result = makeProfessionalAccountBean(resultSet);
-                }
-            }
-        }
-        return result;
     }
 
     private static CustomerBean makeCustomerBean(ResultSet resultSet) throws SQLException {
@@ -242,7 +291,7 @@ public abstract class CustomerModel extends Model implements Serializable {
         professionalBean.setMobile(resultSet.getString("mobile"));
         professionalBean.setEmail(resultSet.getString("email"));
         professionalBean.setRole(resultSet.getString("role"));
-        professionalBean.setReduction(resultSet.getString("reduction"));
+        professionalBean.setReduction(resultSet.getInt("reduction"));
         professionalBean.setAccountID(resultSet.getInt("account_id"));
         return professionalBean;
     }
