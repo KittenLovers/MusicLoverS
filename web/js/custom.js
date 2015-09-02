@@ -73,11 +73,16 @@ $(document).ready(function () {
             type: 'image'
         });
     });
-    
+
     if ($('#isProfessional').prop('checked')) {
         $('#professionalSection').toggle("slow");
     }
     $('#isProfessional').change(function () {
         $('#professionalSection').toggle("slow");
     });
+
+    $('#brandCarousel').carousel({
+        interval: 10000
+    });
+
 });

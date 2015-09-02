@@ -15,6 +15,7 @@
             <f:metadata>
                 <f:viewAction action="${productController.setSelectedProduct(param.productID)}"/>
             </f:metadata>
+            <ui:define name="windowTitle">${productController.selectedProduct.name}</ui:define>
             <ui:define name="content">
                 <div class="page-header">
                     <h1><h:outputText value="${productController.selectedProduct.name}"/></h1>

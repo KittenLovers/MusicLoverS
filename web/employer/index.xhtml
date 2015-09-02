@@ -74,14 +74,8 @@
                                         </a>
                                     </div>
                                 </h:column>
-                                <h:column>    				
-                                    <f:facet name="header">#</f:facet>    				
-                                        ${product.id}
-                                </h:column>
-                                <h:column>    				
-                                    <f:facet name="header">Nome</f:facet>    				
-                                        ${product.name}
-                                </h:column>
+                                <h:column><f:facet name="header">#</f:facet>${product.id}</h:column>
+                                <h:column><f:facet name="header">Nome</f:facet>${product.name}</h:column>
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
                                     <h:outputFormat rendered="${product.status}">
@@ -165,14 +159,8 @@
                                         </a>
                                     </div>
                                 </h:column>   
-                                <h:column>    				
-                                    <f:facet name="header"># ID</f:facet>    				
-                                        ${brand.id}
-                                </h:column>   
-                                <h:column>    				
-                                    <f:facet name="header">Nome</f:facet>    				
-                                    <h:outputLink value="${brand.link}" target="_blank">${brand.name}</h:outputLink>  
-                                </h:column>                      
+                                <h:column><f:facet name="header"># ID</f:facet>${brand.id}</h:column>   
+                                <h:column><f:facet name="header">Nome</f:facet><h:outputLink value="${brand.link}" target="_blank">${brand.name}</h:outputLink></h:column>                      
                                 <h:column>
                                     <f:facet name="header">Azioni</f:facet>
                                     <h:form class="margin-5">
@@ -197,30 +185,12 @@
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
                                          columnClasses=",,,,">
-                                <h:column>    				
-                                    <f:facet name="header"># ID</f:facet>    				
-                                        ${customer.id}
-                                </h:column>   
-                                <h:column>    				
-                                    <f:facet name="header">Nome</f:facet>    				
-                                        ${customer.name}
-                                </h:column>   
-                                <h:column>    				
-                                    <f:facet name="header">Cognome</f:facet>    				
-                                        ${customer.surname}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Email</f:facet>    				
-                                        ${customer.email}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Codice Fiscale</f:facet>    				
-                                        ${customer.code}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Cognome</f:facet>    				
-                                        ${customer.surname}
-                                </h:column>
+                                <h:column><f:facet name="header"># ID</f:facet>${customer.id}</h:column>   
+                                <h:column><f:facet name="header">Nome</f:facet>${customer.name}</h:column>   
+                                <h:column><f:facet name="header">Cognome</f:facet>${customer.surname}</h:column>                      
+                                <h:column><f:facet name="header">Email</f:facet>${customer.email}</h:column>                      
+                                <h:column><f:facet name="header">Codice Fiscale</f:facet>${customer.code}</h:column>                      
+                                <h:column><f:facet name="header">Cognome</f:facet>${customer.surname}</h:column>
                                 <h:column>
                                     <f:facet name="header">Professionista</f:facet>
                                     <h:outputFormat rendered="${customerController.professionalIDs.contains(customer.id)}">
@@ -256,22 +226,10 @@
                                          styleClass="table table-bordered table-hover table-responsive" 
                                          headerClass="text-center" rowClasses="text-center" 
                                          columnClasses=",,,column-date,column-image,,,,">
-                                <h:column>    				
-                                    <f:facet name="header"># ID</f:facet>    				
-                                        ${order.ID}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Price</f:facet>    				
-                                        ${order.price}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Payment Type</f:facet>    				
-                                        ${order.paymentType}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Sold date</f:facet>    				
-                                        ${order.soldDate}
-                                </h:column>                      
+                                <h:column><f:facet name="header"># ID</f:facet>${order.ID}</h:column>                      
+                                <h:column><f:facet name="header">Price</f:facet>${order.price}</h:column>                      
+                                <h:column><f:facet name="header">Payment Type</f:facet>${order.paymentType}</h:column>                      
+                                <h:column><f:facet name="header">Sold date</f:facet>${order.soldDate}</h:column>                      
                                 <h:column>    				
                                     <f:facet name="header">Product</f:facet>    
                                     <div class="gallery">
@@ -281,18 +239,9 @@
                                     </div>
                                     <b><h:link value="${order.product.name}" outcome="/${productController.getProduct(order.product.id)}" target="_blank"/></b>
                                 </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Employer</f:facet>    				
-                                        ${order.seller.code}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Buyer</f:facet>    				
-                                        ${order.buyer.email}
-                                </h:column>                      
-                                <h:column>    				
-                                    <f:facet name="header">Owner</f:facet>    				
-                                        ${order.owner.email}
-                                </h:column> 
+                                <h:column><f:facet name="header">Employer</f:facet>${order.seller.id} - ${order.seller.surname} ${order.seller.name}</h:column>                      
+                                <h:column><f:facet name="header">Buyer</f:facet>${order.buyer.email}</h:column>                      
+                                <h:column><f:facet name="header">Owner</f:facet>${order.owner.email}</h:column> 
                                 <h:column>
                                     <f:facet name="header">Azioni</f:facet>
                                     <h:form class="margin-5">

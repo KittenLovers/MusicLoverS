@@ -1,8 +1,15 @@
 package it.univr.musiclovers.controller;
 
 import it.univr.musiclovers.model.BrandModel;
+import it.univr.musiclovers.model.ProductModel;
 import it.univr.musiclovers.model.beans.BrandBean;
-import java.io.*;
+import it.univr.musiclovers.model.beans.ProductBean;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,9 +28,20 @@ import javax.servlet.http.Part;
 @SessionScoped
 public class BrandController extends ControllerModel implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Part file;
     private BrandBean selectedBrand;
-    private static final long serialVersionUID = 1L;
+
+    private static String getFilename(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+    }
 
     public String getBrand(int brandID) {
         return addParam(normalizeUrl("brand"), "brandID", String.valueOf(brandID));
@@ -39,6 +57,10 @@ public class BrandController extends ControllerModel implements Serializable {
 
     public void setFile(Part file) {
         this.file = file;
+    }
+
+    public List<ProductBean> getProducts() throws SQLException {
+        return ProductModel.getProductsByBrand(selectedBrand.getId());
     }
 
     public BrandBean getSelectedBrand() {
@@ -88,16 +110,6 @@ public class BrandController extends ControllerModel implements Serializable {
 
     public void removeLogo(String logo) throws SQLException {
         selectedBrand.setLogo("img/image-not-found.png");
-    }
-
-    private static String getFilename(Part part) {
-        for (String cd : part.getHeader("content-disposition").split(";")) {
-            if (cd.trim().startsWith("filename")) {
-                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
-            }
-        }
-        return null;
     }
 
 }

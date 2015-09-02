@@ -116,6 +116,21 @@ public abstract class ProductModel extends Model implements Serializable {
         return result;
     }
 
+    public static List<ProductBean> getProductsByBrand(int brandID) throws SQLException {
+        ArrayList<ProductBean> result = new ArrayList<>();
+        String query = "SELECT * FROM " + getTablePrefix() + "_product ";
+        query += "WHERE brand_id = ? ORDER BY id ASC";
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            preparedStatement.setInt(1, brandID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(makeProduct(resultSet));
+                }
+            }
+        }
+        return result;
+    }
+
     public static void insertProduct(ProductBean productBean) throws SQLException {
         String query = "INSERT INTO " + getTablePrefix() + "_product "
                 + "(status, online, weight, price, name, description, inexpensive, "

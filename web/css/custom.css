@@ -181,6 +181,15 @@ body ul li.alert {
     -o-user-select: none; 
 } 
 
+.carousel-control {
+    padding-top:10%;
+    width:10%;
+}
+.carousel-caption {
+    background-color: rgba(243, 178, 178, 0.7);
+    padding-top: 0px;
+}
+
 .no-js #loader { display: none; }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
 .se-pre-con {
@@ -192,3 +201,25 @@ body ul li.alert {
     z-index: 9999;
     background: url(../img/loading.gif) center no-repeat white;
 }
+
+.max-height-300 {
+    max-height: 300px;
+}
+.height-400 {
+    height: 400px;
+}
+
+.min-height-100 {
+    min-height: 100px;
+}
+.height-400 > img {
+    margin: 0 auto;
+    max-height: 100%;
+}
+.margin-10-auto {
+    margin: 40px auto;
+}
+.helper {
+    position: absolute;
+    top: 50%;
+    left:50%;}

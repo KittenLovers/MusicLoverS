@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html" 
       xmlns:ui="http://java.sun.com/jsf/facelets" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <head>
         <link rel="stylesheet" href="css/bootstrap.css" />
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
@@ -15,28 +16,52 @@
             <f:metadata>
                 <f:viewAction action="${brandController.setSelectedBrand(param.brandID)}"/>
             </f:metadata>
+            <ui:define name="windowTitle">${brandController.selectedBrand.name}</ui:define>
             <ui:define name="content">
                 <div class="page-header">
                     <h1><h:outputText value="${brandController.selectedBrand.name}"/></h1>
                 </div>
-                <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 lead">
-                        <b>Nome: </b><h:outputText value="${brandController.selectedBrand.name}"/><br/>
-                        <b>Sito web: </b>
-                        <h:outputLink target="_blank" value="${brandController.selectedBrand.link}">${brandController.selectedBrand.link}</h:outputLink>
+                <div class="row thumbnail">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <h:graphicImage value="${brandController.selectedBrand.logo}" class="img-responsive img-rounded margin-10-auto min-height-100"/>
                     </div>
-                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 text-center">
-                        <h:graphicImage value="${brandController.selectedBrand.logo}" class="img-responsive img-rounded"/>
-                    </div>
-                </div>
-                <div class="panel panel-default page-header">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Descrizione</h3>
-                    </div>
-                    <div class="panel-body">
-                        <h:outputText value="${brandController.selectedBrand.description}"/><br/>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 lead">
+                        <div class="small margin-top-10"><h:outputText value="${brandController.selectedBrand.description}"/></div>
+                        <div class="well-lg">
+                            Sito web: <h:outputLink target="_blank" value="${brandController.selectedBrand.link}">${brandController.selectedBrand.link}</h:outputLink>
+                        </div>
                     </div>
                 </div>
+                <h:panelGroup layout="block" rendered="${brandController.products.size() > 0}" class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 margin-top-10" >    
+                        <div id="brandCarousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <ui:repeat value="${brandController.products}" var="product" varStatus="indice" rendered="${brandController.products.size() le 20}">
+                                    <li data-target="#brandCarousel" data-slide-to="${indice}" class="${indice.first? 'active':''}"></li>
+                                </ui:repeat>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <ui:repeat value="${brandController.products}" var="product" varStatus="indice">
+                                    <div class="item ${indice.first ? 'active':''} height-400">
+                                        <h:graphicImage value="${product.thumb}" class="img-responsive"/>
+                                        <div class="carousel-caption">
+                                            <h3><h:link value="${product.name}" outcome="${productController.getProduct(product.id)}"/></h3>
+                                            <p>${product.description}</p>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                            <a class="left carousel-control text-danger" href="#brandCarousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control text-danger" href="#brandCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </h:panelGroup>
             </ui:define>
         </ui:composition>
     </body>
